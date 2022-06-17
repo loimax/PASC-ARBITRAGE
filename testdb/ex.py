@@ -1,11 +1,16 @@
 import pandas as pd
 import sqlite3
+import os
 
 def create_connection(db_file):
     """ create a database connection to a SQLite database """
-    conn = sqlite3.connect(db_file)
-    return conn
-
+    if os.path.exists(db_file):
+        conn = sqlite3.connect(db_file)
+        return conn
+    else:
+        print("Error: Database not found")
+        exit(1)
+      
 def show_tables():
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
     result = cursor.fetchall()
@@ -31,17 +36,16 @@ def display_table(name_table, specified=False, num_rows=0):
         result = cursor.fetchall()
         
     strtables = " | ".join(cols.columns)
-    print(strtables)
-    print("\n")
+    print("\n", strtables, "\n")
     for row in result:
-        print(row[1])
+        print(row) #print(row[1]) affiche 1re colonne de la table
 
 def insert_value(name_table):
     cursor.execute(f"INSERT INTO {name_table} VALUES (18, 'TestOpen', '2022/020203', '1200', '04180613', 3, 1)")
     conn.commit()
 
 
-conn = create_connection("GestionRegionale.db")
+conn = create_connection("testdb\GestionRegionale.db")
 cursor = conn.cursor()
 
 #show_tables()
