@@ -6,7 +6,6 @@ import functions as f
 pw = input("Enter your MySQL password: ")
 db = input("Enter your MySQL database name: ")
 
-
 connection = f.create_server_connection("localhost", "root", pw)
 create_db_query = f"CREATE DATABASE IF NOT EXISTS {db}"
 f.create_database(connection, create_db_query)
