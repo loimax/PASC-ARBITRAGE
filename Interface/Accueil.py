@@ -46,6 +46,10 @@ def Accueil():
         #donner une taille a la fenetre
         fenetre.geometry("1920x1080")
 
+        #mettre un logo a la fenetre
+        #logo = PhotoImage(file="ping.png")
+        #logo_label = Label(fenetre, image=logo)
+
         #couleur de fond de la fenetre
         fenetre.configure(background='#DADAD7')
 
