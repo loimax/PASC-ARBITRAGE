@@ -27,11 +27,7 @@ def Clubs():
         bouton_retour = Button(club, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_retour.grid(row=18, column=2)
 
-        
-
-
-
-
+    
         #afficher la fenetre
         club.mainloop()
 
@@ -47,8 +43,9 @@ def Accueil():
         fenetre.geometry("1920x1080")
 
         #mettre un logo a la fenetre
-        #logo = PhotoImage(file="ping.png")
-        #logo_label = Label(fenetre, image=logo)
+         fenetre.iconbitmap('Interface\img\logo2.ico')
+        # logo = PhotoImage(file="img\logo2.png")
+        # logo_label = Label(fenetre, image=logo)
 
         #couleur de fond de la fenetre
         fenetre.configure(background='#DADAD7')
