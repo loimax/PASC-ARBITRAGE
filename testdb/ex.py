@@ -81,6 +81,9 @@ def del_value(name_table): #bien utiliser un attribut de type int pour delete si
     query = f"DELETE FROM {name_table} WHERE {name} = {value}"
     execute_query(query, False)
 
+#vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
+def checkValueType(name_table): 
+    pass
 
 
 conn = create_connection("testdb\GestionRegionale.db")
