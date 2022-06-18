@@ -43,7 +43,7 @@ def Accueil():
         fenetre.geometry("1920x1080")
 
         #mettre un logo a la fenetre
-         fenetre.iconbitmap('Interface\img\logo2.ico')
+        fenetre.iconbitmap('Interface\img\logo2.ico')
         # logo = PhotoImage(file="img\logo2.png")
         # logo_label = Label(fenetre, image=logo)
 
