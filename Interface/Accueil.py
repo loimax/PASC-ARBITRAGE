@@ -1,35 +1,35 @@
 
 from tkinter import *
-
-def Clubs():
-        #créer une fenetre
-        club = Tk()
-        #donner un titre a la club
-        club.title("Clubs")
-        #donner une taille a la club
-        club.geometry("1920x1080")
-        #creer une zone de texte pour les clubs
-        zone_clubs = Text(club, height=1, width=75)
-        zone_clubs.grid(row=3, column=2)
-        #créer une liste de clubs et les afficher 
-        liste_clubs = ["Club 1", "Club 2", "Club 3", "Club 4", "Club 5"]
-        liste_clubs_afficher = Listbox(club, height=5, width=80)
-        for i in range(len(liste_clubs)):
-            liste_clubs_afficher.insert(i, liste_clubs[i])
-        liste_clubs_afficher.grid(row=6, column=2)
+import os 
+# def Clubs():
+#         #créer une fenetre
+#         club = Tk()
+#         #donner un titre a la club
+#         club.title("Clubs")
+#         #donner une taille a la club
+#         club.geometry("1920x1080")
+#         #creer une zone de texte pour les clubs
+#         zone_clubs = Text(club, height=1, width=75)
+#         zone_clubs.grid(row=3, column=2)
+#         #créer une liste de clubs et les afficher 
+#         liste_clubs = ["Club 1", "Club 2", "Club 3", "Club 4", "Club 5"]
+#         liste_clubs_afficher = Listbox(club, height=5, width=80)
+#         for i in range(len(liste_clubs)):
+#             liste_clubs_afficher.insert(i, liste_clubs[i])
+#         liste_clubs_afficher.grid(row=6, column=2)
     
-        def retour():
-            bouton_retour.destroy()
-            club.destroy()
-            Accueil()
+#         def retour():
+#             bouton_retour.destroy()
+#             club.destroy()
+#             Accueil()
 
-        #creer bouton retour vers l'accueil
-        bouton_retour = Button(club, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
-        bouton_retour.grid(row=18, column=2)
+#         #creer bouton retour vers l'accueil
+#         bouton_retour = Button(club, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+#         bouton_retour.grid(row=18, column=2)
 
     
-        #afficher la fenetre
-        club.mainloop()
+#         #afficher la fenetre
+#         club.mainloop()
 
 def Accueil():
         
@@ -51,14 +51,14 @@ def Accueil():
         fenetre.configure(background='#DADAD7')
 
         def tqt():
-            bouton_clubs.destroy()
-            bouton_Rencontres.destroy()
-            bouton_JA.destroy()
-            bouton_Affectation.destroy()
-            bouton_Équipes.destroy()
-            bouton_Quitter.destroy()
+            # bouton_clubs.destroy()
+            # bouton_Rencontres.destroy()
+            # bouton_JA.destroy()
+            # bouton_Affectation.destroy()
+            # bouton_Équipes.destroy()
+            # bouton_Quitter.destroy()
             fenetre.destroy()
-            Clubs()
+            os.system("python Clubs.py")
             #detruire les boutons
             
         
