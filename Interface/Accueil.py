@@ -61,6 +61,17 @@ def Accueil():
             os.system("python Interface/Clubs.py")
             #detruire les boutons
 
+        def open_JA():
+            # bouton_clubs.destroy()
+            # bouton_Rencontres.destroy()
+            # bouton_JA.destroy()
+            # bouton_Affectation.destroy()
+            # bouton_Équipes.destroy()
+            # bouton_Quitter.destroy()
+            fenetre.destroy()
+            os.system("python Interface/JA.py")
+            #detruire les boutons
+
         def open_teams():
             # bouton_clubs.destroy()
             # bouton_Rencontres.destroy()
@@ -71,18 +82,41 @@ def Accueil():
             fenetre.destroy()
             os.system("python Interface/Equipes.py")
             #detruire les boutons
+        
+        def open_rencontres():
+            # bouton_clubs.destroy()
+            # bouton_Rencontres.destroy()
+            # bouton_JA.destroy()
+            # bouton_Affectation.destroy()
+            # bouton_Équipes.destroy()
+            # bouton_Quitter.destroy()
+            fenetre.destroy()
+            os.system("python Interface/Rencontres.py")
+            #detruire les boutons
+        
+        def open_affectation():
+            # bouton_clubs.destroy()
+            # bouton_Rencontres.destroy()
+            # bouton_JA.destroy()
+            # bouton_Affectation.destroy()
+            # bouton_Équipes.destroy()
+            # bouton_Quitter.destroy()
+            fenetre.destroy()
+            os.system("python Interface/Affectations.py")
+            #detruire les boutons
+
             
         
         def quit():
             fenetre.destroy()
             
 
-        #creer 5 boutons
+        #creer 6 boutons
         bouton_clubs = Button(fenetre, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_clubs)
-        bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'), command=open_JA)
         bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'), command=open_teams)
-        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
-        bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'), command=open_rencontres)
+        bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'), command=open_affectation)
         bouton_Quitter = Button(fenetre, text="Quitter" , command=quit, bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
 
         #placer les boutons dans la fenetre
@@ -108,10 +142,6 @@ def Accueil():
         bouton_Rencontres.grid(padx=10, pady=10)
         bouton_Affectation.grid(padx=10, pady=10)
         bouton_Quitter.grid(padx=10, pady=10)
-
-
-
-
 
 
         #afficher la fenetre
