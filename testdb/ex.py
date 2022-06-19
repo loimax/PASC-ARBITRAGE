@@ -42,7 +42,7 @@ def getAttributes(t_name):
         attr.append(cols)
     return attr
     
-def display_table(name_table, specified=False, num_rows=0):
+def display_table(name_table, specified=False, num_rows=0, spec_row=""):
     query = f"SELECT * FROM {name_table};"
     cur = execute_query(query)
 
@@ -54,7 +54,15 @@ def display_table(name_table, specified=False, num_rows=0):
         result = cur.fetchmany(num_rows)
     else:
         result = cur.fetchall()
-    
+
+
+    if spec_row != "":
+        for row in result:
+            if row[0] == spec_row: #check id club pour l'instant
+                for i in range(len(row)):
+                    print(row[i], end=" | ")
+            break
+             
     for row in result:
         for i in range(len(row)):
             print(row[i], end=" | ")
@@ -94,5 +102,5 @@ cursor = conn.cursor()
 # display_attributes("CLUB")
 
 # insert_value("sqlite_sequence")
-del_value("sqlite_sequence")
-display_table("sqlite_sequence")
+# del_value("sqlite_sequence")
+display_table("CLUB", spec_row="04180696")
