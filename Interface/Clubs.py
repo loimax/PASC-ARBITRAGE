@@ -43,11 +43,65 @@ def Clubs():
                         data.append(item)
 
             update(data)
+        
+        #faire une fonction qui ouvre un formulaire pour ajouter un club lorque on clique sur le bouton
+        def add_club():
+            #créer une fenetre
+            add_club = Tk()
+            #donner un titre a la fenetre
+            add_club.title("Ajouter un club")
+            #donner une taille a la fenetre
+            add_club.geometry("400x200")
+            #couleur de fond de la fenetre
+            add_club.configure(background='#DADAD7')
+            #créer une zone de texte pour les noms des clubs
+            entry_nom_club = Entry(add_club, width=30)
+            entry_nom_club.grid(row=1, column=2)
+            #créer une zone de texte pour les noms des clubs
+            entry_adresse_club = Entry(add_club, width=30)
+            entry_adresse_club.grid(row=2, column=2)
+            #créer une zone de texte pour les noms des clubs
+            entry_ville_club = Entry(add_club, width=30)
+            entry_ville_club.grid(row=3, column=2)
+            #créer une zone de texte pour les noms des clubs
+            entry_code_postal_club = Entry(add_club, width=30)
+            entry_code_postal_club.grid(row=4, column=2)
+            #créer une zone de texte pour les noms des clubs
+            entry_telephone_club = Entry(add_club, width=30)
+            entry_telephone_club.grid(row=5, column=2)
+            #créer une zone de texte pour les noms des clubs
+            entry_email_club = Entry(add_club, width=30)
+            entry_email_club.grid(row=6, column=2)
+            #créer une zone de texte pour les noms des clubs
+            entry_site_club = Entry(add_club, width=30)
+            entry_site_club.grid(row=7, column=2)
+            #afficher les titres des zones de texte
+            label_numero = Label(add_club, text="Numéro de club :")
+            label_numero.grid(row=1, column=1)
+            label_nomclub = Label(add_club, text="Nom du club :")
+            label_nomclub.grid(row=2, column=1)
+            label_ville_club = Label(add_club, text="Ville :")
+            label_ville_club.grid(row=3, column=1)
+            label_adresseclub = Label(add_club, text="Adresse :")
+            label_adresseclub.grid(row=4, column=1)
+            label_cp_club = Label(add_club, text="CP :")
+            label_cp_club.grid(row=5, column=1)
+            label_correspondant = Label(add_club, text="Correspondant :")
+            label_correspondant.grid(row=6, column=1)
+            label_Tel = Label(add_club, text="Téléphone :")
+            label_Tel.grid(row=7, column=1)
+            #créer un bouton pour valider les données
+            button_valider = Button(add_club, text="Valider", command=lambda: add_club_data(entry_nom_club, entry_adresse_club, entry_ville_club, entry_code_postal_club, entry_telephone_club, entry_email_club, entry_site_club))
+            button_valider.grid(row=8, column=2)
+                
+
+            
+
 
         #créer 3 boutons pour les clubs : modifier ajouter supprimer
         bouton_modifier = Button(club, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'))
         bouton_modifier.place(x=600, y=400)
-        bouton_ajouter = Button(club, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_ajouter = Button(club, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'),command=add_club)
         bouton_ajouter.place(x=725, y=400)
         bouton_supprimer = Button(club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'))
         bouton_supprimer.place(x=850, y=400)
