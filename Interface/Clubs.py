@@ -3,7 +3,7 @@ import os
 
 import sys
 
-from utils import *
+from testdb.ex import creation_liste_club
 
 
 
@@ -55,26 +55,26 @@ def Clubs():
             #couleur de fond de la fenetre
             add_club.configure(background='#DADAD7')
             #créer une zone de texte pour les noms des clubs
-            entry_nom_club = Entry(add_club, width=30)
-            entry_nom_club.grid(row=1, column=2)
+            entry_numero_club = Entry(add_club, width=30)
+            entry_numero_club.grid(row=1, column=2)
             #créer une zone de texte pour les noms des clubs
-            entry_adresse_club = Entry(add_club, width=30)
-            entry_adresse_club.grid(row=2, column=2)
+            entry_nom_club = Entry(add_club, width=30)
+            entry_nom_club.grid(row=2, column=2)
             #créer une zone de texte pour les noms des clubs
             entry_ville_club = Entry(add_club, width=30)
             entry_ville_club.grid(row=3, column=2)
             #créer une zone de texte pour les noms des clubs
-            entry_code_postal_club = Entry(add_club, width=30)
-            entry_code_postal_club.grid(row=4, column=2)
+            entry_adresse_club = Entry(add_club, width=30)
+            entry_adresse_club.grid(row=4, column=2)
             #créer une zone de texte pour les noms des clubs
-            entry_telephone_club = Entry(add_club, width=30)
-            entry_telephone_club.grid(row=5, column=2)
+            entry_cp_club = Entry(add_club, width=30)
+            entry_cp_club.grid(row=5, column=2)
             #créer une zone de texte pour les noms des clubs
-            entry_email_club = Entry(add_club, width=30)
-            entry_email_club.grid(row=6, column=2)
+            entry_correspondant_club = Entry(add_club, width=30)
+            entry_correspondant_club.grid(row=6, column=2)
             #créer une zone de texte pour les noms des clubs
-            entry_site_club = Entry(add_club, width=30)
-            entry_site_club.grid(row=7, column=2)
+            entry_tel_club = Entry(add_club, width=30)
+            entry_tel_club.grid(row=7, column=2)
             #afficher les titres des zones de texte
             label_numero = Label(add_club, text="Numéro de club :")
             label_numero.grid(row=1, column=1)
@@ -90,17 +90,29 @@ def Clubs():
             label_correspondant.grid(row=6, column=1)
             label_Tel = Label(add_club, text="Téléphone :")
             label_Tel.grid(row=7, column=1)
-            #créer un bouton pour valider les données
-            button_valider = Button(add_club, text="Valider", command=lambda: add_club_data(entry_nom_club, entry_adresse_club, entry_ville_club, entry_code_postal_club, entry_telephone_club, entry_email_club, entry_site_club))
-            button_valider.grid(row=8, column=2)
+            #recuperer les données du formulaire
+            def add_club_data():
+                numero_club = entry_numero_club.get()
+                nom_club = entry_nom_club.get()
+                ville_club = entry_ville_club.get()
+                adresse_club = entry_adresse_club.get()
+                cp_club = entry_cp_club.get()
+                correspondant_club = entry_correspondant_club.get()
+                tel_club = entry_tel_club.get()
                 
+        
+                
+            #créer un bouton pour valider les données
+            button_valider = Button(add_club, text="Valider",command=valider)
+            button_valider.grid(row=8, column=2)
+            
 
             
 
 
         def supprimer_club():
-            #del_entry("CLUB", "NomClub", club_list.get(ANCHOR))
-            return
+            print("supprimer club")
+            
 
 
         #créer 3 boutons pour les clubs : modifier ajouter supprimer
@@ -120,7 +132,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = creation_liste("CLUB", "NomClub")
+        liste_clubs = creation_liste_club()
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
