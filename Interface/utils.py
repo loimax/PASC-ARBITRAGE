@@ -135,8 +135,10 @@ def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utili
     :param: name_table : nom de la table que l'on va modifier
     :return: void
     """
-    query = f"DELETE FROM {name_table} WHERE {attribut} = {valeur}"
-    execute_query(query, True)#False, fonctionne avec True et non pas avec False
+    query = f"DELETE FROM {name_table} WHERE {attribut} = '{valeur}'"
+    print(query)
+    execute_query(query, True)
+    #False, fonctionne avec True et non pas avec False
     # Le changement a été fait par Guillaume
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
     # On hésite pas à me casser la gueule
@@ -185,3 +187,4 @@ def creation_liste(name_table, attribut):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
+
