@@ -102,7 +102,7 @@ def display_table(name_table, specified=False, num_rows=0, spec_row=""):
         print("\n")
         # print(row) #print(row[1]) affiche 1re colonne de la table
 
-def insert_value(name_table):
+def insert_entry(name_table): #anceinnement insert_value
     """
     Insère une nouvelle entrée 
     :param: name_table : nom de la table que l'on va modifier
@@ -121,7 +121,7 @@ def insert_value(name_table):
 
     conn.commit()
 
-def del_value(name_table): #bien utiliser un attribut de type int pour delete sinon marche pas
+def del_entry(name_table): #anciennement del_value #bien utiliser un attribut de type int pour delete sinon marche pas
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
@@ -137,7 +137,7 @@ def del_value(name_table): #bien utiliser un attribut de type int pour delete si
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
     # On hésite pas à me casser la gueule
 
-def modify_value(name_table):
+def modify_entry(name_table): #anciennement modify_value
     """
     Modifie un attribut d'une entrée de la table déjà existante
     :param: name_table : nom de la table que l'on va modifier
@@ -186,9 +186,9 @@ cursor = conn.cursor()
 # display_attributes("CLUB")
 
 #display_table("JA")
-#insert_value("JA")
-#del_value("JA")
-#modify_value("JA")
+#insert_entry("JA")
+#del_entry("JA")
+#modify_entry("JA")
 #display_table("JA")
 
 #display_table("CLUB", spec_row="04180696")
