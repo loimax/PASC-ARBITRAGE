@@ -3,7 +3,7 @@ import os
 
 import sys
 
-from testdb.ex import creation_liste_club
+from utils import *
 
 
 
@@ -45,7 +45,8 @@ def Clubs():
             update(data)
 
         def supprimer_club():
-            
+            #del_entry("CLUB", "NomClub", club_list.get(ANCHOR))
+            return
 
 
         #créer 3 boutons pour les clubs : modifier ajouter supprimer
@@ -65,7 +66,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = creation_liste_club()
+        liste_clubs = creation_liste("CLUB", "NomClub")
 
         #Ajouter clubs dans la liste
         update(liste_clubs)

@@ -121,17 +121,13 @@ def insert_entry(name_table): #anceinnement insert_value
 
     conn.commit()
 
-def del_entry(name_table): #anciennement del_value #bien utiliser un attribut de type int pour delete sinon marche pas
+def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utiliser un attribut de type int pour delete sinon marche pas
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
     :return: void
     """
-    display_table(name_table)
-    name = input("Entrez le nom de l'attribut de l'élément: ")
-    value = input("Entrez la valeur de l'élément: ")
-    
-    query = f"DELETE FROM {name_table} WHERE {name} = {value}"
+    query = f"DELETE FROM {name_table} WHERE {attribut} = {valeur}"
     execute_query(query, True)#False, fonctionne avec True et non pas avec False
     # Le changement a été fait par Guillaume
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
@@ -164,19 +160,33 @@ def checkValueType(name_table):
     pass
 
 
-def creation_liste_club(name_table="CLUB"):
-    query = f"SELECT NomClub FROM {name_table};"
+# def creation_liste_club(name_table="CLUB"):
+#     query = f"SELECT NomClub FROM {name_table};"
+#     cur = execute_query(query)
+
+#     result =cur.fetchall()
+
+
+#     liste_club = []
+#     for row in result:
+#         for i in range(len(row)):
+#             liste_club.append(row[i])
+
+#     return(liste_club)
+
+def creation_liste(name_table, attribut):
+    query = f"SELECT {attribut} FROM {name_table};"
     cur = execute_query(query)
 
     result =cur.fetchall()
 
 
-    liste_club = []
+    liste = []
     for row in result:
         for i in range(len(row)):
-            liste_club.append(row[i])
+            liste.append(row[i])
 
-    return(liste_club)
+    return(liste)
 
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
