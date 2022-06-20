@@ -122,7 +122,9 @@ def Clubs():
 
 
         def supprimer_club():
-            print("supprimer club")
+            nom = club_list.get(ANCHOR)
+            print(nom)
+            del_entry("CLUB", "NomClub", nom)
             
 
 
