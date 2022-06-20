@@ -1,9 +1,9 @@
 from tkinter import *
 import os
 
-import sys
 
-from testdb.ex import display_nom_club
+
+from testdb.ex import *
 
 
 
