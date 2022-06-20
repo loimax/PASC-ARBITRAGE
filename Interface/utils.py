@@ -102,23 +102,31 @@ def display_table(name_table, specified=False, num_rows=0, spec_row=""):
         print("\n")
         # print(row) #print(row[1]) affiche 1re colonne de la table
 
-def insert_entry(name_table): #anceinnement insert_value
+def insert_entry(name_table,list):
     """
     Insère une nouvelle entrée 
     :param: name_table : nom de la table que l'on va modifier
+    :param: list : les entrées de l'user sous forme de liste
     :return: void
     """
     attr = getAttributes(name_table)
 
     print("Number of values to insert: ", len(attr), "with values being: ", attr)
     attrStr = ",".join(attr)
-    valToInsert = input("Entrez les valeurs à insérer séparées par des virgules : ")
+    #valToInsert = input("Entrez les valeurs à insérer séparées par des virgules : ")
     # Il faut encadrer de ' ' nos valeurs ajoutées
     # exemple : je veux insérer a et b car on a deux attributs;
     # on écrit dans input : 'a','b'
-    query = f"INSERT INTO {name_table}({attrStr}) VALUES ({valToInsert})"
-    execute_query(query, True)
 
+    query=f"INSERT INTO {name_table}({attrStr}) VALUES ("
+    i = 0
+    while i < len(attr)-1:
+        query+=f"'{list[i]}',"
+        i+=1  
+    query+=f"{list[i]})"
+
+    print(query)
+    execute_query(query, True)
     conn.commit()
 
 def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utiliser un attribut de type int pour delete sinon marche pas

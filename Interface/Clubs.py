@@ -3,7 +3,7 @@ import os
 
 import sys
 
-from testdb.ex import creation_liste_club
+from utils import *
 
 
 
@@ -99,11 +99,15 @@ def Clubs():
                 cp_club = entry_cp_club.get()
                 correspondant_club = entry_correspondant_club.get()
                 tel_club = entry_tel_club.get()
+                # mettre les elements dans une liste
+                print(numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club)
+                data = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
+                insert_entry("CLUB", data)
                 
         
                 
             #créer un bouton pour valider les données
-            button_valider = Button(add_club, text="Valider",command=valider)
+            button_valider = Button(add_club, text="Valider",command=add_club_data)
             button_valider.grid(row=8, column=2)
             
 
@@ -132,7 +136,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = creation_liste_club()
+        liste_clubs = creation_liste("CLUB", "NomClub")
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
