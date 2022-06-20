@@ -43,22 +43,23 @@ def Accueil():
         fenetre.geometry("1920x1080")
 
         #mettre un logo a la fenetre
-        fenetre.iconbitmap('Interface\img\logo2.ico')
+        #fenetre.iconbitmap('Interface\img\logo2.ico')
         #logo = PhotoImage(file="img\logo2.png")
         # logo_label = Label(fenetre, image=logo)
 
         #couleur de fond de la fenetre
         fenetre.configure(background='#DADAD7')
 
+
         def open_clubs():
             fenetre.destroy()
             os.system("python Interface/Clubs.py")
-            #detruire les boutons
+
 
         def open_JA():
             fenetre.destroy()
             os.system("python Interface/JA.py")
-            #detruire les boutons
+
 
         def open_teams():
             fenetre.destroy()
@@ -69,13 +70,12 @@ def Accueil():
             fenetre.destroy()
             os.system("python Interface/Rencontres.py")
         
+
         def open_affectation():
            
             fenetre.destroy()
             os.system("python Interface/Affectations.py")
-            
-
-            
+                        
         
         def quit():
             fenetre.destroy()
@@ -118,4 +118,3 @@ def Accueil():
         fenetre.mainloop()
 
 Accueil()
-

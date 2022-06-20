@@ -37,17 +37,24 @@ def Clubs():
 
             update(data)
 
+        #créer 3 boutons pour les clubs : modifier ajouter supprimer
+        bouton_modifier = Button(club, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_modifier.place(x=600, y=400)
+        bouton_ajouter = Button(club, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_ajouter.place(x=725, y=400)
+        bouton_supprimer = Button(club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_supprimer.place(x=850, y=400)
 
         #creer une zone de texte pour la recherche de clubs
         entry_clubs = Entry(club, font=("Helvetica", 20))
-        entry_clubs.pack()
+        entry_clubs.place(x=600, y=150)
 
         #créer une zone pour la liste de clubs
         club_list = Listbox(club, width=50)
-        club_list.pack(pady=40)
+        club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = ["Club 1", "Blois", "Bourges", "Pute", "Vierzon"]
+        liste_clubs = ["Club 1", "Blois", "Bourges", "Pute", "Vierzon","Club 2", "Club 3", "Club 4", "Club 5", "Club 6", "Club 7", "Club 8", "Club 9", "Club 10", "Club 11", "Club 12", "Club 13", "Club 14", "Club 15", "Club 16", "Club 17", "Club 18", "Club 19", "Club 20", "Club 21", "Club 22", "Club 23", "Club 24", "Club 25", "Club 26", "Club 27", "Club 28", "Club 29", "Club 30", "Club 31", "Club 32", "Club 33", "Club 34", "Club 35", "Club 36"]
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
@@ -90,8 +97,8 @@ def Clubs():
             os.system("python Interface\Accueil.py")
 
         #creer bouton retour vers l'accueil
-      #  bouton_retour = Button(club, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
-      #  bouton_retour.grid(row=18, column=2)
+        bouton_retour = Button(club, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_retour.place(x=725, y=700)
 
     
         #afficher la fenetre
