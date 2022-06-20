@@ -111,21 +111,11 @@ def insert_entry(name_table,list):
     """
     attr = getAttributes(name_table)
 
-    print("Number of values to insert: ", len(attr), "with values being: ", attr)
     attrStr = ",".join(attr)
-    #valToInsert = input("Entrez les valeurs à insérer séparées par des virgules : ")
-    # Il faut encadrer de ' ' nos valeurs ajoutées
-    # exemple : je veux insérer a et b car on a deux attributs;
-    # on écrit dans input : 'a','b'
 
-    query=f"INSERT INTO {name_table}({attrStr}) VALUES ("
-    i = 0
-    while i < len(attr)-1:
-        query+=f"'{list[i]}',"
-        i+=1  
-    query+=f"{list[i]})"
-
-    print(query)
+    liste = ",".join(list)
+    query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
+    
     execute_query(query, True)
     conn.commit()
 
@@ -185,3 +175,5 @@ def creation_liste(name_table, attribut):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
+
+insert_entry("CLUB", ["1", "2", "3"])
