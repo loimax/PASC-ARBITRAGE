@@ -103,7 +103,7 @@ def Clubs():
         
                 
             #créer un bouton pour valider les données
-            button_valider = Button(add_club, text="Valider",command=valider)
+            button_valider = Button(add_club, text="Valider")
             button_valider.grid(row=8, column=2)
             
 
