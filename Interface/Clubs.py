@@ -44,12 +44,16 @@ def Clubs():
 
             update(data)
 
+        def supprimer_club():
+            
+
+
         #créer 3 boutons pour les clubs : modifier ajouter supprimer
         bouton_modifier = Button(club, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'))
         bouton_modifier.place(x=600, y=400)
         bouton_ajouter = Button(club, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'))
         bouton_ajouter.place(x=725, y=400)
-        bouton_supprimer = Button(club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_supprimer = Button(club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'), command=supprimer_club)
         bouton_supprimer.place(x=850, y=400)
 
         #creer une zone de texte pour la recherche de clubs
