@@ -163,7 +163,8 @@ def checkValueType(name_table):
     """
     pass
 
-def display_nom_club(name_table="CLUB"):
+
+def creation_liste_club(name_table="CLUB"):
     query = f"SELECT NomClub FROM {name_table};"
     cur = execute_query(query)
 
