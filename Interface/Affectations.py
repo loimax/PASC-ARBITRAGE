@@ -31,6 +31,7 @@ def Affectation():
 
     
         #afficher la fenetre
+        Affectation.attributes('-fullscreen', True)
         Affectation.mainloop()
 
 #afficher la fenetre
