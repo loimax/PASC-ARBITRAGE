@@ -29,6 +29,7 @@ def Ekip():
 
     
         #afficher la fenetre
+        ekip.attributes('-fullscreen', True)
         ekip.mainloop()
 
 #afficher la fenetre

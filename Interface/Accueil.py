@@ -115,6 +115,7 @@ def Accueil():
 
 
         #afficher la fenetre
+        fenetre.attributes('-fullscreen', True)
         fenetre.mainloop()
 
 Accueil()
