@@ -177,6 +177,8 @@ def checkValueType(name_table):
         "NumEq2":["int", "NOT NULL"], "Phase":["int", "NOT NULL"], "Journee":["int", "NOT NULL"], \
             "DateRenc":["TEXT", "NOT NULL"], "HeureRenc":["TEXT", "NOT NULL"], "JA":["TEXT", "NULL"]}
 
+    liste = [autreArb, clubs, epreuves, equipeClub, ja, rencontres]
+    return liste
     
 
 def creation_liste(name_table, attribut):
