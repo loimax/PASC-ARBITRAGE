@@ -1,9 +1,9 @@
 from tkinter import *
 import os
 
+import sys
 
-
-from testdb.ex import *
+from testdb.ex import creation_liste_club
 
 
 
@@ -61,7 +61,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = display_nom_club()
+        liste_clubs = creation_liste_club()
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
