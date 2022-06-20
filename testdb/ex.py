@@ -175,7 +175,7 @@ def display_nom_club(name_table="CLUB"):
         for i in range(len(row)):
             liste_club.append(row[i])
 
-    print(liste_club)
+    return(liste_club)
 
 
 conn = create_connection("testdb\GestionRegionale.db")
