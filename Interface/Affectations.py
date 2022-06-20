@@ -3,6 +3,8 @@ import os
 
 from setuptools import Command
 
+#tableau de 3 colonnes, les deux premieres normales (avec les équipes) et la 3e listes déroulantes pour sélectionner un JA
+
 def Affectation():
         #créer une fenetre
         Affectation = Tk()
@@ -31,6 +33,7 @@ def Affectation():
 
     
         #afficher la fenetre
+        Affectation.attributes('-fullscreen', True)
         Affectation.mainloop()
 
 #afficher la fenetre
