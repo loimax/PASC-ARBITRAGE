@@ -116,8 +116,8 @@ def insert_entry(name_table,list):
     
     query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
     print(query)
-    # execute_query(query, True)
-    # conn.commit()
+    execute_query(query, True)
+    conn.commit()
 
 def del_entry(name_table, attribut, valeur): 
     """
@@ -131,22 +131,23 @@ def del_entry(name_table, attribut, valeur):
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
     # On hésite pas à me casser la gueule ou les gueules
 
-def modify_entry(name_table, list): #anciennement modify_value
+def modify_entry(name_table, list, id): #anciennement modify_value
     """
     Modifie un attribut d'une entrée de la table déjà existante
     :param: name_table : nom de la table que l'on va modifier
     :param: list : les entrées de l'user sous forme de liste
+    :param: id : clé primaire de l'entrée modifier (on peut la modifier mais il nous la faut avant pour la trouver dans la database)
     :return: void
     """
-    display_table(name_table)
-    id = input("Entrez l'ID de la ligne à modifier : ")
-    attr = input("Entrez l'attribut que vous voulez changer : ")
-    value = input("Entrez la nouvelle valeur : ")
+    attr = getAttributes(name_table)
+    attr_id = attr[0]
 
-    # Pour l'instant fonction spécifique à la table "JA"
-    # Il faut changer NumLic dans la query pour qu'elle prenne toujours l'ID de la table passé en paramêtre
-    query = f"UPDATE {name_table} SET {attr} = {value} WHERE NumLic = {id}"
-    execute_query(query,True)
+    i = 0
+    for a in attr:
+        query = f"UPDATE {name_table} SET {a} = '{list[i]}' WHERE {attr_id} = {id}"
+        execute_query(query,True)
+        print(query)
+        i+=1
 
 
 #vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
@@ -177,4 +178,9 @@ def creation_liste(name_table, attribut):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-insert_entry("CLUB", ["1", "2", "3"])
+l1 = ["4521","BloB","None","None","None","None","18000"]
+#insert_entry("CLUB",l1)
+display_table("CLUB")
+l = ["4521","BloB",None,"Lannion",None,"Le pape","18000"]
+modify_entry("CLUB",l,4521)
+display_table("CLUB")
