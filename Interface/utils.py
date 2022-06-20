@@ -195,15 +195,15 @@ def getListRow(name_table, attribut, valeur):
     print(liste)
     return(liste)
 
+def getID(name_table):
+    """
+    Fonction qui retourne la clé primaire d'une table
+    :param: name_table : nom de la table
+    :return: attr[0] : le 1er nom de l'attribut de la table (supposemment la clé primaire)
+    """
+    attr = getAttributes(name_table)
+    return attr[0]
+
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-l1 = ["4521","BloB","None","None","None","None","18000"]
-#insert_entry("CLUB",l1)
-display_table("CLUB")
-l = ["4521","BloB",None,"Lannion",None,"Le pape","18000"]
-modify_entry("CLUB",l,4521)
-display_table("CLUB")
-# insert_entry("CLUB", ["1", "2", "3"])
-display_table("CLUB")
-getListRow("CLUB", "NomClub", "AP LA CHAPELLE VENDOMOISE")
