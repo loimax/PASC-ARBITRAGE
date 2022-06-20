@@ -6,7 +6,7 @@ def create_connection(db_file):
     """ 
     Create a database connection to a SQLite database
     :param: db_file :
-    :return:
+    :return: conn : la connexion
     """
     if os.path.exists(db_file):
         conn = sqlite3.connect(db_file)
@@ -20,7 +20,7 @@ def execute_query(query, del_ins=False):
     Execute la requête passé en paramètre
     :param: query : la requête écrite en demande SQLite
     :param: del_ins : 
-    :return: 
+    :return: cursor :
     """
     cursor.execute(query)
     if del_ins:
@@ -45,9 +45,9 @@ def show_tables():
 
 def display_attributes(name_table):
     """
-    
-    :param:
-    :return: 
+    Affiche la liste des attributs d'une table
+    :param: name_table : nom de la table
+    :return: void
     """
     cols = pd.read_sql_query(f"SELECT * from {name_table}", conn)
     attr = []
@@ -55,13 +55,13 @@ def display_attributes(name_table):
         attr.append(cols)
     print(attr) #affiche liste complète attributs
 
-def getAttributes(t_name):
+def getAttributes(name_table): #t_name avant
     """
-    
-    :param:
-    :return: 
+    Renvoie la liste des attributs d'une table
+    :param: name_table : nom de la table
+    :return: attr : un tableau des attributs
     """
-    cols = pd.read_sql_query(f"SELECT * from {t_name}", conn)
+    cols = pd.read_sql_query(f"SELECT * from {name_table}", conn)
     attr = []
     for cols in cols.columns:
         attr.append(cols)
@@ -69,9 +69,12 @@ def getAttributes(t_name):
     
 def display_table(name_table, specified=False, num_rows=0, spec_row=""):
     """
-    
-    :param:
-    :return: 
+    Affiche le contenu de la table spécifié en paramètre
+    :param: name_table : nom de la table que l'on va afficher
+    :param: specified :
+    :param: num_rows :
+    :param: spec_row :
+    :return: void
     """
     query = f"SELECT * FROM {name_table};"
     cur = execute_query(query)
@@ -101,9 +104,9 @@ def display_table(name_table, specified=False, num_rows=0, spec_row=""):
 
 def insert_value(name_table):
     """
-    
-    :param:
-    :return: 
+    Insère une nouvelle entrée 
+    :param: name_table : nom de la table que l'on va modifier
+    :return: void
     """
     attr = getAttributes(name_table)
 
@@ -120,9 +123,9 @@ def insert_value(name_table):
 
 def del_value(name_table): #bien utiliser un attribut de type int pour delete sinon marche pas
     """
-    
-    :param:
-    :return: 
+    Supprime une entrée de la table
+    :param: name_table : nom de la table que l'on va modifier
+    :return: void
     """
     display_table(name_table)
     name = input("Entrez le nom de l'attribut de l'élément: ")
