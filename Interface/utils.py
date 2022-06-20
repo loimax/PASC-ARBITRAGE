@@ -202,7 +202,7 @@ def getID(name_table):
     """
     Fonction qui retourne la clé primaire d'une table
     :param: name_table : nom de la table
-    :return: attr[0] : le 1er nom de l'attribut de la table (supposemment la clé primaire)
+    :return: attr[0] : le 1er nom de l'attribut de la table (supposément la clé primaire)
     """
     attr = getAttributes(name_table)
     return attr[0]
