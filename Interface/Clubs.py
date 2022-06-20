@@ -1,5 +1,6 @@
 from tkinter import *
 import os
+from testdb.ex import *
 
 def Clubs():
         #créer une fenetre
