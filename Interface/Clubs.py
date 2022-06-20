@@ -3,6 +3,9 @@ import os
 
 import sys
 
+from pytz import common_timezones
+from setuptools import Command
+
 from utils import *
 
 
@@ -103,12 +106,16 @@ def Clubs():
                 print(numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club)
                 data = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
                 insert_entry("CLUB", data)
+                add_club.destroy()
+                
                 
         
                 
             #créer un bouton pour valider les données
             button_valider = Button(add_club, text="Valider",command=add_club_data)
             button_valider.grid(row=8, column=2)
+            
+            
             
 
             
