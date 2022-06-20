@@ -129,7 +129,7 @@ def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utili
     execute_query(query, True)#False, fonctionne avec True et non pas avec False
     # Le changement a été fait par Guillaume
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
-    # On hésite pas à me casser la gueule
+    # On hésite pas à me casser la gueule ou les gueules
 
 def modify_entry(name_table): #anciennement modify_value
     """
