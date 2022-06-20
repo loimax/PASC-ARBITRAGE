@@ -35,9 +35,9 @@ def Affectation():
 
 
             for j in range(nb_rencontres):
-                    self.e = Combobox(Rencontre, values=liste_JA, font=("Arial", 12))
-                    self.e.place(x=642+184*0.5, y=105+j*20)
-                    self.e.insert(END, "JA")
+                    self.f = Combobox(Rencontre, values=liste_JA, font=("Arial", 12))
+                    self.f.place(x=642+184*0.5, y=105+j*20)
+                    self.f.insert(END, "Juge Arbitre")
     Table(window)
     
     def retour():
@@ -48,7 +48,7 @@ def Affectation():
     #creer UI
     txt = Label(window, text="Affectez un arbitre à chaque match :", font=("Arial", 15))
     bouton_retour = Button(window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
-    bouton_generer = Button(window, text="Générer", command=generer, bg='#AF7AC5', fg='#000000', font=('Arial', 12, 'bold'))
+    bouton_generer = Button(window, text="Générer", command=generer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
     bouton_quitter = Button(window, text="Quitter", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
     
 
@@ -58,8 +58,8 @@ def Affectation():
     bouton_generer.place(x=642-38, y=680)
     bouton_quitter.place(x=1200, y=680)
 
-    window.update()
-    print(bouton_generer.winfo_width())
+    # window.update()
+    # print(bouton_generer.winfo_width())
 
     #afficher la fenetre
     window.attributes('-fullscreen', True)
