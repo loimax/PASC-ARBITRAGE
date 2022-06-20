@@ -1,6 +1,12 @@
 from tkinter import *
 import os
-from testdb.ex import *
+
+import sys
+
+from testdb.ex import display_nom_club
+
+
+
 
 def Clubs():
         #créer une fenetre
@@ -55,7 +61,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = ["Club 1", "Blois", "Bourges", "Pute", "Vierzon","Club 2", "Club 3", "Club 4", "Club 5", "Club 6", "Club 7", "Club 8", "Club 9", "Club 10", "Club 11", "Club 12", "Club 13", "Club 14", "Club 15", "Club 16", "Club 17", "Club 18", "Club 19", "Club 20", "Club 21", "Club 22", "Club 23", "Club 24", "Club 25", "Club 26", "Club 27", "Club 28", "Club 29", "Club 30", "Club 31", "Club 32", "Club 33", "Club 34", "Club 35", "Club 36"]
+        liste_clubs = display_nom_club()
 
         #Ajouter clubs dans la liste
         update(liste_clubs)

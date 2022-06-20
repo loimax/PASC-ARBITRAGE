@@ -178,17 +178,17 @@ def display_nom_club(name_table="CLUB"):
     return(liste_club)
 
 
-conn = create_connection("testdb\GestionRegionale.db")
+conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
 
-show_tables()
+#show_tables()
 # display_attributes("CLUB")
 
-display_table("JA")
+#display_table("JA")
 #insert_value("JA")
 #del_value("JA")
-modify_value("JA")
-display_table("JA")
+#modify_value("JA")
+#display_table("JA")
 
 #display_table("CLUB", spec_row="04180696")
