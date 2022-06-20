@@ -1,9 +1,9 @@
 from tkinter import *
 import os
 
+import sys
 
-
-from testdb.ex import *
+from testdb.ex import creation_liste_club
 
 
 
@@ -98,12 +98,16 @@ def Clubs():
             
 
 
+        def supprimer_club():
+            
+
+
         #créer 3 boutons pour les clubs : modifier ajouter supprimer
         bouton_modifier = Button(club, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'))
         bouton_modifier.place(x=600, y=400)
         bouton_ajouter = Button(club, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'),command=add_club)
         bouton_ajouter.place(x=725, y=400)
-        bouton_supprimer = Button(club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_supprimer = Button(club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'), command=supprimer_club)
         bouton_supprimer.place(x=850, y=400)
 
         #creer une zone de texte pour la recherche de clubs
@@ -115,7 +119,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = display_nom_club()
+        liste_clubs = creation_liste_club()
 
         #Ajouter clubs dans la liste
         update(liste_clubs)

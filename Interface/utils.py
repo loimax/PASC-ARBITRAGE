@@ -181,15 +181,3 @@ def creation_liste_club(name_table="CLUB"):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
-
-
-#show_tables()
-# display_attributes("CLUB")
-
-#display_table("JA")
-#insert_entry("JA")
-#del_entry("JA")
-#modify_entry("JA")
-#display_table("JA")
-
-#display_table("CLUB", spec_row="04180696")
