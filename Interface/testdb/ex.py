@@ -121,7 +121,7 @@ def insert_entry(name_table): #anceinnement insert_value
 
     conn.commit()
 
-def del_entry(name_table): #anciennement del_value #bien utiliser un attribut de type int pour delete sinon marche pas
+def del_entry(name_table): #anciennement del_value 
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
@@ -188,7 +188,8 @@ cursor = conn.cursor()
 
 #display_table("JA")
 #insert_entry("JA")
-#del_entry("JA")
+# del_entry("CLUB")
+# display_table("CLUB")
 #modify_entry("JA")
 #display_table("JA")
 
