@@ -158,7 +158,6 @@ def checkValueType(name_table):
     """
     pass
 
-
 def creation_liste(name_table, attribut):
     query = f"SELECT {attribut} FROM {name_table};"
     cur = execute_query(query)
@@ -173,8 +172,21 @@ def creation_liste(name_table, attribut):
 
     return(liste)
 
+def getListRow(name_table, attribut, valeur):
+    query = f'SELECT * FROM {name_table} WHERE "{attribut}" = "{valeur}";'
+    cur = execute_query(query)
+    result = cur.fetchall()
+
+    liste = []
+    for row in result:
+        for i in range(len(row)):
+            liste.append(row[i])
+    print(liste)
+    return(liste)
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-insert_entry("CLUB", ["1", "2", "3"])
+# insert_entry("CLUB", ["1", "2", "3"])
+display_table("CLUB")
+getListRow("CLUB", "NomClub", "AP LA CHAPELLE VENDOMOISE")
