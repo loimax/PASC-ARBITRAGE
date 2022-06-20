@@ -29,7 +29,7 @@ import os
 
     
 #         #afficher la fenetre
-#         club.mainloop() test
+#         club.mainloop()
 
 def Accueil():
         
