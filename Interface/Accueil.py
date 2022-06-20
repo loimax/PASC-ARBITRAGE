@@ -44,40 +44,50 @@ def Accueil():
 
         #mettre un logo a la fenetre
         fenetre.iconbitmap('Interface\img\logo2.ico')
-        # logo = PhotoImage(file="img\logo2.png")
+        #logo = PhotoImage(file="img\logo2.png")
         # logo_label = Label(fenetre, image=logo)
 
         #couleur de fond de la fenetre
         fenetre.configure(background='#DADAD7')
 
-        def cluclu():
-            # bouton_clubs.destroy()
-            # bouton_Rencontres.destroy()
-            # bouton_JA.destroy()
-            # bouton_Affectation.destroy()
-            # bouton_Équipes.destroy()
-            # bouton_Quitter.destroy()
+        def open_clubs():
             fenetre.destroy()
-            os.system("python Interface\Clubs.py")
+            os.system("python Interface/Clubs.py")
             #detruire les boutons
-        def JAJA():
-            fenetre.destroy()
-            os.system("python Interface\JA.py")
-            #detruire les boutons
-      
 
+        def open_JA():
+            fenetre.destroy()
+            os.system("python Interface/JA.py")
+            #detruire les boutons
+
+        def open_teams():
+            fenetre.destroy()
+            os.system("python Interface/Equipes.py")
+       
         
-        def boom():
+        def open_rencontres():
+            fenetre.destroy()
+            os.system("python Interface/Rencontres.py")
+        
+        def open_affectation():
+           
+            fenetre.destroy()
+            os.system("python Interface/Affectations.py")
+            
+
+            
+        
+        def quit():
             fenetre.destroy()
             
 
-        #creer 5 boutons
-        bouton_clubs = Button(fenetre, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=cluclu)
-        bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'), command=JAJA)
-        bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'))
-        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
-        bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
-        bouton_Quitter = Button(fenetre, text="Quitter" , command=boom, bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
+        #creer 6 boutons
+        bouton_clubs = Button(fenetre, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_clubs)
+        bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'), command=open_JA)
+        bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'), command=open_teams)
+        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'), command=open_rencontres)
+        bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'), command=open_affectation)
+        bouton_Quitter = Button(fenetre, text="Quitter" , command=quit, bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
 
         #placer les boutons dans la fenetre
         bouton_clubs.grid(row=3, column=2)
@@ -102,10 +112,6 @@ def Accueil():
         bouton_Rencontres.grid(padx=10, pady=10)
         bouton_Affectation.grid(padx=10, pady=10)
         bouton_Quitter.grid(padx=10, pady=10)
-
-
-
-
 
 
         #afficher la fenetre
