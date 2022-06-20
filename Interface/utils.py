@@ -182,7 +182,8 @@ def checkValueType(name_table):
 def creation_liste(name_table, attribut):
     """
     
-    :param:
+    :param: name_table : nom de la table
+    :param: attribut : 
     :return: 
     """
     query = f"SELECT {attribut} FROM {name_table};"
@@ -201,7 +202,9 @@ def creation_liste(name_table, attribut):
 def getListRow(name_table, attribut, valeur):
     """
     
-    :param: 
+    :param: name_table : nom de la table
+    :param: attribut :  
+    :param: valeur :
     :return: 
     """
     query = f'SELECT * FROM {name_table} WHERE "{attribut}" = "{valeur}";'
@@ -215,15 +218,15 @@ def getListRow(name_table, attribut, valeur):
     print(liste)
     return(liste)
 
+def getID(name_table):
+    """
+    Fonction qui retourne la clé primaire d'une table
+    :param: name_table : nom de la table
+    :return: attr[0] : le 1er nom de l'attribut de la table (supposément la clé primaire)
+    """
+    attr = getAttributes(name_table)
+    return attr[0]
+
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-l1 = ["4521","BloB","None","None","None","None","18000"]
-#insert_entry("CLUB",l1)
-display_table("CLUB")
-l = ["4521","BloB",None,"Lannion",None,"Le pape","18000"]
-modify_entry("CLUB",l,4521)
-display_table("CLUB")
-# insert_entry("CLUB", ["1", "2", "3"])
-display_table("CLUB")
-getListRow("CLUB", "NomClub", "AP LA CHAPELLE VENDOMOISE")
