@@ -1,38 +1,69 @@
 from tkinter import *
 import os
+from tkinter.ttk import Combobox
 
 from setuptools import Command
 
 def Affectation():
-        #créer une fenetre
-        Affectation = Tk()
-        #donner un titre a la Affectation
-        Affectation.title("Affectations")
-        #donner une taille a la Affectation
-        Affectation.geometry("1920x1080")
-        #creer une zone de texte pour les Affectations
-        zone_Affectations = Text(Affectation, height=1, width=75)
-        zone_Affectations.grid(row=3, column=2)
-        #créer une liste de Affectations et les afficher 
-        liste_Affectations = ["Affectation 1", "Affectation 2", "Affectation 3", "Affectation 4", "Affectation 5"]
-        liste_Affectations_afficher = Listbox(Affectation, height=5, width=80)
-        for i in range(len(liste_Affectations)):
-            liste_Affectations_afficher.insert(i, liste_Affectations[i])
-        liste_Affectations_afficher.grid(row=6, column=2)
+    #créer une fenetre
+    window = Tk()
+    #donner un titre a la window
+    window.title("Affectations")
+    #donner une taille a la Affectation
+    window.geometry("1920x1080")
     
-        def retour():
-            # bouton_retour.destroy()
-            Affectation.destroy()
-            os.system("python Interface/Accueil.py")
+    def quitter():
+        window.destroy()
 
-        #creer bouton retour vers l'accueil
-        bouton_retour = Button(Affectation, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
-        bouton_retour.grid(row=18, column=2)
+    def generer():
+        print("Génération des convocations en cours")
+        window.destroy()
 
+    #créer une liste de Affectations et les afficher 
+    nb_rencontres = 10
+    liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "Equipe 6", "Equipe 7", "Equipe 8", "Equipe 9", "Equipe 10"]
+    liste_JA = ["Damien le Gamin", "Zemmour la pute", "Nezuko-chan", "Arthur le 5e", "LeDave"]
     
-        #afficher la fenetre
-        Affectation.attributes('-fullscreen', True)
-        Affectation.mainloop()
+    class Table: #Pour faire un tableau
+        def __init__(self,Rencontre):
+            for i in range(2): 
+                for j in range(nb_rencontres):
+                    self.e = Entry(Rencontre, font=("Arial", 12))
+                    self.e.place(x=642-184*1.5+i*184, y=105+j*20)
+                    self.e.insert(END, liste_Rencontres[j])      
+                    self.e.config(state="disabled")
+
+
+            for j in range(nb_rencontres):
+                    self.e = Combobox(Rencontre, values=liste_JA, font=("Arial", 12))
+                    self.e.place(x=642+184*0.5, y=105+j*20)
+                    self.e.insert(END, "JA")
+    Table(window)
+    
+    def retour():
+        # bouton_retour.destroy()
+        window.destroy()
+        os.system("python Interface/Accueil.py")
+
+    #creer UI
+    txt = Label(window, text="Affectez un arbitre à chaque match :", font=("Arial", 15))
+    bouton_retour = Button(window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+    bouton_generer = Button(window, text="Générer", command=generer, bg='#AF7AC5', fg='#000000', font=('Arial', 12, 'bold'))
+    bouton_quitter = Button(window, text="Quitter", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+    
+
+    #afficher UI
+    txt.place(x=642-162, y= 40)
+    bouton_retour.place(x=25, y=680)
+    bouton_generer.place(x=642-38, y=680)
+    bouton_quitter.place(x=1200, y=680)
+
+    window.update()
+    print(bouton_generer.winfo_width())
+
+    #afficher la fenetre
+    window.attributes('-fullscreen', True)
+    window.mainloop()
 
 #afficher la fenetre
 Affectation()
