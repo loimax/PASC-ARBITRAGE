@@ -1,3 +1,4 @@
+from numpy import insert
 import pandas as pd
 import sqlite3
 import os
@@ -110,12 +111,12 @@ def insert_entry(name_table,list):
     :return: void
     """
     attr = getAttributes(name_table)
-
     attrStr = ",".join(attr)
 
-    liste = ",".join(list)
-    query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
+    liste = ','.join("'" + item + "'" for item in list)
 
+    query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
+    # print(query)
     execute_query(query, True)
     conn.commit()
 
@@ -175,3 +176,5 @@ def creation_liste(name_table, attribut):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
+
+#insert_entry("Club", ["1456", "2", "3", "4", "5", "6", "7"])
