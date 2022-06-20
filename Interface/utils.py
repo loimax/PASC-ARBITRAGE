@@ -125,16 +125,17 @@ def del_entry(name_table, attribut, valeur):
     :param: name_table : nom de la table que l'on va modifier
     :return: void
     """
-    query = f"DELETE FROM {name_table} WHERE {attribut} = {valeur}"
+    query = f"DELETE FROM {name_table} WHERE {attribut} = '{valeur}'"
     execute_query(query, True)#False, fonctionne avec True et non pas avec False
     # Le changement a été fait par Guillaume
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
     # On hésite pas à me casser la gueule ou les gueules
 
-def modify_entry(name_table, attribut, new_value): #anciennement modify_value
+def modify_entry(name_table, list): #anciennement modify_value
     """
     Modifie un attribut d'une entrée de la table déjà existante
     :param: name_table : nom de la table que l'on va modifier
+    :param: list : les entrées de l'user sous forme de liste
     :return: void
     """
     display_table(name_table)
