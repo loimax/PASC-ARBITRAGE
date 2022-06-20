@@ -110,16 +110,16 @@ def insert_entry(name_table,list):
     :return: void
     """
     attr = getAttributes(name_table)
-
     attrStr = ",".join(attr)
 
-    liste = ",".join(list)
-    query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
+    liste = ','.join("'" + item + "'" for item in list)
     
-    execute_query(query, True)
-    conn.commit()
+    query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
+    print(query)
+    # execute_query(query, True)
+    # conn.commit()
 
-def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utiliser un attribut de type int pour delete sinon marche pas
+def del_entry(name_table, attribut, valeur): 
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
@@ -131,7 +131,7 @@ def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utili
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
     # On hésite pas à me casser la gueule ou les gueules
 
-def modify_entry(name_table): #anciennement modify_value
+def modify_entry(name_table, attribut, new_value): #anciennement modify_value
     """
     Modifie un attribut d'une entrée de la table déjà existante
     :param: name_table : nom de la table que l'on va modifier
