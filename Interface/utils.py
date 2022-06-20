@@ -160,20 +160,6 @@ def checkValueType(name_table):
     pass
 
 
-# def creation_liste_club(name_table="CLUB"):
-#     query = f"SELECT NomClub FROM {name_table};"
-#     cur = execute_query(query)
-
-#     result =cur.fetchall()
-
-
-#     liste_club = []
-#     for row in result:
-#         for i in range(len(row)):
-#             liste_club.append(row[i])
-
-#     return(liste_club)
-
 def creation_liste(name_table, attribut):
     query = f"SELECT {attribut} FROM {name_table};"
     cur = execute_query(query)
