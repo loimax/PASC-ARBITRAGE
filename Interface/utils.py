@@ -162,7 +162,8 @@ def checkValueType(name_table):
 def creation_liste(name_table, attribut):
     """
     
-    :param:
+    :param: name_table : nom de la table
+    :param: attribut : 
     :return: 
     """
     query = f"SELECT {attribut} FROM {name_table};"
@@ -181,7 +182,9 @@ def creation_liste(name_table, attribut):
 def getListRow(name_table, attribut, valeur):
     """
     
-    :param: 
+    :param: name_table : nom de la table
+    :param: attribut :  
+    :param: valeur :
     :return: 
     """
     query = f'SELECT * FROM {name_table} WHERE "{attribut}" = "{valeur}";'
