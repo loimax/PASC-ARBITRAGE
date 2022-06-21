@@ -9,11 +9,11 @@ from utils import *
 
 def Equipes():
     # créer une fenetre
-    equipe = Tk()
-    # donner un titre a la equipe
-    equipe.title("Equipes")
-    # donner une taille a la equipe
-    equipe.geometry("1920x1080")
+    main_window = Tk()
+    # donner un titre a la main_window
+    main_window.title("Equipes")
+    # donner une taille a la main_window
+    main_window.geometry("1920x1080")
 
     # uptade de la liste des equipes
     def update(data):
@@ -111,7 +111,7 @@ def Equipes():
         del_entry("EquipeClub", "numEq", num)
 
     def rafraichir():
-        equipe.destroy()
+        main_window.destroy()
         os.system("python Interface\Equipes.py")
 
         # update(liste_equipes)
@@ -180,32 +180,32 @@ def Equipes():
         button_valider.grid(row=8, column=2)
         # ,X
 
-    # button_valider = Button(add_equipe, text="Valider",command=lambda : [add_equipe_data(), update(liste_equipes)])
+    # button_valider = Button(add_equipe, text="Valider",command=lambda : [add_main_window_data(), update(liste_equipes)])
     # button_valider.grid(row=8, column=2)
 
     # créer 3 boutons pour les equipes : modifier ajouter supprimer
-    bouton_modifier = Button(equipe, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'), command=modifier_equipe)
+    bouton_modifier = Button(main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'), command=modifier_equipe)
     bouton_modifier.place(x=600, y=400)
-    bouton_ajouter = Button(equipe, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'), command=add_equipe)
+    bouton_ajouter = Button(main_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'), command=add_equipe)
     bouton_ajouter.place(x=725, y=400)
-    bouton_supprimer = Button(equipe, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),
+    bouton_supprimer = Button(main_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),
                               command=lambda: [supprimer_equipe()])
     bouton_supprimer.place(x=850, y=400)
-    bouton_rafraichir = Button(equipe, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
+    bouton_rafraichir = Button(main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
                                command=rafraichir)
     bouton_rafraichir.place(x=720, y=500)
 
     liste_equipes_du_club = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5"]
-    menu_deroulant_equipes = Combobox(equipe, values=liste_equipes_du_club, font=("Arial", 12))
+    menu_deroulant_equipes = Combobox(main_window, values=liste_equipes_du_club, font=("Arial", 12))
 
     # creer une zone de texte pour la recherche de equipes
-    entry_equipes = Entry(equipe, font=("Helvetica", 20))
+    entry_equipes = Entry(main_window, font=("Helvetica", 20))
     entry_equipes.place(x=600, y=150)
 
     menu_deroulant_equipes.place(x=1000, y=150, width=120)
 
     # créer une zone pour la liste de equipes
-    equipe_list = Listbox(equipe, width=50)
+    equipe_list = Listbox(main_window, width=50)
     equipe_list.place(x=600, y=200)
 
 
@@ -223,15 +223,15 @@ def Equipes():
 
     def retour():
         # bouton_retour.destroy()
-        equipe.destroy()
+        main_window.destroy()
         os.system("python Interface\Accueil.py")
 
     # creer bouton retour vers l'accueil
-    bouton_retour = Button(equipe, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+    bouton_retour = Button(main_window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
     bouton_retour.place(x=725, y=700)
 
     # afficher la fenetre
-    equipe.mainloop()
+    main_window.mainloop()
 
 
 # afficher la fenetre
