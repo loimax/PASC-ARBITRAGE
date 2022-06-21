@@ -19,21 +19,21 @@ def Equipes():
     def update(data):
         print("update")
         # clear the listbox
-        equipe_list.delete(0, END)
+        club_list.delete(0, END)
 
         # ajpouter les equipes dans la listbox
         for item in data:
-            equipe_list.insert(END, item)
+            club_list.insert(END, item)
 
     # afficher le equipe séléctionné
     def fillout(e):
-        entry_equipes.delete(0, END)
-        entry_equipes.insert(0, equipe_list.get(ANCHOR))
+        entry_club.delete(0, END)
+        entry_club.insert(0, club_list.get(ANCHOR))
 
     # créer fonction entrée vs liste de equipes
     def check(e):
         # grab what typed
-        typed = entry_equipes.get()
+        typed = entry_club.get()
 
         if typed == '':
             data = liste_equipes
@@ -107,7 +107,6 @@ def Equipes():
 
     def supprimer_equipe():
         num = equipe_list.get(ANCHOR)
-        print(num)
         del_entry("EquipeClub", "numEq", num)
 
     def rafraichir():
@@ -138,7 +137,7 @@ def Equipes():
         label_poule = Label(modif_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
         # on recupere les données de l'equipe séléctionné
-        data = getListRow("EquipeClub", ["NumEq"], [num])
+        data = getListRow("EquipeClub", ["RangEq"], [num])
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
@@ -168,7 +167,6 @@ def Equipes():
             poule = entry_poule.get()
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule]
-            print(a)
             modify_entry("EquipeClub", a, getID(data))
             print(getListRow("EquipeClub", ["numEq"], [num]))
             print(display_table("EquipeClub"))
@@ -199,27 +197,27 @@ def Equipes():
     menu_deroulant_equipes = Combobox(main_window, values=liste_equipes_du_club, font=("Arial", 12))
 
     # creer une zone de texte pour la recherche de equipes
-    entry_equipes = Entry(main_window, font=("Helvetica", 20))
-    entry_equipes.place(x=600, y=150)
+    entry_club = Entry(main_window, font=("Helvetica", 20))
+    entry_club.place(x=600, y=150)
 
     menu_deroulant_equipes.place(x=1000, y=150, width=120)
 
     # créer une zone pour la liste de equipes
-    equipe_list = Listbox(main_window, width=50)
-    equipe_list.place(x=600, y=200)
+    club_list = Listbox(main_window, width=50)
+    club_list.place(x=600, y=200)
 
 
     # créer une liste de equipes
-    liste_equipes = creation_liste("EquipeClub", "numEq")
+    liste_club = creation_liste("CLUB", "NomClub")
 
     # Ajouter equipes dans la liste
-    update(liste_equipes)
+    update(liste_club)
 
     # afficher le equipe selectionné
-    equipe_list.bind("<<ListboxSelect>>", fillout)
+    club_list.bind("<<ListboxSelect>>", fillout)
 
     # create a binding to the entry box
-    entry_equipes.bind("<KeyRelease>", check)
+    entry_club.bind("<KeyRelease>", check)
 
     def retour():
         # bouton_retour.destroy()
