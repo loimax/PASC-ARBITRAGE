@@ -4,6 +4,8 @@ from tkinter.ttk import Combobox
 
 from setuptools import Command
 
+#tableau de 3 colonnes, les deux premieres normales (avec les équipes) et la 3e listes déroulantes pour sélectionner un JA
+
 def Affectation():
     #créer une fenetre
     window = Tk()
