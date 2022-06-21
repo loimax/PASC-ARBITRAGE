@@ -43,12 +43,24 @@ def Accueil():
         fenetre.geometry("1920x1080")
 
         #mettre un logo a la fenetre
-        #fenetre.iconbitmap('Interface\img\logo2.ico')
-        #logo = PhotoImage(file="img\logo2.png")
+        fenetre.iconbitmap('Interface/img/logo2.ico')
+        #logo = PhotoImage(file="Interface/img/logo2.png")
         # logo_label = Label(fenetre, image=logo)
+        # logo_label.grid(row=0, column=0)
+
+       
+        #ajouter l'image comite.png a la fenetre en bas à droite
+        comite = PhotoImage(file="Interface/img/comite.png")
+        comite_label = Label(fenetre, image=comite)
+        comite_label.place(x=1000,y=500,relwidth=0.5,relheight=0.5)
+        #mettre une image en background a la fenetre
+        background_image = PhotoImage(file="Interface/img/pingpong.png")
+        background_label = Label(fenetre, image=background_image)
+        background_label.place(x=725,y=150,relwidth=0.5,relheight=0.5)
+
 
         #couleur de fond de la fenetre
-        fenetre.configure(background='#DADAD7')
+       # fenetre.configure(background='#DADAD7')
 
 
         def open_clubs():
@@ -83,19 +95,21 @@ def Accueil():
 
         #creer 6 boutons
         bouton_clubs = Button(fenetre, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_clubs)
-        bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'), command=open_JA)
-        bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#000000', font=('Arial', 10, 'bold'), command=open_teams)
-        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'), command=open_rencontres)
-        bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'), command=open_affectation)
-        bouton_Quitter = Button(fenetre, text="Quitter" , command=quit, bg='#900C3F', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_JA)
+        bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_teams)
+        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_rencontres)
+        bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_affectation)
+        bouton_Poules = Button(fenetre, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'))
+        bouton_Quitter = Button(fenetre, text="Quitter" , command=quit, bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'))
 
         #placer les boutons dans la fenetre
         bouton_clubs.grid(row=3, column=2)
         bouton_JA.grid(row=6, column=2)
         bouton_Équipes.grid(row=9, column=2)
-        bouton_Rencontres.grid(row=10, column=2)
+        bouton_Rencontres.grid(row=12, column=2)
         bouton_Affectation.grid(row=15, column=2)
-        bouton_Quitter.grid(row=18, column=2)
+        bouton_Poules.grid(row=18, column=2)
+        bouton_Quitter.grid(row=21, column=2)
 
         #taille des boutons
         bouton_clubs.config(height=5, width=80)
@@ -103,6 +117,7 @@ def Accueil():
         bouton_Équipes.config(height=5, width=80)
         bouton_Rencontres.config(height=5, width=80)
         bouton_Affectation.config(height=5, width=80)
+        bouton_Poules.config(height=5, width=80)
         bouton_Quitter.config(height=5, width=80)
 
         #mettre un espace entre les boutons
@@ -111,6 +126,7 @@ def Accueil():
         bouton_Équipes.grid(padx=10, pady=10)
         bouton_Rencontres.grid(padx=10, pady=10)
         bouton_Affectation.grid(padx=10, pady=10)
+        bouton_Poules.grid(padx=10, pady=10)
         bouton_Quitter.grid(padx=10, pady=10)
 
 
@@ -119,4 +135,3 @@ def Accueil():
         fenetre.mainloop()
 
 Accueil()
-
