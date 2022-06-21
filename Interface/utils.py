@@ -143,13 +143,11 @@ def modify_entry(name_table, list, id): #anciennement modify_value
     attr_id = attr[0]
 
     query = f"UPDATE {name_table} SET {attr[0]} = '{list[0]}' WHERE {attr_id} = '{id}'"
-    print(query)
     execute_query(query,True)
 
     i = 0
     for a in attr:
         query = f"UPDATE {name_table} SET {a} = '{list[i]}' WHERE {attr_id} = '{list[0]}'"
-        print(query)
         execute_query(query,True)
         i+=1
 
@@ -207,20 +205,26 @@ def creation_liste(name_table, attribut):
 
 def getListRow(name_table, attribut, valeur):
     """
-
+    Envoie les entrées correspondant à la spécification sous forme de liste
     :param: name_table : nom de la table
-    :param: attribut :
-    :param: valeur :
-    :return:
+    :param: attribut : attribut qu'on veut spécifier
+    :param: valeur : valeur de l'attribut
+    :return: liste (cas une seule entrée) : une liste des valeurs
+    :return: liste (cas plusieurs entrées) : une liste de liste des valeurs de chaque entrée
     """
     query = f'SELECT * FROM {name_table} WHERE "{attribut}" = "{valeur}";'
     cur = execute_query(query)
-    result = cur.fetchall()
-
-    liste = []
-    for row in result:
-        for i in range(len(row)):
-            liste.append(row[i])
+    result = cur.fetchall()    
+    
+    if len(result) > 1 :
+        liste = []
+        for row in result:
+            liste.append(row)        
+    else:
+        liste = []
+        for row in result:
+            for i in range(len(row)):
+                liste.append(row[i])
     print(liste)
     return(liste)
 
@@ -235,25 +239,11 @@ def getID(list):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-# display_table("CLUB")
-# # l1 = ["12","Gu","u","u","u","u","18"]
-# # insert_entry("CLUB",l1)
-# # display_table("CLUB")
-# l2 = getListRow("CLUB","NumClub","04180304")
-# #del_entry("CLUB","NumClub","04180304")
-# l3 = ["04180848","Gu","u","u","u","u","18"]
-# l4 = ["01","","","","","",""]
-# # insert_entry("CLUB",l4)
-# #insert_entry("CLUB",l3)
-# # print(l2)
-# display_table("CLUB")
-# input("\nJ'aime l'hiver quand il fait froid !\n")
-# l = ["04180848","Maman","Bobo","87","louanne","ui","991"]
-# l5 = ["01","Matim","Garfieled","","izi","","78"]
-# modify_entry("CLUB",l,getID(l3))
-# modify_entry("CLUB",l5,getID(l4))
-# display_table("CLUB")
 
-# # show_tables()
-# display_table("Rencontres")
+show_tables()
+display_table("EquipeClub")
+getListRow("EquipeClub","Poule","A")
 
+# division dans équipeClub
+# niveau dans niveau, poule dans poule
+# afficher tous les clubs qui appartiennent au niveau/poule
