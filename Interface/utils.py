@@ -1,10 +1,10 @@
-from numpy import insert
+import attr
 import pandas as pd
 import sqlite3
 import os
 
 def create_connection(db_file):
-    """ 
+    """
     Create a database connection to a SQLite database
     :param: db_file :
     :return: conn : la connexion
@@ -20,7 +20,7 @@ def execute_query(query, del_ins=False):
     """
     Execute la requête passé en paramètre
     :param: query : la requête écrite en demande SQLite
-    :param: del_ins : 
+    :param: del_ins :
     :return: cursor :
     """
     cursor.execute(query)
@@ -28,7 +28,7 @@ def execute_query(query, del_ins=False):
         conn.commit()
     else:
         conn.rollback()
-    return cursor  
+    return cursor
 
 def show_tables():
     """
@@ -68,23 +68,6 @@ def getAttributes(name_table): #t_name avant
         attr.append(cols)
     return attr
 
-def getListRow(name_table, attribut, valeur):
-    """
-    
-    :param: 
-    :return: 
-    """
-    query = f'SELECT * FROM {name_table} WHERE "{attribut}" = "{valeur}";'
-    cur = execute_query(query)
-    result = cur.fetchall()
-
-    liste = []
-    for row in result:
-        for i in range(len(row)):
-            liste.append(row[i])
-    print(liste)
-    return(liste)    
-
 def display_table(name_table, specified=False, num_rows=0, spec_row=""):
     """
     Affiche le contenu de la table spécifié en paramètre
@@ -113,7 +96,7 @@ def display_table(name_table, specified=False, num_rows=0, spec_row=""):
                 for i in range(len(row)):
                     print(row[i], end=" | ")
             break
-             
+
     for row in result:
         for i in range(len(row)):
             print(row[i], end=" | ")
@@ -122,7 +105,7 @@ def display_table(name_table, specified=False, num_rows=0, spec_row=""):
 
 def insert_entry(name_table,list):
     """
-    Insère une nouvelle entrée 
+    Insère une nouvelle entrée
     :param: name_table : nom de la table que l'on va modifier
     :param: list : les entrées de l'user sous forme de liste
     :return: void
@@ -133,24 +116,21 @@ def insert_entry(name_table,list):
     liste = ','.join("'" + item + "'" for item in list)
 
     query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
-    # print(query)
+    print(query)
     execute_query(query, True)
     conn.commit()
 
-def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utiliser un attribut de type int pour delete sinon marche pas
+def del_entry(name_table, attribut, valeur):
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
     :return: void
     """
     query = f"DELETE FROM {name_table} WHERE {attribut} = '{valeur}'"
-    print(query)
-    execute_query(query, True)
-    #False, fonctionne avec True et non pas avec False
+    execute_query(query, True)#False, fonctionne avec True et non pas avec False
     # Le changement a été fait par Guillaume
     # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
-    # On hésite pas à me casser la gueule
-    
+    # On hésite pas à me casser la gueule ou les gueules
 
 def modify_entry(name_table, list, id): #anciennement modify_value
     """
@@ -164,34 +144,53 @@ def modify_entry(name_table, list, id): #anciennement modify_value
     attr_id = attr[0]
 
     query = f"UPDATE {name_table} SET {attr[0]} = '{list[0]}' WHERE {attr_id} = '{id}'"
-    print(query)
     execute_query(query,True)
 
     i = 0
     for a in attr:
         query = f"UPDATE {name_table} SET {a} = '{list[i]}' WHERE {attr_id} = '{list[0]}'"
-        print(query)
         execute_query(query,True)
         i+=1
 
-def getID(list):
+
+#vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
+def checkValueType(name_table):
     """
-    Fonction qui retourne la clé primaire d'une entrée de la table
-    :param: list : une entrée de la table
-    :return: list[0] : la 1ere valeur de l'entrée de la table (supposément la clé primaire)
-    """
-    return list[0]
-    
-def checkValueType(name_table): 
-    """
-    
     :param:
-    :return: 
+    :return:
     """
-    pass
+    #dictionnaire : Attribut : list(type, null ou not null, default/Autoincrement)
+    autreArb = {'NumEpreuve':["int", "NOT NULL", "AUTOINCREMENT"], 'LicArbitre':["TEXT", "NULL"], 'Adjoint':["INTEGER", "NULL", "NON"]}
+
+    clubs = {"NumClub":["TEXT","NOT NULL"], "NomClub":["TEXT", "NOT NULL"], "VilleClub":["TEXT", "NOT NULL"], \
+        "AdrClub":["TEXT", "NULL"], "CPClub":["TEXT","NULL"], "Corres":["TEXT","NULL"], "TelCorr":["TEXT", "NULL"]}
+
+    epreuves = {"NumEpreuve":["INTEGER", "NULL"], "NomEpreuve":["TEXT", "NOT NULL"], \
+        "DateEpr":["TEXT", "NOT NULL"], "HeureEpr":["TEXT", "NULL"], "Lieu":["TEXT", "NULL"], \
+            "TypeJA":["int", "NOT NULL", "3" ], "NbJA":["int", "NOT NULL", "1"]}
+
+    equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL"], \
+        "RangEq":["int", "NOT NULL"], "Masculin":["int", "NOT NULL"], "Division":["TEXT", "NOT NULL"], \
+            "Poule":["TEXT", "NOT NULL"], "CorrEq":["TEXT", "NULL"]}
+
+    ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
+        "AdrJA":["TEXT", "NULL"],"CPJA":["TEXT", "NULL"], "VilleJA":["TEXT", "NULL"], "TelJA":["TEXT", "NOT NULL"]}
+
+    rencontres = {"NumRenc":["int", "NOT NULL", "AUTOINCREMENT"], "NumEq1":["int", "NOT NULL"], \
+        "NumEq2":["int", "NOT NULL"], "Phase":["int", "NOT NULL"], "Journee":["int", "NOT NULL"], \
+            "DateRenc":["TEXT", "NOT NULL"], "HeureRenc":["TEXT", "NOT NULL"], "JA":["TEXT", "NULL"]}
+
+    liste = [autreArb, clubs, epreuves, equipeClub, ja, rencontres]
+    return liste
 
 
 def creation_liste(name_table, attribut):
+    """
+
+    :param: name_table : nom de la table
+    :param: attribut :
+    :return:
+    """
     query = f"SELECT {attribut} FROM {name_table};"
     cur = execute_query(query)
 
@@ -205,8 +204,47 @@ def creation_liste(name_table, attribut):
 
     return(liste)
 
+def getListRow(name_table, list_attribut, list_valeur):
+    """
+    Envoie les entrées correspondant à la (ou les) spécification(s) sous forme de liste;
+    exemples : getListRow("EquipeClub",["Division","Poule","RangEq","Masculin","NumEq"],["R3","G","1","0","107"])
+               getListRow("CLUB",["VilleClub"],["Bourges"])
+    :param: name_table : nom de la table
+    :param: list_attribut : liste d'attribut qu'on veut spécifier
+    :param: list_valeur : liste de valeur, avec une valeur par attribut
+    :return: liste (cas une seule entrée) : une liste des valeurs
+    :return: liste (cas plusieurs entrées) : une liste de liste des valeurs de chaque entrée
+    """
+    query = f'SELECT * FROM {name_table} WHERE "{list_attribut[0]}" = "{list_valeur[0]}"'
+    if len(list_attribut) > 1 :
+        for i in range(len(list_attribut)-1):
+            i+=1
+            query += f'AND "{list_attribut[i]}" = "{list_valeur[i]}" '
+    query += ';'
+
+    cur = execute_query(query)
+    result = cur.fetchall()
+    
+    if len(result) > 1 :
+        liste = []
+        for row in result:
+            liste.append(row)        
+    else:
+        liste = []
+        for row in result:
+            for i in range(len(row)):
+                liste.append(row[i])
+    print(liste)
+    return(liste)
+
+def getID(list):
+    """
+    Fonction qui retourne la clé primaire d'une entrée de la table
+    :param: list : une entrée de la table
+    :return: list[0] : la 1ere valeur de l'entrée de la table (supposément la clé primaire)
+    """
+    return list[0]
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-#insert_entry("Club", ["1456", "2", "3", "4", "5", "6", "7"])
