@@ -94,7 +94,6 @@ def Poules():
     textniveau = Label(window, text="Niveau", font=("Arial", 12))
     #poules allant de A à P
     choicepoule = Combobox(window, values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"], font=("Arial", 12), width=5, justify=CENTER)
-    #choicepoule = Combobox(window, values=["A","B","C"], font=("Arial", 12), width=5, justify=CENTER)
     textpoule = Label(window, text="Poule", font=("Arial", 12))
     inputannee = Entry(window, font=("Arial", 12), width=7, justify=CENTER)
     textannee = Label(window, text="Année", font=("Arial", 12))

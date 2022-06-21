@@ -33,10 +33,9 @@ def Matchs():
     #créer tableau qui hold les équipes
     class Table:
         def __init__(self,window):
-            for i in range(2): 
-                for j in range(8): 
-                    self.e = Combobox(window, values=liste_Rencontres, font=("Arial", 12))
-                    self.e.place(x=642-203+i*203, y=105+j*20)
+            for j in range(8): 
+                self.e = Combobox(window, values=liste_Rencontres, font=("Arial", 12))
+                self.e.place(x=642-203, y=105+j*20)
 
     Table(window)
 
