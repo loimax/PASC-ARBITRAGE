@@ -142,11 +142,15 @@ def modify_entry(name_table, list, id): #anciennement modify_value
     attr = getAttributes(name_table)
     attr_id = attr[0]
 
+    query = f"UPDATE {name_table} SET {attr[0]} = '{list[0]}' WHERE {attr_id} = {id}"
+    print(query)
+    execute_query(query,True)
+
     i = 0
     for a in attr:
-        query = f"UPDATE {name_table} SET {a} = '{list[i]}' WHERE {attr_id} = {id}"
-        execute_query(query,True)
+        query = f"UPDATE {name_table} SET {a} = '{list[i]}' WHERE {attr_id} = {list[0]}"
         print(query)
+        execute_query(query,True)
         i+=1
 
 
@@ -198,15 +202,22 @@ def getListRow(name_table, attribut, valeur):
     print(liste)
     return(liste)
 
-def getID(name_table):
+def getID(list):
     """
-    Fonction qui retourne la clé primaire d'une table
-    :param: name_table : nom de la table
-    :return: attr[0] : le 1er nom de l'attribut de la table (supposément la clé primaire)
+    Fonction qui retourne la clé primaire d'une entrée de la table
+    :param: list : une entrée de la table
+    :return: list[0] : la 1ere valeur de l'entrée de la table (supposément la clé primaire)
     """
-    attr = getAttributes(name_table)
-    return attr[0]
+    return list[0]
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
+
+display_table("CLUB")
+l1 = ["81","G","","","","","18"]
+#insert_entry("CLUB",l1)
+display_table("CLUB")
+l = ["906","Allo","Dilo","78","lou","","99071"]
+modify_entry("CLUB",l,getID(l1))
+display_table("CLUB")
 
