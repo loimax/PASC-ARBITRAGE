@@ -10,11 +10,13 @@ def Clubs():
         #donner un titre a la club
         club.title("Clubs")
         #donner une taille a la club
-        club.geometry("1920x1080")
+        #club.geometry("1920x1080")
+        #taille de la club s'adapte a la taille de l'ecran
+        club.geometry("{0}x{1}+0+0".format(club.winfo_screenwidth(), club.winfo_screenheight()))
+        
 
         #uptade de la liste des clubs
         def update(data):
-            print("update")
             #clear the listbox
             club_list.delete(0, END)
 
@@ -22,7 +24,6 @@ def Clubs():
             for item in data:
                 club_list.insert(END, item)
 
-            print("Updated")
         #afficher le club séléctionné
         def fillout(e):
             entry_clubs.delete(0, END)
@@ -180,6 +181,7 @@ def Clubs():
             label_Tel = Label(modif_club, text="Téléphone :")
             label_Tel.grid(row=7, column=1)
             #on recupere les données du club séléctionné
+
             data = getListRow(conn, cursor, "CLUB", "NomClub", nom)
             #on les affiche dans le formulaire
             entry_numero_club = Entry(modif_club, width=30)
@@ -215,6 +217,7 @@ def Clubs():
                 # mettre les elements dans une liste
                 a = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
                 print(a)
+                
                 modify_entry(conn, cursor, "CLUB", a, getID(data))
                 print(getListRow(conn, cursor, "CLUB", "NomClub", nom))
                 print(display_table(conn, cursor, "CLUB"))
