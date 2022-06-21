@@ -50,7 +50,6 @@ def Clubs():
         #faire une fonction qui ouvre un formulaire pour ajouter un club lorque on clique sur le bouton
         def add_club():
             clubs = dict("CLUB")
-            keys = list(clubs.keys())
             values = list(clubs.values())
             i = 0
             #créer une fenetre

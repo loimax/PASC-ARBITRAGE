@@ -256,8 +256,10 @@ def getID(list):
 def checkInsert(name_table, liste): 
     """
     on ne peut pas vérifier le type (text, int) 
-    car les valeurs retournées par get() de tkinter sont en string par défaut, donc on peut mais ca prend 1000 lignes
+    car les valeurs retournées par get() de tkinter sont en string par défaut, donc on peut mais ca prend 1000 lignes de code
     """
+    dico = dict(name_table)
+    values = list(dico.values())
     i = 0
     for d in liste:
         if values[i][1] == "NULL" and len(d) == 0:
@@ -277,9 +279,6 @@ def checkInsert(name_table, liste):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-clubs = dict("CLUB")
-keys = list(clubs.keys())
-values = list(clubs.values())
-print(values)
+
 
     
