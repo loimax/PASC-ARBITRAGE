@@ -195,7 +195,7 @@ def Clubs():
             #mettre les elements dans une liste
             #mod = [entry_numero_club, entry_nom_club, entry_ville_club, entry_adresse_club, entry_cp_club, entry_correspondant_club, entry_tel_club]
             #on crée un bouton pour valider les données
-            button_valider = Button(modif_club, text="Valider", command = modif_club_data)
+            button_valider = Button(modif_club, text="Valider", command = lambda : [modif_club_data(), modif_club.destroy()])
             button_valider.grid(row=8, column=2)
             #,X
            # button_valider = Button(add_club, text="Valider",command=lambda : [add_club_data(), update(liste_clubs)])
