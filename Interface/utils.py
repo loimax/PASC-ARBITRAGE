@@ -1,5 +1,3 @@
-from tabnanny import check
-import attr
 import pandas as pd
 import sqlite3
 import os
@@ -11,12 +9,21 @@ def create_connection(db_file):
     :return: conn : la connexion
     """
     if os.path.exists(db_file):
-        conn = sqlite3.connect(db_file)
-        return conn
+        conn = None
+        try:
+            conn = sqlite3.connect(db_file)
+            return conn
+        except sqlite3.Error as error:
+            print("Error while connecting to sqlite", error)
     else:
         print("Error: Database not found")
         exit(1)
 
+def close_connection(conn):
+    if conn:
+        conn.close()
+        print("The SQLite connection is closed")
+       
 def execute_query(query, del_ins=False):
     """
     Execute la requête passé en paramètre
