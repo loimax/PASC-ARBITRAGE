@@ -253,6 +253,10 @@ def getValues(name_table,attribute,id_base,id):
     :param: id : valeur de l'attribut qu'on connait
     :return: result[0][0] : renvoie la valeur de l'attribut recherché
     """
+    # en cas de liste vide, on retourne directement la liste vide
+    if id == [] : return id
+
+    # cas "usuels" d'une liste non vide
     query = f"SELECT {attribute} FROM {name_table} WHERE {id_base}='{id[0]}'"
     i = 0
     for k in id:
@@ -277,4 +281,7 @@ def getValuesFromList(list,x):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-print(getValues("CLUB","NomClub","NumClub",["04360002","04360454","04360726"]))
+display_attributes("EquipeClub")
+a = getListRow("EquipeClub",["Division","Poule"],["R2","A"])
+print(a)
+print(getValues("CLUB","NomClub","NumClub",getValuesFromList(a,1)))
