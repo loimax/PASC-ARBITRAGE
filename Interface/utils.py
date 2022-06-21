@@ -88,7 +88,7 @@ def display_table(conn, cursor, name_table, specified=False, num_rows=0):
     query = f"SELECT * FROM {name_table};"
     cur = execute_query(conn, cursor, query)
 
-    attr = getAttributes(conn, name_table)
+    attr = getAttributes(conn, cursor, name_table)
     attributes = " | ".join(attr)
     print("\n", attributes, "\n")
 
@@ -250,6 +250,7 @@ def getID(list):
     :return: list[0] : la 1ere valeur de l'entrée de la table (supposément la clé primaire)
     """
     return list[0]
+
 def getValues(name_table,attribute,id_base,id):
     """
     Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé et la valeur connu
@@ -294,7 +295,7 @@ def checkInsert(conn, cursor, name_table, liste):
     i = 0
     for d in liste:
         if values[i][1] == "NULL" and len(d) == 0:
-            liste[i] = "NULL"
+            liste[i] = "None"
         elif (values[i][1] == "NOT NULL" and len(d) == 0):
             print(f"Test numéro 1 pour d={d} avec pour valeur {values[i][1]}")
             #il faut une alrte box ici je personaliserai le texte dedans
@@ -305,10 +306,10 @@ def checkInsert(conn, cursor, name_table, liste):
         i+=1
     insert_entry(conn, cursor, name_table, liste)
 
-#conn = create_connection("Interface/testdb/GestionRegionale.db")
-#cursor = conn.cursor()
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
 
-#display_attributes("EquipeClub")
+display_table(conn, cursor, "CLUB")
 #a = getListRow("EquipeClub",["Division","Poule"],["R2","A"])
 #print(a)
 #print(getValues("CLUB","NomClub","NumClub",getValuesFromList(a,1)))

@@ -182,7 +182,7 @@ def Clubs():
             label_Tel.grid(row=7, column=1)
             #on recupere les données du club séléctionné
 
-            data = getListRow(conn, cursor, "CLUB", "NomClub", nom)
+            data = getListRow(conn, cursor, "CLUB", ["NomClub"], [nom])
             #on les affiche dans le formulaire
             entry_numero_club = Entry(modif_club, width=30)
             entry_numero_club.grid(row=1, column=2)
@@ -219,7 +219,7 @@ def Clubs():
                 print(a)
                 
                 modify_entry(conn, cursor, "CLUB", a, getID(data))
-                print(getListRow(conn, cursor, "CLUB", "NomClub", nom))
+                print(getListRow(conn, cursor, "CLUB", ["NomClub"], [nom]))
                 print(display_table(conn, cursor, "CLUB"))
                 
             #mettre les elements dans une liste
