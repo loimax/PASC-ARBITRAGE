@@ -21,7 +21,6 @@ def Clubs():
 
         #uptade de la liste des clubs
         def update(data):
-            print("update")
             #clear the listbox
             club_list.delete(0, END)
 
@@ -29,7 +28,6 @@ def Clubs():
             for item in data:
                 club_list.insert(END, item)
 
-            print("Updated")
         #afficher le club séléctionné
         def fillout(e):
             entry_clubs.delete(0, END)

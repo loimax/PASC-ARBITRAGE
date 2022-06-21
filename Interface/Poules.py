@@ -1,6 +1,5 @@
 from tkinter import *
 import os
-from functools import partial
 from tkinter.ttk import Combobox
 from utils import *
 
@@ -47,9 +46,6 @@ def Poules():
                 self.e2.place(x = 0, y = 0)
                 self.e2.insert(END, j+1)      
                 self.e2.config(state="disabled")
-                
-
-
                 self.e3 = Combobox(window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
                 self.e3.place(x = 0, y = 0)
 
