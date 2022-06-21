@@ -126,6 +126,7 @@ def Accueil():
         bouton_Équipes.grid(padx=10, pady=10)
         bouton_Rencontres.grid(padx=10, pady=10)
         bouton_Affectation.grid(padx=10, pady=10)
+        bouton_Poules.grid(padx=10, pady=10)
         bouton_Quitter.grid(padx=10, pady=10)
 
 
