@@ -124,6 +124,11 @@ def JA():
             
 
             #update(liste_JAs)
+
+        def rafraichir():
+            Arb.destroy()
+            os.system("python Interface\JA.py")
+
         
         def modifier_JA():
             nom = JA_list.get(ANCHOR)
@@ -198,8 +203,8 @@ def JA():
             #mettre les elements dans une liste
             #mod = [entry_numero_JA, entry_nom_JA, entry_prenom_JA, entry_club_JA, entry_adresse_JA, entry_cp_JA, entry_ville_JA]
             #on crée un bouton pour valider les données
-            button_valider = Button(modif_JA, text="Valider", command = modif_JA_data)
-            button_valider.grid(row=8, column=2)
+            button_valider = Button(modif_JA, text="Valider", command = lambda : [modif_JA_data(), modif_JA.destroy()])
+            button_valider.grid(row=9, column=2)
             #,X
            # button_valider = Button(add_JA, text="Valider",command=lambda : [add_JA_data(), update(liste_JAs)])
             #button_valider.grid(row=8, column=2)
@@ -215,6 +220,9 @@ def JA():
         bouton_ajouter.place(x=725, y=400)
         bouton_supprimer = Button(Arb, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'), command=lambda : [supprimer_JA()])
         bouton_supprimer.place(x=850, y=400)
+        bouton_rafraichir = Button(Arb, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
+                                  command=rafraichir)
+        bouton_rafraichir.place(x=720, y=500)
 
         #creer une zone de texte pour la recherche de JA
         entry_JA = Entry(Arb, font=("Helvetica", 20))
