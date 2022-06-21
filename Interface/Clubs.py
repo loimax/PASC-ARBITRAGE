@@ -122,24 +122,21 @@ def Clubs():
                 print(numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club)
                 data = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
 
-                i = 0
-                for d in data:
-                    if values[i][0] == "TEXT" and str(type(d)) != "<class 'str'>":
-                        print(type(d), "\n")
-                        print(f"Test numéro 1 pour d={d}")
-                        #il faut une alrte box ici je personaliserai le texte dedans
-                        return
-                    elif values[i][1] == "NULL" and d == "":
-                        d == "NULL"
-                    elif (values[i][1] == "NOT NULL" and d == ""):
-                        print(f"Test numéro 3 pour d={d} avec pour valeur {values[i][1]}")
-                        #il faut une alrte box ici je personaliserai le texte dedans
-                        return
-                    elif values[i][1] == "NOT NULL" and d == "NULL":
-                        print(f"Test numéro 4 pour d={d}")
-                        return
-                    i+=1
-                insert_entry("CLUB", data)
+                # i = 0
+                # for d in data:
+                #     if values[i][1] == "NULL" and len(d) == 0:
+                #         data[i] = "NULL"
+                #     elif (values[i][1] == "NOT NULL" and len(d) == 0):
+                #         print(f"Test numéro 1 pour d={d} avec pour valeur {values[i][1]}")
+                #         #il faut une alrte box ici je personaliserai le texte dedans
+                #         return
+                #     elif values[i][1] == "NOT NULL" and d == "NULL":
+                #         print(f"Test numéro 2 pour d={d}")
+                #         return
+                #     i+=1
+                # insert_entry("CLUB", data)
+
+                checkInsert("CLUB", data)
                 add_club.destroy()
                 
                 

@@ -253,6 +253,27 @@ def getID(list):
     """
     return list[0]
 
+def checkInsert(name_table, liste): 
+    """
+    on ne peut pas vérifier le type (text, int) 
+    car les valeurs retournées par get() de tkinter sont en string par défaut, donc on peut mais ca prend 1000 lignes
+    """
+    i = 0
+    for d in liste:
+        if values[i][1] == "NULL" and len(d) == 0:
+            liste[i] = "NULL"
+        elif (values[i][1] == "NOT NULL" and len(d) == 0):
+            print(f"Test numéro 1 pour d={d} avec pour valeur {values[i][1]}")
+            #il faut une alrte box ici je personaliserai le texte dedans
+            return
+        elif values[i][1] == "NOT NULL" and d == "NULL":
+            print(f"Test numéro 2 pour d={d}")
+            return
+        i+=1
+    insert_entry(name_table, liste)
+
+
+
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
