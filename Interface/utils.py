@@ -155,7 +155,7 @@ def modify_entry(name_table, list, id): #anciennement modify_value
 
 
 #vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
-def checkValueType(name_table):
+def dict(name_table):
     """
     :param:
     :return:
@@ -256,5 +256,9 @@ def getID(list):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-clubs = checkValueType("CLUB")
-print(clubs)
+clubs = dict("CLUB")
+keys = list(clubs.keys())
+values = list(clubs.values())
+print(values)
+
+    

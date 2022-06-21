@@ -49,7 +49,10 @@ def Clubs():
         
         #faire une fonction qui ouvre un formulaire pour ajouter un club lorque on clique sur le bouton
         def add_club():
-            clubs = checkValueType("CLUB")
+            clubs = dict("CLUB")
+            keys = list(clubs.keys())
+            values = list(clubs.values())
+            i = 0
             #créer une fenetre
             add_club = Tk()
             #donner un titre a la fenetre
@@ -80,19 +83,31 @@ def Clubs():
             entry_tel_club = Entry(add_club, width=30)
             entry_tel_club.grid(row=7, column=2)
             #afficher les titres des zones de texte
-            label_numero = Label(add_club, text=f"Numéro de club : ")
+            label_numero = Label(add_club, text=f"Numéro de club : {values[i]}")
             label_numero.grid(row=1, column=1)
-            label_nomclub = Label(add_club, text="Nom du club :")
+            i+=1
+
+            label_nomclub = Label(add_club, text=f"Nom du club : {values[i]}")
             label_nomclub.grid(row=2, column=1)
-            label_ville_club = Label(add_club, text="Ville :")
+            i+=1
+
+            label_ville_club = Label(add_club, text=f"Ville : {values[i]}")
             label_ville_club.grid(row=3, column=1)
-            label_adresseclub = Label(add_club, text="Adresse :")
+            i+=1
+
+            label_adresseclub = Label(add_club, text=f"Adresse : {values[i]}")
             label_adresseclub.grid(row=4, column=1)
-            label_cp_club = Label(add_club, text="CP :")
+            i+=1
+
+            label_cp_club = Label(add_club, text=f"CP : {values[i]}")
             label_cp_club.grid(row=5, column=1)
-            label_correspondant = Label(add_club, text="Correspondant :")
+            i+=1
+
+            label_correspondant = Label(add_club, text=f"Correspondant : {values[i]}")
             label_correspondant.grid(row=6, column=1)
-            label_Tel = Label(add_club, text="Téléphone :")
+            i+=1
+
+            label_Tel = Label(add_club, text=f"Téléphone : {values[i]}")
             label_Tel.grid(row=7, column=1)
             #recuperer les données du formulaire
             def add_club_data():
@@ -106,6 +121,24 @@ def Clubs():
                 # mettre les elements dans une liste
                 print(numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club)
                 data = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
+
+                i = 0
+                for d in data:
+                    if values[i][0] == "TEXT" and str(type(d)) != "<class 'str'>":
+                        print(type(d), "\n")
+                        print(f"Test numéro 1 pour d={d}")
+                        #il faut une alrte box ici je personaliserai le texte dedans
+                        return
+                    elif values[i][1] == "NULL" and d == "":
+                        d == "NULL"
+                    elif (values[i][1] == "NOT NULL" and d == ""):
+                        print(f"Test numéro 3 pour d={d} avec pour valeur {values[i][1]}")
+                        #il faut une alrte box ici je personaliserai le texte dedans
+                        return
+                    elif values[i][1] == "NOT NULL" and d == "NULL":
+                        print(f"Test numéro 4 pour d={d}")
+                        return
+                    i+=1
                 insert_entry("CLUB", data)
                 add_club.destroy()
                 
