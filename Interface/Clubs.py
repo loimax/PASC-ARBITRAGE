@@ -1,14 +1,10 @@
 from tkinter import *
 import os
-
-import sys
-
 from utils import *
 
-
-
-
 def Clubs():
+        conn = create_connection("Interface/testdb/GestionRegionale.db")
+        cursor = conn.cursor()
         #créer une fenetre
         club = Tk()
         #donner un titre a la club
@@ -135,7 +131,7 @@ def Clubs():
                 #     i+=1
                 # insert_entry("CLUB", data)
 
-                checkInsert("CLUB", data)
+                checkInsert(conn, cursor, "CLUB", data)
                 add_club.destroy()
                 
                 
@@ -149,10 +145,11 @@ def Clubs():
         def supprimer_club():
             nom = club_list.get(ANCHOR)
             print(nom)
-            del_entry("CLUB", "NomClub", nom)
+            del_entry(conn, cursor, "CLUB", "NomClub", nom)
 
         def rafraichir():
             club.destroy()
+            close_connection(conn)
             os.system("python Interface\Clubs.py")
 
 
@@ -183,7 +180,7 @@ def Clubs():
             label_Tel = Label(modif_club, text="Téléphone :")
             label_Tel.grid(row=7, column=1)
             #on recupere les données du club séléctionné
-            data = getListRow("CLUB", "NomClub", nom)
+            data = getListRow(conn, cursor, "CLUB", "NomClub", nom)
             #on les affiche dans le formulaire
             entry_numero_club = Entry(modif_club, width=30)
             entry_numero_club.grid(row=1, column=2)
@@ -218,9 +215,9 @@ def Clubs():
                 # mettre les elements dans une liste
                 a = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
                 print(a)
-                modify_entry("CLUB", a, getID(data))
-                print(getListRow("CLUB", "NomClub", nom))
-                print(display_table("CLUB"))
+                modify_entry(conn, cursor, "CLUB", a, getID(data))
+                print(getListRow(conn, cursor, "CLUB", "NomClub", nom))
+                print(display_table(conn, cursor, "CLUB"))
                 
             #mettre les elements dans une liste
             #mod = [entry_numero_club, entry_nom_club, entry_ville_club, entry_adresse_club, entry_cp_club, entry_correspondant_club, entry_tel_club]
@@ -256,7 +253,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = creation_liste("CLUB", "NomClub")
+        liste_clubs = creation_liste(conn, cursor, "CLUB", "NomClub")
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
@@ -272,6 +269,7 @@ def Clubs():
         def retour():
             # bouton_retour.destroy()
             club.destroy()
+            close_connection(conn)
             os.system("python Interface\Accueil.py")
 
         #creer bouton retour vers l'accueil
