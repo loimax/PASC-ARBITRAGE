@@ -249,6 +249,7 @@ def Clubs():
 
     
         #afficher la fenetre
+        club.attributes('-fullscreen', True)
         club.mainloop()
 
 #afficher la fenetre

@@ -257,6 +257,7 @@ def JA():
 
     
         #afficher la fenetre
+        Arb.attributes('-fullscreen', True)
         Arb.mainloop()
 
 #afficher la fenetre

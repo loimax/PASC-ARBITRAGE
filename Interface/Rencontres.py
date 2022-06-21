@@ -36,9 +36,7 @@ def Rencontre():
                 for i in range(2): 
                     for j in range(int(val)): 
                         self.e = Combobox(Rencontre, values=liste_Rencontres, font=("Arial", 12))
-                        self.e.place(x=642-203+i*203, y=105+j*20) 
-                        self.e2 = Combobox(Rencontre, values=liste_Rencontres, font=("Arial", 12))
-                        self.e2.place(x=642-203+i*203, y=105+j*20) 
+                        self.e.place(x=642-203+i*203, y=105+j*20)
                         #self.e2.insert(END, "Equipe")
         if int(val) <= 27:        
             Table(Rencontre)
