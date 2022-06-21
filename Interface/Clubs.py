@@ -3,9 +3,6 @@ import os
 
 import sys
 
-from pytz import common_timezones
-from setuptools import Command
-
 from utils import *
 
 
@@ -21,6 +18,7 @@ def Clubs():
 
         #uptade de la liste des clubs
         def update(data):
+            print("update")
             #clear the listbox
             club_list.delete(0, END)
 
@@ -114,18 +112,17 @@ def Clubs():
             #créer un bouton pour valider les données
             button_valider = Button(add_club, text="Valider",command=add_club_data)
             button_valider.grid(row=8, column=2)
-            
-            
-            
-
-            
 
 
         def supprimer_club():
             nom = club_list.get(ANCHOR)
             print(nom)
             del_entry("CLUB", "NomClub", nom)
-            
+
+        def rafraichir():
+            club.destroy()
+            os.system("python Interface\Clubs.py")
+
 
 
         #créer 3 boutons pour les clubs : modifier ajouter supprimer
@@ -135,6 +132,10 @@ def Clubs():
         bouton_ajouter.place(x=725, y=400)
         bouton_supprimer = Button(club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'), command=supprimer_club)
         bouton_supprimer.place(x=850, y=400)
+        bouton_rafraichir = Button(club, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
+                                  command=rafraichir)
+        bouton_rafraichir.place(x=720, y=500)
+
 
         #creer une zone de texte pour la recherche de clubs
         entry_clubs = Entry(club, font=("Helvetica", 20))
