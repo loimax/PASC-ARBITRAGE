@@ -244,6 +244,16 @@ def getID(list):
     """
     return list[0]
 
+def getValue(name_table,attribute,id_base,id):
+    """
+    
+    :param: 
+    :return: 
+    """
+    query = f"SELECT {attribute} FROM {name_table} WHERE {id_base}='{id}'"
+    cur = execute_query(query)
+    result = cur.fetchall()
+    return result[0][0]
+
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
-
