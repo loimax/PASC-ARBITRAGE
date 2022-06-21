@@ -12,7 +12,9 @@ def Affectation():
     #donner un titre a la window
     window.title("Affectations")
     #donner une taille a la Affectation
-    window.geometry("1920x1080")
+    #window.geometry("1920x1080")
+    #taille de la fenetre s'adapte a la taille de l'écran
+    window.geometry("{0}x{1}+0+0".format(window.winfo_screenwidth(), window.winfo_screenheight()))
     
     def quitter():
         window.destroy()

@@ -7,7 +7,9 @@ def Ekip():
     #donner un titre a la ekip
     window.title("ekips")
     #donner une taille a la ekip
-    window.geometry("1920x1080")
+    #window.geometry("1920x1080")
+    #taille de la fenetre s'adapte a la taille de l'ecran
+    window.geometry("{0}x{1}+0+0".format(window.winfo_screenwidth(), window.winfo_screenheight()))
     #creer une zone de texte pour les ekips
     # zone_ekips = Text(ekip, height=1, width=75)
     # zone_ekips.grid(row=3, column=2)

@@ -14,7 +14,10 @@ def Clubs():
         #donner un titre a la club
         club.title("Clubs")
         #donner une taille a la club
-        club.geometry("1920x1080")
+        #club.geometry("1920x1080")
+        #taille de la club s'adapte a la taille de l'ecran
+        club.geometry("{0}x{1}+0+0".format(club.winfo_screenwidth(), club.winfo_screenheight()))
+        
 
         #uptade de la liste des clubs
         def update(data):

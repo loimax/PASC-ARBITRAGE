@@ -7,7 +7,9 @@ def JA():
         #donner un titre
         Arb.title("JA")
         #donner une taille 
-        Arb.geometry("1920x1080")
+        #Arb.geometry("1920x1080")
+        #taille de la fenetre s'adapte a la taille de l'ecran
+        Arb.geometry("{0}x{1}+0+0".format(Arb.winfo_screenwidth(), Arb.winfo_screenheight()))
 
          #uptade de la liste des JA
         def update(data):

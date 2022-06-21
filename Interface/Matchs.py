@@ -14,7 +14,9 @@ def Matchs():
     #donner un titre a la Matchs
     window.title("Matchs")
     #donner une taille a la Matchs
-    window.geometry("1920x1080")
+    #window.geometry("1920x1080")
+    #taille de la fenetre s'adapte a la taille de l'écran
+    window.geometry("{0}x{1}+0+0".format(window.winfo_screenwidth(), window.winfo_screenheight()))
 
     #créer une liste d'équipes et les afficher 
     liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5"]
