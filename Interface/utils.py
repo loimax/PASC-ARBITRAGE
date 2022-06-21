@@ -67,7 +67,24 @@ def getAttributes(name_table): #t_name avant
     for cols in cols.columns:
         attr.append(cols)
     return attr
+
+def getListRow(name_table, attribut, valeur):
+    """
     
+    :param: 
+    :return: 
+    """
+    query = f'SELECT * FROM {name_table} WHERE "{attribut}" = "{valeur}";'
+    cur = execute_query(query)
+    result = cur.fetchall()
+
+    liste = []
+    for row in result:
+        for i in range(len(row)):
+            liste.append(row[i])
+    print(liste)
+    return(liste)    
+
 def display_table(name_table, specified=False, num_rows=0, spec_row=""):
     """
     Affiche le contenu de la table spécifié en paramètre
@@ -135,24 +152,36 @@ def del_entry(name_table, attribut, valeur): #anciennement del_value #bien utili
     # On hésite pas à me casser la gueule
     
 
-def modify_entry(name_table): #anciennement modify_value
+def modify_entry(name_table, list, id): #anciennement modify_value
     """
     Modifie un attribut d'une entrée de la table déjà existante
     :param: name_table : nom de la table que l'on va modifier
+    :param: list : les entrées de l'user sous forme de liste
+    :param: id : clé primaire de l'entrée modifier (on peut la modifier mais il nous la faut avant pour la trouver dans la database)
     :return: void
     """
-    display_table(name_table)
-    id = input("Entrez l'ID de la ligne à modifier : ")
-    attr = input("Entrez l'attribut que vous voulez changer : ")
-    value = input("Entrez la nouvelle valeur : ")
+    attr = getAttributes(name_table)
+    attr_id = attr[0]
 
-    # Pour l'instant fonction spécifique à la table "JA"
-    # Il faut changer NumLic dans la query pour qu'elle prenne toujours l'ID de la table passé en paramêtre
-    query = f"UPDATE {name_table} SET {attr} = {value} WHERE NumLic = {id}"
+    query = f"UPDATE {name_table} SET {attr[0]} = '{list[0]}' WHERE {attr_id} = '{id}'"
+    print(query)
     execute_query(query,True)
 
+    i = 0
+    for a in attr:
+        query = f"UPDATE {name_table} SET {a} = '{list[i]}' WHERE {attr_id} = '{list[0]}'"
+        print(query)
+        execute_query(query,True)
+        i+=1
 
-#vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
+def getID(list):
+    """
+    Fonction qui retourne la clé primaire d'une entrée de la table
+    :param: list : une entrée de la table
+    :return: list[0] : la 1ere valeur de l'entrée de la table (supposément la clé primaire)
+    """
+    return list[0]
+    
 def checkValueType(name_table): 
     """
     
