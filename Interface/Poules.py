@@ -1,6 +1,5 @@
 from tkinter import *
 import os
-from functools import partial
 from tkinter.ttk import Combobox
 
 #window_height : 701
@@ -34,24 +33,23 @@ def Poules():
     #créer tableau pour hold les équipes de la poule
     class Table:
         def __init__(self,window):
-            for i in range(1): 
-                for j in range(8): 
-                    self.e = Combobox(window, values=liste_Rencontres, font=("Arial", 12))
-                    self.e.place(x=642-203+i*203, y=105+j*20)
-                    
-                    self.e2 = Entry(window, font=("Arial", 12), width=3, justify=CENTER)
-                    self.e2.place(x=642-303+i*203, y=105+j*20)
-                    self.e2.insert(END, j+1)      
-                    self.e2.config(state="disabled")
+            for j in range(8): 
+                self.e = Combobox(window, values=liste_Rencontres, font=("Arial", 12))
+                self.e.place(x = 0, y = 0)
+                
+                self.e2 = Entry(window, font=("Arial", 12), width=3, justify=CENTER)
+                self.e2.place(x = 0, y = 0)
+                self.e2.insert(END, j+1)      
+                self.e2.config(state="disabled")
 
-                    self.e3 = Combobox(window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
-                    self.e3.place(x=642+i*203, y=105+j*20)
+                self.e3 = Combobox(window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
+                self.e3.place(x = 0, y = 0)
 
-                    window.update()
-                    #definitely placesx=window.winfo_width()/2-txt.winfo_width()/2
-                    self.e.place(x=window.winfo_width()/2-self.e.winfo_width()/2, y=205+j*20)
-                    self.e2.place(x=window.winfo_width()/2-self.e2.winfo_width()-self.e.winfo_width()/2, y=205+j*20)
-                    self.e3.place(x=window.winfo_width()/2+self.e.winfo_width()/2, y=205+j*20)
+                window.update()
+                #definitely placesx=window.winfo_width()/2-txt.winfo_width()/2
+                self.e.place(x=window.winfo_width()/2-self.e.winfo_width()/2, y=205+j*20)
+                self.e2.place(x=window.winfo_width()/2-self.e2.winfo_width()-self.e.winfo_width()/2, y=205+j*20)
+                self.e3.place(x=window.winfo_width()/2+self.e.winfo_width()/2, y=205+j*20)
                     
                     
 
