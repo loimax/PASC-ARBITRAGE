@@ -66,17 +66,23 @@ def Matchs():
 
     #init objects
     txt = Label(window, text="Voici la feuille de match pour la poule X de X/X/XX", font=("Arial", 15))
-    # inputbox = Entry(window, font=("Arial", 15), width=5, justify=CENTER)
-    bouton_retour = Button(window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
-    bouton_valider = Button(window, text="Quitter", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
     bouton_creer = Button(window, text="Créer", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
+    bouton_retour = Button(window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+    bouton_quitter = Button(window, text="Quitter", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
 
-    #place objects
-    txt.place(x=642-189, y= 40)
-    # inputbox.place(x=642-30, y= 70)
-    bouton_creer.place(x=642-27, y=680)
-    bouton_retour.place(x=25, y=680)
-    bouton_valider.place(x=1200, y= 680)
+    #pre-place objects
+    txt.place(x = 0, y = 0)
+    bouton_creer.place(x = 0, y = 0)
+    bouton_retour.place(x = 0, y = 0)
+    bouton_quitter.place(x = 0, y = 0)
+
+    window.update()
+
+    #placement des widgets en fonction de la fenetre
+    txt.place(x = window.winfo_width()/2-txt.winfo_width()/2, y = 50)
+    bouton_creer.place(x = window.winfo_width()/2-bouton_creer.winfo_width()/2, y = window.winfo_height()-0.04*window.winfo_height())
+    bouton_retour.place(x = 0.02*window.winfo_width(), y = window.winfo_height()-0.04*window.winfo_height())
+    bouton_quitter.place(x = 0.98*window.winfo_width()-bouton_retour.winfo_width(), y = window.winfo_height()-0.04*window.winfo_height())
 
     # window.update()
     # print(txt.winfo_width())
