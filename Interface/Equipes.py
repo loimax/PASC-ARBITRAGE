@@ -197,7 +197,7 @@ def Equipes():
 
     # Menu déroulant équipe
     equipe_liste = []
-    menu_deroulant_equipes = Combobox(equipe, values=equipe_liste, font=("Arial", 12))
+    menu_deroulant_equipes = Combobox(main_window, values=equipe_liste, font=("Arial", 12))
 
     # creer une zone de texte pour la recherche de equipes
     entry_club = Entry(main_window, font=("Helvetica", 20))
