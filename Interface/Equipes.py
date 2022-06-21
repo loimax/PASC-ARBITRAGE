@@ -7,6 +7,9 @@ from utils import *
 
 
 def Equipes():
+    conn = create_connection("Interface/testdb/GestionRegionale.db")
+    cursor = conn.cursor()
+    
     # créer une fenetre
     main_window = Tk()
     # donner un titre a la main_window
@@ -234,7 +237,7 @@ def Equipes():
 
 
     # créer une liste de equipes
-    liste_club = creation_liste("CLUB", "NomClub")
+    liste_club = creation_liste(conn, cursor,"CLUB", "NomClub")
 
     # Ajouter equipes dans la liste
     update(liste_club)
