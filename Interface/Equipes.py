@@ -29,6 +29,7 @@ def Equipes():
     def fillout(e):
         entry_club.delete(0, END)
         entry_club.insert(0, club_list.get(ANCHOR))
+        equipe_liste = getListRow("EquipeClub", ["numClub"], []) #AFAIRE
 
     # créer fonction entrée vs liste de equipes
     def check(e):
@@ -105,15 +106,16 @@ def Equipes():
         button_valider = Button(add_equipe, text="Valider", command=lambda: [add_equipe_data()])
         button_valider.grid(row=8, column=2)
 
+
     def supprimer_equipe():
         num = equipe_list.get(ANCHOR)
         del_entry("EquipeClub", "numEq", num)
+
 
     def rafraichir():
         equipe.destroy()
         os.system("python Interface\Equipes.py")
 
-        # update(liste_equipes)
 
     def modifier_equipe():
         num = equipe_list.get(ANCHOR)
@@ -193,8 +195,9 @@ def Equipes():
                                command=rafraichir)
     bouton_rafraichir.place(x=720, y=500)
 
-    liste_equipes_du_club = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5"]
-    menu_deroulant_equipes = Combobox(equipe, values=liste_equipes_du_club, font=("Arial", 12))
+    # Menu déroulant équipe
+    equipe_liste = []
+    menu_deroulant_equipes = Combobox(equipe, values=equipe_liste, font=("Arial", 12))
 
     # creer une zone de texte pour la recherche de equipes
     entry_club = Entry(equipe, font=("Helvetica", 20))
