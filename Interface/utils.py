@@ -1,4 +1,3 @@
-import attr
 import pandas as pd
 import sqlite3
 import os
@@ -245,6 +244,44 @@ def getID(list):
     """
     return list[0]
 
+def getValues(name_table,attribute,id_base,id):
+    """
+    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé et la valeur connu
+    :param: name_table : nom de la table
+    :param: attribute : attribut de la valeur qu'on veut récupérer
+    :param: id_base : nom de l'attribut qu'on connait de ce qu'on cherche
+    :param: id : valeur de l'attribut qu'on connait
+    :return: result[0][0] : renvoie la valeur de l'attribut recherché
+    """
+    # en cas de liste vide, on retourne directement la liste vide
+    if id == [] : return id
+
+    # cas "usuels" d'une liste non vide
+    query = f"SELECT {attribute} FROM {name_table} WHERE {id_base}='{id[0]}'"
+    i = 0
+    for k in id:
+        query+=f"OR {id_base}='{id[i]}'"
+        i+=1
+    cur = execute_query(query)
+    result = cur.fetchall()
+    return result
+
+def getValuesFromList(list,x):
+    """
+    Cette fonction renvoie une liste d'un seul attribut des entrées d'une liste passé en paramètre
+    :param: list : liste dont on va extraire 1 unique entrée de chaque sous-liste
+    :param: x : entier qui indique le numéro de la case dont on veut extraire les données
+    :return: liste : liste des entrées sélectionnées
+    """
+    liste = []
+    for l in list:
+        liste.append(l[x])
+    return liste
+
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
+display_attributes("EquipeClub")
+a = getListRow("EquipeClub",["Division","Poule"],["R2","A"])
+print(a)
+print(getValues("CLUB","NomClub","NumClub",getValuesFromList(a,1)))

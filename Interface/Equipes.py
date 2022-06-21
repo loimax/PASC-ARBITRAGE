@@ -1,6 +1,5 @@
 from tkinter import *
 import os
-
 import sys
 from tkinter.ttk import Combobox
 

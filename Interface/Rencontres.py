@@ -14,7 +14,9 @@ def Rencontre():
     #donner un titre a la Rencontre
     Rencontre.title("Rencontres")
     #donner une taille a la Rencontre
-    Rencontre.geometry("1920x1080")
+    #Rencontre.geometry("1920x1080")
+    #taille de la fenetre s'adapte a la taille de l'écran
+    Rencontre.geometry("{0}x{1}+0+0".format(Rencontre.winfo_screenwidth(), Rencontre.winfo_screenheight()))
 
     #créer une liste de Rencontres et les afficher 
     liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5"]

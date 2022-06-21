@@ -40,7 +40,9 @@ def Accueil():
         fenetre.title("Arbitrage")
 
         #donner une taille a la fenetre
-        fenetre.geometry("1920x1080")
+        #fenetre.geometry("1920x1080")
+        #taille de la fenetre s'adapte a la taille de l'ecran
+        fenetre.geometry("{0}x{1}+0+0".format(fenetre.winfo_screenwidth(), fenetre.winfo_screenheight()))
 
         #mettre un logo a la fenetre
         fenetre.iconbitmap('Interface/img/logo2.ico')
