@@ -2,6 +2,7 @@ from tkinter import *
 import os
 from functools import partial
 from tkinter.ttk import Combobox
+from utils import *
 
 #window_height : 701
 #window_width : 1284
@@ -61,10 +62,34 @@ def Poules():
     txt = Label(window, text="Sélectionnez les équipes pour créer une poule :", font=("Arial", 15))
     txttab = Label(window, text="      N                   Nom équipe                N°e", font=("Arial", 12))
 
+   
+
+   
+
+    def Valider():
+        #on recupere les valeurs des champs
+        niveau = choiceniveau.get()
+        poule = choicepoule.get()
+        annee = inputannee.get()
+        phase = inputphase.get()
+         #on affiche les valeurs des champs
+        print("Niveau : ", niveau)
+        print("Poule : ", poule)
+        print("Année : ", annee)
+        print("Phase : ", phase)
+        ListePoule = getListRow("EquipeCLub",["Division","Poule"],[niveau,poule])
+        qqchs = creation_liste()
+
+
+
+
+
     
     bouton_retour = Button(window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
-    bouton_valider = Button(window, text="Quitter", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+    bouton_Quitter = Button(window, text="Quitter", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
     bouton_creer = Button(window, text="Créer", command=creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
+    #on crée un bouton valider
+    bouton_valider = Button(window, text="Valider", bg='#AF7AC5', fg='#000000', font=('Arial', 12),command = Valider)
     choiceniveau = Combobox(window, font=("Arial", 12), values=["N1","N2","N3","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
     textniveau = Label(window, text="Niveau", font=("Arial", 12))
     #poules allant de A à P
@@ -75,10 +100,12 @@ def Poules():
     inputphase = Entry(window, font=("Arial", 12), width=7, justify=CENTER)
     textphase = Label(window, text="Phase", font=("Arial", 12))
 
+
     #pre-place objects
     txt.place(x=0, y=0)
     bouton_creer.place(x=0, y=0)
     bouton_retour.place(x=0, y=0)
+    bouton_Quitter.place(x=0, y=0)
     bouton_valider.place(x=0, y=0)
     txttab.place(x=0, y=0)
     choiceniveau.place(x=0, y=0)
@@ -89,14 +116,9 @@ def Poules():
     textannee.place(x=0, y=0)
     inputphase.place(x=0, y=0)
     textphase.place(x=0, y=0)
-    #on recupere les valeurs des champs
-    niveau = choiceniveau.get()
-    poule = choicepoule.get()
-    annee = inputannee.get()
-    phase = inputphase.get()
     
-
-
+    
+    
     window.update()
     
     #definitely places widgets
@@ -106,7 +128,8 @@ def Poules():
     #bottom buttons
     bouton_creer.place(x=window.winfo_width()/2-bouton_creer.winfo_width()/2, y=680)
     bouton_retour.place(x=25, y=680)
-    bouton_valider.place(x=1200, y= 680)
+    bouton_Quitter.place(x=1200, y= 680)
+    bouton_valider.place(x=1000, y=100)
 
     #input boxes au dessus du tableau
     #niveau
@@ -127,8 +150,8 @@ def Poules():
     Table(window)
 
     
-    # window.update()
-    # print(txt.winfo_width())
+    window.update()
+    print(window.winfo_width())
 
     #afficher la fenetre
     window.attributes('-fullscreen', True)
