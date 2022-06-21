@@ -264,13 +264,14 @@ def getValues(name_table,attribute,id_base,id):
 
 def getValuesFromList(list,x):
     """
-    
-    :param:
-    :return:
+    Cette fonction renvoie une liste d'un seul attribut des entrées d'une liste passé en paramètre
+    :param: list : liste dont on va extraire 1 unique entrée de chaque sous-liste
+    :param: x : entier qui indique le numéro de la case dont on veut extraire les données
+    :return: liste : liste des entrées sélectionnées
     """
     liste = []
     for l in list:
-        liste.append(l[1])
+        liste.append(l[x])
     return liste
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
