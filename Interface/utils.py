@@ -251,7 +251,7 @@ def getID(list):
     """
     return list[0]
 
-def getValues(name_table,attribute,id_base,id):
+def getValues(conn, cursor, name_table, attribute, id_base, id,):
     """
     Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé et la valeur connu
     :param: name_table : nom de la table
@@ -269,7 +269,7 @@ def getValues(name_table,attribute,id_base,id):
     for k in id:
         query+=f"OR {id_base}='{id[i]}'"
         i+=1
-    cur = execute_query(query)
+    cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
     return result
 
@@ -306,10 +306,10 @@ def checkInsert(conn, cursor, name_table, liste):
         i+=1
     insert_entry(conn, cursor, name_table, liste)
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
 
-display_table(conn, cursor, "CLUB")
+# display_table(conn, cursor, "CLUB")
 #a = getListRow("EquipeClub",["Division","Poule"],["R2","A"])
 #print(a)
 #print(getValues("CLUB","NomClub","NumClub",getValuesFromList(a,1)))

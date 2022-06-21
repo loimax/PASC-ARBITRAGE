@@ -8,7 +8,9 @@ from utils import *
 #faire un tableau avec des listes déroulantes pour choisir l"équipe
 
 def Poules():
-
+    conn = create_connection("Interface/testdb/GestionRegionale.db")
+    cursor = conn.cursor()
+    
     #créer une fenetre
     window = Tk()
     #donner un titre a la fenetre
@@ -25,8 +27,6 @@ def Poules():
         # bouton_retour.destroy()
         window.destroy()
         os.system("python Interface/Accueil.py")
-    
-    
 
     def quitter():
         window.destroy()
@@ -72,14 +72,15 @@ def Poules():
         poule = choicepoule.get()
         annee = inputannee.get()
         phase = inputphase.get()
-         #on affiche les valeurs des champs
+        #on affiche les valeurs des champs
         print("Niveau : ", niveau)
         print("Poule : ", poule)
         print("Année : ", annee)
         print("Phase : ", phase)
-        ListePoule = getListRow("EquipeClub",["Division","Poule"],[niveau,poule])
+        ListePoule = getListRow(conn, cursor,"EquipeClub",["Division","Poule"],[niveau,poule])
         print(ListePoule)
-        a = getValues("CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
+        a = getValues(conn, cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
+        print(a)
         return a
     
 
@@ -169,7 +170,7 @@ def Poules():
     print(window.winfo_width())
 
     #afficher la fenetre
-    window.attributes('-fullscreen', True)
+    # window.attributes('-fullscreen', True)
     window.mainloop()
 
 #afficher la fenetre
