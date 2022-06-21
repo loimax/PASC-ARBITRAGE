@@ -65,7 +65,9 @@ def Poules():
     bouton_creer = Button(window, text="Créer", command=creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
     choiceniveau = Combobox(window, font=("Arial", 12), values=["N1","N2","N3","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
     textniveau = Label(window, text="Niveau", font=("Arial", 12))
-    choicepoule = Combobox(window, values=["Poule 1", "Poule 2", "Poule 3"], font=("Arial", 12), width=5, justify=CENTER)
+    #poules allant de A à P
+    choicepoule = Combobox(window, values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"], font=("Arial", 12), width=5, justify=CENTER)
+    #choicepoule = Combobox(window, values=["A","B","C"], font=("Arial", 12), width=5, justify=CENTER)
     textpoule = Label(window, text="Poule", font=("Arial", 12))
     inputannee = Entry(window, font=("Arial", 12), width=7, justify=CENTER)
     textannee = Label(window, text="Année", font=("Arial", 12))
@@ -86,10 +88,16 @@ def Poules():
     textannee.place(x=0, y=0)
     inputphase.place(x=0, y=0)
     textphase.place(x=0, y=0)
+    #on recupere les valeurs des champs
+    niveau = choiceniveau.get()
+    poule = choicepoule.get()
+    annee = inputannee.get()
+    phase = inputphase.get()
+    
 
 
     window.update()
-
+    
     #definitely places widgets
     #top text
     txt.place(x=window.winfo_width()/2-txt.winfo_width()/2, y= 40)
