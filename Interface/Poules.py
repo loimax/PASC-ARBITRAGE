@@ -78,7 +78,10 @@ def Poules():
         print("Année : ", annee)
         print("Phase : ", phase)
         ListePoule = getListRow("EquipeCLub",["Division","Poule"],[niveau,poule])
-        qqchs = creation_liste()
+        print(ListePoule)
+
+
+       
 
 
 
