@@ -26,6 +26,8 @@ def Poules():
         # bouton_retour.destroy()
         window.destroy()
         os.system("python Interface/Accueil.py")
+    
+    
 
     def quitter():
         window.destroy()
@@ -36,15 +38,17 @@ def Poules():
 
     #créer tableau pour hold les équipes de la poule
     class Table:
-        def __init__(self,window):
+        def __init__(self,window,list_equipes):
             for j in range(8): 
-                self.e = Combobox(window, values=liste_Rencontres, font=("Arial", 12))
+                self.e = Combobox(window, values=list_equipes, font=("Arial", 12))
                 self.e.place(x = 0, y = 0)
                 
                 self.e2 = Entry(window, font=("Arial", 12), width=3, justify=CENTER)
                 self.e2.place(x = 0, y = 0)
                 self.e2.insert(END, j+1)      
                 self.e2.config(state="disabled")
+                
+
 
                 self.e3 = Combobox(window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
                 self.e3.place(x = 0, y = 0)
@@ -77,12 +81,11 @@ def Poules():
         print("Poule : ", poule)
         print("Année : ", annee)
         print("Phase : ", phase)
-        ListePoule = getListRow("EquipeCLub",["Division","Poule"],[niveau,poule])
+        ListePoule = getListRow("EquipeClub",["Division","Poule"],[niveau,poule])
         print(ListePoule)
-
-
-       
-
+        a = getValues("CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
+        return a
+    
 
 
 
@@ -92,7 +95,7 @@ def Poules():
     bouton_Quitter = Button(window, text="Quitter", command=quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
     bouton_creer = Button(window, text="Créer", command=creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
     #on crée un bouton valider
-    bouton_valider = Button(window, text="Valider", bg='#AF7AC5', fg='#000000', font=('Arial', 12),command = Valider)
+    bouton_valider = Button(window, text="Valider", bg='#AF7AC5', fg='#000000', font=('Arial', 12),command = lambda : [Valider(),Tableau()])
     choiceniveau = Combobox(window, font=("Arial", 12), values=["N1","N2","N3","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
     textniveau = Label(window, text="Niveau", font=("Arial", 12))
     #poules allant de A à P
@@ -103,6 +106,18 @@ def Poules():
     inputphase = Entry(window, font=("Arial", 12), width=7, justify=CENTER)
     textphase = Label(window, text="Phase", font=("Arial", 12))
 
+    #equiplist=Valider()
+    #uptade de la liste des clubs
+    
+    def update(data):
+        print("update")
+        #clear the listbox
+        Valider().delete(0, END)
+
+        #ajpouter les clubs dans la listbox
+        for item in data:
+            Valider.insert(END, item)
+       
 
     #pre-place objects
     txt.place(x=0, y=0)
@@ -150,7 +165,8 @@ def Poules():
 
     #tableau central
     txttab.place(x=window.winfo_width()/2-txttab.winfo_width()/2, y= 178)
-    Table(window)
+    def Tableau():
+        Table(window,Valider())
 
     
     window.update()
