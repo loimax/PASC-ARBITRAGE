@@ -244,16 +244,36 @@ def getID(list):
     """
     return list[0]
 
-def getValue(name_table,attribute,id_base,id):
+def getValues(name_table,attribute,id_base,id):
     """
-    
-    :param: 
-    :return: 
+    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé et la valeur connu
+    :param: name_table : nom de la table
+    :param: attribute : attribut de la valeur qu'on veut récupérer
+    :param: id_base : nom de l'attribut qu'on connait de ce qu'on cherche
+    :param: id : valeur de l'attribut qu'on connait
+    :return: result[0][0] : renvoie la valeur de l'attribut recherché
     """
-    query = f"SELECT {attribute} FROM {name_table} WHERE {id_base}='{id}'"
+    query = f"SELECT {attribute} FROM {name_table} WHERE {id_base}='{id[0]}'"
+    i = 0
+    for k in id:
+        query+=f"OR {id_base}='{id[i]}'"
+        i+=1
     cur = execute_query(query)
     result = cur.fetchall()
-    return result[0][0]
+    return result
+
+def getValuesFromList(list,x):
+    """
+    
+    :param:
+    :return:
+    """
+    liste = []
+    for l in list:
+        liste.append(l[1])
+    return liste
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
+
+print(getValues("CLUB","NomClub","NumClub",["04360002","04360454","04360726"]))
