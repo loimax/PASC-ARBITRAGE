@@ -2,37 +2,39 @@ from tkinter import *
 import os
 
 import sys
+from tkinter.ttk import Combobox
 
 from utils import *
 
 
 def Equipes():
     # créer une fenetre
-    equipe = Tk()
-    # donner un titre a la equipe
-    equipe.title("Equipes")
-    # donner une taille a la equipe
-    equipe.geometry("1920x1080")
+    main_window = Tk()
+    # donner un titre a la main_window
+    main_window.title("Equipes")
+    # donner une taille a la main_window
+    main_window.geometry("1920x1080")
 
     # uptade de la liste des equipes
     def update(data):
         print("update")
         # clear the listbox
-        equipe_list.delete(0, END)
+        club_list.delete(0, END)
 
         # ajpouter les equipes dans la listbox
         for item in data:
-            equipe_list.insert(END, item)
+            club_list.insert(END, item)
 
     # afficher le equipe séléctionné
     def fillout(e):
-        entry_equipes.delete(0, END)
-        entry_equipes.insert(0, equipe_list.get(ANCHOR))
+        entry_club.delete(0, END)
+        entry_club.insert(0, club_list.get(ANCHOR))
+        equipe_liste = getListRow("EquipeClub", ["numClub"], []) #AFAIRE
 
     # créer fonction entrée vs liste de equipes
     def check(e):
         # grab what typed
-        typed = entry_equipes.get()
+        typed = entry_club.get()
 
         if typed == '':
             data = liste_equipes
@@ -104,16 +106,16 @@ def Equipes():
         button_valider = Button(add_equipe, text="Valider", command=lambda: [add_equipe_data()])
         button_valider.grid(row=8, column=2)
 
+
     def supprimer_equipe():
         num = equipe_list.get(ANCHOR)
-        print(num)
         del_entry("EquipeClub", "numEq", num)
 
+
     def rafraichir():
-        equipe.destroy()
+        main_window.destroy()
         os.system("python Interface\Equipes.py")
 
-        # update(liste_equipes)
 
     def modifier_equipe():
         num = equipe_list.get(ANCHOR)
@@ -137,7 +139,7 @@ def Equipes():
         label_poule = Label(modif_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
         # on recupere les données de l'equipe séléctionné
-        data = getListRow("EquipeClub", ["NumEq"], [num])
+        data = getListRow("EquipeClub", ["RangEq"], [num])
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
@@ -167,9 +169,8 @@ def Equipes():
             poule = entry_poule.get()
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule]
-            print(a)
             modify_entry("EquipeClub", a, getID(data))
-            print(getListRow("EquipeClub", ["numEq"], [nom]))
+            print(getListRow("EquipeClub", ["numEq"], [num]))
             print(display_table("EquipeClub"))
 
         # mettre les elements dans une liste
@@ -179,52 +180,59 @@ def Equipes():
         button_valider.grid(row=8, column=2)
         # ,X
 
-    # button_valider = Button(add_equipe, text="Valider",command=lambda : [add_equipe_data(), update(liste_equipes)])
+    # button_valider = Button(add_equipe, text="Valider",command=lambda : [add_main_window_data(), update(liste_equipes)])
     # button_valider.grid(row=8, column=2)
 
     # créer 3 boutons pour les equipes : modifier ajouter supprimer
-    bouton_modifier = Button(equipe, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'), command=modifier_equipe)
+    bouton_modifier = Button(main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'), command=modifier_equipe)
     bouton_modifier.place(x=600, y=400)
-    bouton_ajouter = Button(equipe, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'), command=add_equipe)
+    bouton_ajouter = Button(main_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'), command=add_equipe)
     bouton_ajouter.place(x=725, y=400)
-    bouton_supprimer = Button(equipe, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),
+    bouton_supprimer = Button(main_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),
                               command=lambda: [supprimer_equipe()])
     bouton_supprimer.place(x=850, y=400)
-    bouton_rafraichir = Button(equipe, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
+    bouton_rafraichir = Button(main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
                                command=rafraichir)
     bouton_rafraichir.place(x=720, y=500)
 
+    # Menu déroulant équipe
+    equipe_liste = []
+    menu_deroulant_equipes = Combobox(main_window, values=equipe_liste, font=("Arial", 12))
+
     # creer une zone de texte pour la recherche de equipes
-    entry_equipes = Entry(equipe, font=("Helvetica", 20))
-    entry_equipes.place(x=600, y=150)
+    entry_club = Entry(main_window, font=("Helvetica", 20))
+    entry_club.place(x=600, y=150)
+
+    menu_deroulant_equipes.place(x=1000, y=150, width=120)
 
     # créer une zone pour la liste de equipes
-    equipe_list = Listbox(equipe, width=50)
-    equipe_list.place(x=600, y=200)
+    club_list = Listbox(main_window, width=50)
+    club_list.place(x=600, y=200)
+
 
     # créer une liste de equipes
-    liste_equipes = creation_liste("EquipeClub", "numEq")
+    liste_club = creation_liste("CLUB", "NomClub")
 
     # Ajouter equipes dans la liste
-    update(liste_equipes)
+    update(liste_club)
 
     # afficher le equipe selectionné
-    equipe_list.bind("<<ListboxSelect>>", fillout)
+    club_list.bind("<<ListboxSelect>>", fillout)
 
     # create a binding to the entry box
-    entry_equipes.bind("<KeyRelease>", check)
+    entry_club.bind("<KeyRelease>", check)
 
     def retour():
         # bouton_retour.destroy()
-        equipe.destroy()
+        main_window.destroy()
         os.system("python Interface\Accueil.py")
 
     # creer bouton retour vers l'accueil
-    bouton_retour = Button(equipe, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+    bouton_retour = Button(main_window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
     bouton_retour.place(x=725, y=700)
 
     # afficher la fenetre
-    equipe.mainloop()
+    main_window.mainloop()
 
 
 # afficher la fenetre
