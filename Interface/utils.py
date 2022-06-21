@@ -1,3 +1,4 @@
+from tabnanny import check
 import attr
 import pandas as pd
 import sqlite3
@@ -160,28 +161,35 @@ def checkValueType(name_table):
     :return:
     """
     #dictionnaire : Attribut : list(type, null ou not null, default/Autoincrement)
-    autreArb = {'NumEpreuve':["int", "NOT NULL", "AUTOINCREMENT"], 'LicArbitre':["TEXT", "NULL"], 'Adjoint':["INTEGER", "NULL", "NON"]}
-
-    clubs = {"NumClub":["TEXT","NOT NULL"], "NomClub":["TEXT", "NOT NULL"], "VilleClub":["TEXT", "NOT NULL"], \
-        "AdrClub":["TEXT", "NULL"], "CPClub":["TEXT","NULL"], "Corres":["TEXT","NULL"], "TelCorr":["TEXT", "NULL"]}
-
-    epreuves = {"NumEpreuve":["INTEGER", "NULL"], "NomEpreuve":["TEXT", "NOT NULL"], \
-        "DateEpr":["TEXT", "NOT NULL"], "HeureEpr":["TEXT", "NULL"], "Lieu":["TEXT", "NULL"], \
-            "TypeJA":["int", "NOT NULL", "3" ], "NbJA":["int", "NOT NULL", "1"]}
-
-    equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL"], \
-        "RangEq":["int", "NOT NULL"], "Masculin":["int", "NOT NULL"], "Division":["TEXT", "NOT NULL"], \
-            "Poule":["TEXT", "NOT NULL"], "CorrEq":["TEXT", "NULL"]}
-
-    ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
-        "AdrJA":["TEXT", "NULL"],"CPJA":["TEXT", "NULL"], "VilleJA":["TEXT", "NULL"], "TelJA":["TEXT", "NOT NULL"]}
-
-    rencontres = {"NumRenc":["int", "NOT NULL", "AUTOINCREMENT"], "NumEq1":["int", "NOT NULL"], \
-        "NumEq2":["int", "NOT NULL"], "Phase":["int", "NOT NULL"], "Journee":["int", "NOT NULL"], \
-            "DateRenc":["TEXT", "NOT NULL"], "HeureRenc":["TEXT", "NOT NULL"], "JA":["TEXT", "NULL"]}
-
-    liste = [autreArb, clubs, epreuves, equipeClub, ja, rencontres]
-    return liste
+    if name_table == "AutresArbitrages":
+        autreArb = {'NumEpreuve':["int", "NOT NULL", "AUTOINCREMENT"], 'LicArbitre':["TEXT", "NULL"], 'Adjoint':["INTEGER", "NULL", "NON"]}
+        return autreArb
+    elif name_table == "CLUB":
+        clubs = {"NumClub":["TEXT","NOT NULL"], "NomClub":["TEXT", "NOT NULL"], "VilleClub":["TEXT", "NOT NULL"], \
+            "AdrClub":["TEXT", "NULL"], "CPClub":["TEXT","NULL"], "Corres":["TEXT","NULL"], "TelCorr":["TEXT", "NULL"]}
+        return clubs
+    elif name_table == "Epreuves":
+        epreuves = {"NumEpreuve":["INTEGER", "NULL"], "NomEpreuve":["TEXT", "NOT NULL"], \
+            "DateEpr":["TEXT", "NOT NULL"], "HeureEpr":["TEXT", "NULL"], "Lieu":["TEXT", "NULL"], \
+                "TypeJA":["int", "NOT NULL", "3" ], "NbJA":["int", "NOT NULL", "1"]}
+        return epreuves
+    elif name_table == "EquipeClub":
+        equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL"], \
+            "RangEq":["int", "NOT NULL"], "Masculin":["int", "NOT NULL"], "Division":["TEXT", "NOT NULL"], \
+                "Poule":["TEXT", "NOT NULL"], "CorrEq":["TEXT", "NULL"]}
+        return equipeClub
+    elif name_table == "JA":
+        ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
+            "AdrJA":["TEXT", "NULL"],"CPJA":["TEXT", "NULL"], "VilleJA":["TEXT", "NULL"], "TelJA":["TEXT", "NOT NULL"]}
+        return ja
+    elif name_table == "Rencontres":
+        rencontres = {"NumRenc":["int", "NOT NULL", "AUTOINCREMENT"], "NumEq1":["int", "NOT NULL"], \
+            "NumEq2":["int", "NOT NULL"], "Phase":["int", "NOT NULL"], "Journee":["int", "NOT NULL"], \
+                "DateRenc":["TEXT", "NOT NULL"], "HeureRenc":["TEXT", "NOT NULL"], "JA":["TEXT", "NULL"]}
+        return rencontres
+    # else :
+    #     liste = [autreArb, clubs, epreuves, equipeClub, ja, rencontres]
+    #     return liste
 
 
 def creation_liste(name_table, attribut):
@@ -248,3 +256,5 @@ def getID(list):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
+clubs = checkValueType("CLUB")
+print(clubs)

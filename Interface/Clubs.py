@@ -49,6 +49,7 @@ def Clubs():
         
         #faire une fonction qui ouvre un formulaire pour ajouter un club lorque on clique sur le bouton
         def add_club():
+            clubs = checkValueType("CLUB")
             #créer une fenetre
             add_club = Tk()
             #donner un titre a la fenetre
@@ -79,7 +80,7 @@ def Clubs():
             entry_tel_club = Entry(add_club, width=30)
             entry_tel_club.grid(row=7, column=2)
             #afficher les titres des zones de texte
-            label_numero = Label(add_club, text="Numéro de club :")
+            label_numero = Label(add_club, text=f"Numéro de club : ")
             label_numero.grid(row=1, column=1)
             label_nomclub = Label(add_club, text="Nom du club :")
             label_nomclub.grid(row=2, column=1)
@@ -230,6 +231,7 @@ def Clubs():
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
+        
         
         
         #afficher le club selectionné
