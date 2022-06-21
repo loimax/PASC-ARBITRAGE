@@ -33,6 +33,14 @@ def Equipes():
 
     # créer fonction entrée vs liste de equipes
     def check(e):
+        liste_equipes = [] 
+        """
+        
+        
+        ATTENTION PEUT ETRE A MODIFIER ! lISTE EQUIPE EXISTE PAS DONC JE L'AI INIT ICI
+        
+        
+        """
         # grab what typed
         typed = entry_club.get()
 
@@ -108,6 +116,14 @@ def Equipes():
 
 
     def supprimer_equipe():
+        equipe_list = []
+        """
+        
+        
+        ATTENTION PEUT ETRE A MODIFIER ! lISTE EQUIPE EXISTE PAS DONC JE L'AI INIT ICI
+        
+        
+        """
         num = equipe_list.get(ANCHOR)
         del_entry("EquipeClub", "numEq", num)
 
@@ -118,6 +134,14 @@ def Equipes():
 
 
     def modifier_equipe():
+        equipe_list =[]
+        """
+        
+        
+        ATTENTION PEUT ETRE A MODIFIER ! lISTE EQUIPE EXISTE PAS DONC JE L'AI INIT ICI
+        
+        
+        """
         num = equipe_list.get(ANCHOR)
         # on ouvre une fenetre
         modif_equipe = Tk()
