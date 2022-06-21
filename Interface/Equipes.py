@@ -137,7 +137,7 @@ def Equipes():
         label_poule = Label(modif_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
         # on recupere les données de l'equipe séléctionné
-        data = getListRow("EquipeClub", "NumEq", num)
+        data = getListRow("EquipeClub", ["NumEq"], [num])
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
@@ -169,7 +169,7 @@ def Equipes():
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule]
             print(a)
             modify_entry("EquipeClub", a, getID(data))
-            print(getListRow("EquipeClub", "numEq", nom))
+            print(getListRow("EquipeClub", ["numEq"], [nom]))
             print(display_table("EquipeClub"))
 
         # mettre les elements dans une liste
