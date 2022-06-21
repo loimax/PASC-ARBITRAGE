@@ -1,3 +1,4 @@
+import attr
 import pandas as pd
 import sqlite3
 import os
@@ -203,18 +204,24 @@ def creation_liste(name_table, attribut):
 
     return(liste)
 
-def getListRow(name_table, attribut, valeur):
+def getListRow(name_table, list_attribut, list_valeur):
     """
-    Envoie les entrées correspondant à la spécification sous forme de liste
+    Envoie les entrées correspondant à la (ou les) spécification(s) sous forme de liste
     :param: name_table : nom de la table
-    :param: attribut : attribut qu'on veut spécifier
-    :param: valeur : valeur de l'attribut
+    :param: list_attribut : liste d'attribut qu'on veut spécifier
+    :param: list_valeur : liste de valeur, avec une valeur par attribut
     :return: liste (cas une seule entrée) : une liste des valeurs
     :return: liste (cas plusieurs entrées) : une liste de liste des valeurs de chaque entrée
     """
-    query = f'SELECT * FROM {name_table} WHERE "{attribut}" = "{valeur}";'
+    query = f'SELECT * FROM {name_table} WHERE "{list_attribut[0]}" = "{list_valeur[0]}"'
+    if len(list_attribut) > 1 :
+        for i in range(len(list_attribut)-1):
+            i+=1
+            query += f'AND "{list_attribut[i]}" = "{list_valeur[i]}" '
+    query += ';'
+
     cur = execute_query(query)
-    result = cur.fetchall()    
+    result = cur.fetchall()
     
     if len(result) > 1 :
         liste = []
@@ -240,9 +247,9 @@ conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
 
-show_tables()
-display_table("EquipeClub")
-getListRow("EquipeClub","Poule","A")
+# show_tables()
+# display_table("EquipeClub")
+# getListRow("EquipeClub",["Division","Poule","RangEq","Masculin","NumEq"],["R3","G","1","0","107"])
 
 # division dans équipeClub
 # niveau dans niveau, poule dans poule
