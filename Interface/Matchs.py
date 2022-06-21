@@ -40,7 +40,7 @@ def Matchs():
                 self.e = Entry(window, font=("Arial", 12), width=12, justify=CENTER)
                 self.e.place(x=0, y=0)
                 self.e.insert(END,dates_rencontres[j])
-                self.e.config(state="disabled")
+                #self.e.config(state="disabled")
 
                 self.e2 = Entry(window, font=("Arial", 12), width=5, justify=CENTER)
                 self.e2.place(x=0, y=0)
