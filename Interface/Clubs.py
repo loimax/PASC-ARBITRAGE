@@ -1,14 +1,10 @@
 from tkinter import *
 import os
-
-import sys
-
 from utils import *
 
-
-
-
 def Clubs():
+        conn = create_connection("Interface/testdb/GestionRegionale.db")
+        cursor = conn.cursor()
         #créer une fenetre
         club = Tk()
         #donner un titre a la club
@@ -50,6 +46,9 @@ def Clubs():
         
         #faire une fonction qui ouvre un formulaire pour ajouter un club lorque on clique sur le bouton
         def add_club():
+            clubs = dict("CLUB")
+            values = list(clubs.values())
+            i = 0
             #créer une fenetre
             add_club = Tk()
             #donner un titre a la fenetre
@@ -80,19 +79,31 @@ def Clubs():
             entry_tel_club = Entry(add_club, width=30)
             entry_tel_club.grid(row=7, column=2)
             #afficher les titres des zones de texte
-            label_numero = Label(add_club, text="Numéro de club :")
+            label_numero = Label(add_club, text=f"Numéro de club : {values[i]}")
             label_numero.grid(row=1, column=1)
-            label_nomclub = Label(add_club, text="Nom du club :")
+            i+=1
+
+            label_nomclub = Label(add_club, text=f"Nom du club : {values[i]}")
             label_nomclub.grid(row=2, column=1)
-            label_ville_club = Label(add_club, text="Ville :")
+            i+=1
+
+            label_ville_club = Label(add_club, text=f"Ville : {values[i]}")
             label_ville_club.grid(row=3, column=1)
-            label_adresseclub = Label(add_club, text="Adresse :")
+            i+=1
+
+            label_adresseclub = Label(add_club, text=f"Adresse : {values[i]}")
             label_adresseclub.grid(row=4, column=1)
-            label_cp_club = Label(add_club, text="CP :")
+            i+=1
+
+            label_cp_club = Label(add_club, text=f"CP : {values[i]}")
             label_cp_club.grid(row=5, column=1)
-            label_correspondant = Label(add_club, text="Correspondant :")
+            i+=1
+
+            label_correspondant = Label(add_club, text=f"Correspondant : {values[i]}")
             label_correspondant.grid(row=6, column=1)
-            label_Tel = Label(add_club, text="Téléphone :")
+            i+=1
+
+            label_Tel = Label(add_club, text=f"Téléphone : {values[i]}")
             label_Tel.grid(row=7, column=1)
             #recuperer les données du formulaire
             def add_club_data():
@@ -106,7 +117,22 @@ def Clubs():
                 # mettre les elements dans une liste
                 print(numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club)
                 data = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
-                insert_entry("CLUB", data)
+
+                # i = 0
+                # for d in data:
+                #     if values[i][1] == "NULL" and len(d) == 0:
+                #         data[i] = "NULL"
+                #     elif (values[i][1] == "NOT NULL" and len(d) == 0):
+                #         print(f"Test numéro 1 pour d={d} avec pour valeur {values[i][1]}")
+                #         #il faut une alrte box ici je personaliserai le texte dedans
+                #         return
+                #     elif values[i][1] == "NOT NULL" and d == "NULL":
+                #         print(f"Test numéro 2 pour d={d}")
+                #         return
+                #     i+=1
+                # insert_entry("CLUB", data)
+
+                checkInsert(conn, cursor, "CLUB", data)
                 add_club.destroy()
                 
                 
@@ -120,10 +146,11 @@ def Clubs():
         def supprimer_club():
             nom = club_list.get(ANCHOR)
             print(nom)
-            del_entry("CLUB", "NomClub", nom)
+            del_entry(conn, cursor, "CLUB", "NomClub", nom)
 
         def rafraichir():
             club.destroy()
+            close_connection(conn)
             os.system("python Interface\Clubs.py")
 
 
@@ -154,7 +181,8 @@ def Clubs():
             label_Tel = Label(modif_club, text="Téléphone :")
             label_Tel.grid(row=7, column=1)
             #on recupere les données du club séléctionné
-            data = getListRow("CLUB", ["NomClub"], [nom])
+
+            data = getListRow(conn, cursor, "CLUB", "NomClub", nom)
             #on les affiche dans le formulaire
             entry_numero_club = Entry(modif_club, width=30)
             entry_numero_club.grid(row=1, column=2)
@@ -189,9 +217,10 @@ def Clubs():
                 # mettre les elements dans une liste
                 a = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
                 print(a)
-                modify_entry("CLUB", a, getID(data))
-                print(getListRow("CLUB", ["NomClub"], [nom]))
-                print(display_table("CLUB"))
+                
+                modify_entry(conn, cursor, "CLUB", a, getID(data))
+                print(getListRow(conn, cursor, "CLUB", "NomClub", nom))
+                print(display_table(conn, cursor, "CLUB"))
                 
             #mettre les elements dans une liste
             #mod = [entry_numero_club, entry_nom_club, entry_ville_club, entry_adresse_club, entry_cp_club, entry_correspondant_club, entry_tel_club]
@@ -227,10 +256,11 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = creation_liste("CLUB", "NomClub")
+        liste_clubs = creation_liste(conn, cursor, "CLUB", "NomClub")
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
+        
         
         
         #afficher le club selectionné
@@ -242,6 +272,7 @@ def Clubs():
         def retour():
             # bouton_retour.destroy()
             club.destroy()
+            close_connection(conn)
             os.system("python Interface\Accueil.py")
 
         #creer bouton retour vers l'accueil
