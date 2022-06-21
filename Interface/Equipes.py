@@ -2,6 +2,7 @@ from tkinter import *
 import os
 
 import sys
+from tkinter.ttk import Combobox
 
 from utils import *
 
@@ -192,13 +193,19 @@ def Equipes():
                                command=rafraichir)
     bouton_rafraichir.place(x=720, y=500)
 
+    liste_equipes_du_club = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5"]
+    menu_deroulant_equipes = Combobox(equipe, values=liste_equipes_du_club, font=("Arial", 12))
+
     # creer une zone de texte pour la recherche de equipes
     entry_club = Entry(equipe, font=("Helvetica", 20))
     entry_club.place(x=600, y=150)
 
+    menu_deroulant_equipes.place(x=1000, y=150, width=120)
+
     # créer une zone pour la liste de equipes
     club_list = Listbox(equipe, width=50)
     club_list.place(x=600, y=200)
+
 
     # créer une liste de equipes
     liste_club = creation_liste("CLUB", "NomClub")
