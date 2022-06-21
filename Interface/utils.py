@@ -206,7 +206,9 @@ def creation_liste(name_table, attribut):
 
 def getListRow(name_table, list_attribut, list_valeur):
     """
-    Envoie les entrées correspondant à la (ou les) spécification(s) sous forme de liste
+    Envoie les entrées correspondant à la (ou les) spécification(s) sous forme de liste;
+    exemples : getListRow("EquipeClub",["Division","Poule","RangEq","Masculin","NumEq"],["R3","G","1","0","107"])
+               getListRow("CLUB",["VilleClub"],["Bourges"])
     :param: name_table : nom de la table
     :param: list_attribut : liste d'attribut qu'on veut spécifier
     :param: list_valeur : liste de valeur, avec une valeur par attribut
@@ -246,11 +248,3 @@ def getID(list):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-
-# show_tables()
-# display_table("EquipeClub")
-# getListRow("EquipeClub",["Division","Poule","RangEq","Masculin","NumEq"],["R3","G","1","0","107"])
-
-# division dans équipeClub
-# niveau dans niveau, poule dans poule
-# afficher tous les clubs qui appartiennent au niveau/poule
