@@ -507,7 +507,19 @@ def update_tables(conn, cursor, needNull=False):
                 i+=1
         print("La table", table, "a été mise à jour")
          
-            
+def Team(liste,club_name):
+    """
+    :param:
+    :return:
+    """
+    team_liste = []
+    for l in liste:
+        if l == club_name:
+            team_liste.append(l)
+    print(team_liste)
+    return team_liste
+
+
             
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
