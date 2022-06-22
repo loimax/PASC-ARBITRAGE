@@ -21,10 +21,10 @@ class Poules():
         #taille de la fenetre s'adapte a la taille de l'écran
         self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
-        self.niveauval = 0
-        self.pouleval = 0
-        self.anneeval = 0
-        self.phaseval = 0
+        self.choiceniveau = Combobox()
+        self.choicepoule = Combobox()
+        self.inputannee = Entry()
+        self.inputphase = Entry()
 
         #créer une liste d'équipes et les afficher 
         self.liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "EXEMPT"]
@@ -78,15 +78,15 @@ class Poules():
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_creer = Button(self.main_window, text="Créer", command=self.creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
         #on crée un bouton valider
-        bouton_valider = Button(self.main_window, text="Valider", bg='#AF7AC5', fg='#000000', font=('Arial', 12),command = lambda : [self.add_phat_table(self.Valider())])
-        choiceniveau = Combobox(self.main_window, font=("Arial", 12), values=["N1","N2","N3","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
+        bouton_valider = Button(self.main_window, text="Valider", bg='#AF7AC5', fg='#000000', font=('Arial', 12),command = self.Valider)
+        self.choiceniveau = Combobox(self.main_window, font=("Arial", 12), values=["N1","N2","N3","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
         textniveau = Label(self.main_window, text="Niveau", font=("Arial", 12))
         #poules allant de A à P
-        choicepoule = Combobox(self.main_window, values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"], font=("Arial", 12), width=5, justify=CENTER)
+        self.choicepoule = Combobox(self.main_window, values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"], font=("Arial", 12), width=5, justify=CENTER)
         textpoule = Label(self.main_window, text="Poule", font=("Arial", 12))
-        inputannee = Entry(self.main_window, font=("Arial", 12), width=7, justify=CENTER)
+        self.inputannee = Entry(self.main_window, font=("Arial", 12), width=7, justify=CENTER)
         textannee = Label(self.main_window, text="Année", font=("Arial", 12))
-        inputphase = Entry(self.main_window, font=("Arial", 12), width=7, justify=CENTER)
+        self.inputphase = Entry(self.main_window, font=("Arial", 12), width=7, justify=CENTER)
         textphase = Label(self.main_window, text="Phase", font=("Arial", 12))
 
         #pre-place objects
@@ -96,13 +96,13 @@ class Poules():
         bouton_quitter.place(x=0, y=0)
         bouton_valider.place(x=0, y=0)
         txttab.place(x=0, y=0)
-        choiceniveau.place(x=0, y=0)
+        self.choiceniveau.place(x=0, y=0)
         textniveau.place(x=0, y=0)
-        choicepoule.place(x=0, y=0)
+        self.choicepoule.place(x=0, y=0)
         textpoule.place(x=0, y=0)
-        inputannee.place(x=0, y=0)
+        self.inputannee.place(x=0, y=0)
         textannee.place(x=0, y=0)
-        inputphase.place(x=0, y=0)
+        self.inputphase.place(x=0, y=0)
         textphase.place(x=0, y=0)
         
         
@@ -121,17 +121,17 @@ class Poules():
 
         #input boxes au dessus du tableau
         #niveau
-        choiceniveau.place(x=self.main_window.winfo_width()/2-choiceniveau.winfo_width()/2-50, y= 100)
-        textniveau.place(x=self.main_window.winfo_width()/2-textniveau.winfo_width()/2-choiceniveau.winfo_width()-textniveau.winfo_width(), y= 100)
+        self.choiceniveau.place(x=self.main_window.winfo_width()/2-self.choiceniveau.winfo_width()/2-50, y= 100)
+        textniveau.place(x=self.main_window.winfo_width()/2-textniveau.winfo_width()/2-self.choiceniveau.winfo_width()-textniveau.winfo_width(), y= 100)
         #poule
-        choicepoule.place(x=self.main_window.winfo_width()/2-choicepoule.winfo_width()/2-50, y= 130)
-        textpoule.place(x=self.main_window.winfo_width()/2-textpoule.winfo_width()/2-choicepoule.winfo_width()-textpoule.winfo_width()-4, y= 130)
+        self.choicepoule.place(x=self.main_window.winfo_width()/2-self.choicepoule.winfo_width()/2-50, y= 130)
+        textpoule.place(x=self.main_window.winfo_width()/2-textpoule.winfo_width()/2-self.choicepoule.winfo_width()-textpoule.winfo_width()-4, y= 130)
         #Année
-        textannee.place(x=self.main_window.winfo_width()/2+inputannee.winfo_width()/2-30, y= 100)
-        inputannee.place(x=self.main_window.winfo_width()/2+inputannee.winfo_width()/2+textannee.winfo_width()-20, y= 100)
+        textannee.place(x=self.main_window.winfo_width()/2+self.inputannee.winfo_width()/2-30, y= 100)
+        self.inputannee.place(x=self.main_window.winfo_width()/2+self.inputannee.winfo_width()/2+textannee.winfo_width()-20, y= 100)
         #Phase
-        textphase.place(x=self.main_window.winfo_width()/2+inputannee.winfo_width()/2-30, y= 130)
-        inputphase.place(x=self.main_window.winfo_width()/2+inputannee.winfo_width()/2+textannee.winfo_width()-20, y= 130)
+        textphase.place(x=self.main_window.winfo_width()/2+self.inputannee.winfo_width()/2-30, y= 130)
+        self.inputphase.place(x=self.main_window.winfo_width()/2+self.inputannee.winfo_width()/2+textannee.winfo_width()-20, y= 130)
 
         #tableau central
         txttab.place(x=self.main_window.winfo_width()/2-txttab.winfo_width()/2, y= 178)
@@ -154,5 +154,5 @@ class Poules():
         while (len(a) != 8):
             a.append("EXEMPT")
         print(a)
-        self.add_phat_table()
+        self.add_phat_table(a)
         return a
