@@ -80,9 +80,9 @@ def Accueil():
             os.system("python Interface/Equipes.py")
        
         
-        def open_rencontres():
+        def open_matchs():
             fenetre.destroy()
-            os.system("python Interface/Rencontres.py")
+            os.system("python Interface/Matchs.py")
         
 
         def open_affectation():
@@ -103,7 +103,7 @@ def Accueil():
         bouton_clubs = Button(fenetre, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_clubs)
         bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_JA)
         bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_teams)
-        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_rencontres)
+        bouton_Rencontres = Button(fenetre, text="Matchs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_matchs)
         bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_affectation)
         bouton_Poules = Button(fenetre, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_poule)
         bouton_Quitter = Button(fenetre, text="Quitter" , command=quit, bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'))

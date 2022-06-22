@@ -2,6 +2,7 @@ from tkinter import *
 import os
 from tkinter.ttk import Combobox
 from utils import *
+from setuptools import Command
 
 #tableau de 3 colonnes, les deux premieres normales (avec les équipes) et la 3e listes déroulantes pour sélectionner un JA
 
@@ -13,9 +14,7 @@ def Affectation():
     #donner un titre a la window
     window.title("Affectations")
     #donner une taille a la Affectation
-    #window.geometry("1920x1080")
-    #taille de la fenetre s'adapte a la taille de l'écran
-    window.geometry("{0}x{1}+0+0".format(window.winfo_screenwidth(), window.winfo_screenheight()))
+    window.geometry("1920x1080")
     
     def quitter():
         window.destroy()
@@ -27,8 +26,10 @@ def Affectation():
     #créer une liste de Affectations et les afficher 
     nb_rencontres = 10
     liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "Equipe 6", "Equipe 7", "Equipe 8", "Equipe 9", "Equipe 10"]
+
     #liste_JA = ["Damien le Gamin", "Zemmour la pute", "Nezuko-chan", "Arthur le 5e", "LeDave"]
     liste_JA = creation_liste(conn, cursor, "JA", ["PrenomJA","NomJA","NumLic"])
+
     
     class Table: #Pour faire un tableau
         def __init__(self,Rencontre):
@@ -68,7 +69,7 @@ def Affectation():
     # print(bouton_generer.winfo_width())
 
     #afficher la fenetre
-    # window.attributes('-fullscreen', True)
+    window.attributes('-fullscreen', True)
     window.mainloop()
 
 #afficher la fenetre
