@@ -365,8 +365,18 @@ def alterTable(conn, cursor, name_table, attributes:list):
             print(query)
     
     execute_query(conn, cursor, query, True)
-    
 
+# fonction qui "concatène" NomClub et rgEquipe qui sont dans deux table différentes    
+def join_table(conn,cursor,name_table,attributs,values):
+    """
+    
+    :param: conn :
+    :param: cursor :
+    :param: name_table :
+    :param: attributs :
+    :return:
+    """
+    query = f"SELECT {values[0]}, {values[1]} FROM {name_table[0]} INNER JOIN {name_table[1]}"
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
