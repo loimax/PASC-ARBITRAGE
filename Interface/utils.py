@@ -370,6 +370,6 @@ cursor = conn.cursor()
 attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # display_table(conn, cursor, "EquipeClub")
 
-alterTable(conn, cursor, "EquipeClub", attributes)
-display_table(conn, cursor, "EquipeClub")
+# alterTable(conn, cursor, "EquipeClub", attributes)
+# display_table(conn, cursor, "EquipeClub")
 
