@@ -152,25 +152,18 @@ class Equipes():
 
 
     def supprimer_equipe(self):
-        team_list = []
-        """
-        
-        
-        ATTENTION PEUT ETRE A MODIFIER ! lISTE EQUIPE EXISTE PAS DONC JE L'AI INIT ICI
-        
-        
-        """
-        num = team_list.get(ANCHOR)
+        num = self.team_list.get(ANCHOR)
         del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num)
 
 
     def rafraichir(self):
         self.main_window.destroy()
-        os.system("python Interface\Equipes.py")
+        Equipes()
+        # os.system("python Interface\Equipes.py")
 
 
     def modifier_equipe(self):
-        num = team_list.get(ANCHOR)
+        num = self.team_list.get(ANCHOR)
         # on ouvre une fenetre
         modif_equipe = Tk()
         # on donne un titre a la fenetre
@@ -238,8 +231,4 @@ class Equipes():
     def retour(self):
         # bouton_retour.destroy()
         self.main_window.destroy()
-        os.system("python Interface/Accueil.py")
-
-
-# afficher la fenetre
-Equipes()
+        os.system("python Interface/main.py")
