@@ -22,6 +22,9 @@ class Poules():
         #taille de la fenetre s'adapte a la taille de l'écran
         self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
+
+        self.liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "EXEMPT"]
+
         self.choiceniveau = Combobox()
         self.choicepoule = Combobox()
         self.inputannee = Entry()
@@ -37,10 +40,18 @@ class Poules():
         self.menuderoulant7 = Combobox()
         self.menuderoulant8 = Combobox()    
 
+        self.liste_combobox = []
+        self.liste_combobox.append(self.menuderoulant1)
+        self.liste_combobox.append(self.menuderoulant2)
+        print(self.liste_combobox)
+        print(self.liste_combobox[0])
+
+        self.liste_combobox[0]=Combobox(self.main_window, values=self.liste_Rencontres, font=("Arial", 12))
+        self.liste_combobox[0].place(x = 0, y = 0)
+
         self.liste_pour_matchs = []
 
         #créer une liste d'équipes et les afficher 
-        self.liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "EXEMPT"]
 
         self.add_buttons()
         #self.add_phat_table()
