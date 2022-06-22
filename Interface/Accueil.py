@@ -1,6 +1,8 @@
 
+import os
 from tkinter import *
-import os 
+from Matchs import *
+
 
 class Accueil:
     def __init__(self):
@@ -44,8 +46,7 @@ class Accueil:
         comite_label.place(x = 0, y = 0)
         self.main_window.update()
         comite_label.place(x = self.main_window.winfo_width()-comite_label.winfo_width(),y = self.main_window.winfo_height()-comite_label.winfo_height())
-        print(self.main_window.winfo_height())
-        print(self.main_window.winfo_height()-comite_label.winfo_height())
+        
         #mettre une image en background a la fenetre
         background_label = Label(self.main_window, image=self.background_image)
         background_label.place(x = 0, y = 0)
@@ -58,7 +59,7 @@ class Accueil:
         bouton_clubs = Button(self.main_window, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_clubs)
         bouton_JA = Button(self.main_window, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_JA)
         bouton_Équipes = Button(self.main_window, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_teams)
-        bouton_Rencontres = Button(self.main_window, text="Rencontres", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_matchs)
+        bouton_Rencontres = Button(self.main_window, text="Matchs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_matchs)
         bouton_Affectation = Button(self.main_window, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_affectation)
         bouton_Poules = Button(self.main_window, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_poule)
         bouton_Quitter = Button(self.main_window, text="Quitter", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.quit)
@@ -108,7 +109,7 @@ class Accueil:
     
     def open_matchs(self):
         self.main_window.destroy()
-        os.system("python Interface/Matchs.py")
+        Matchs()
     
 
     def open_affectation(self):
