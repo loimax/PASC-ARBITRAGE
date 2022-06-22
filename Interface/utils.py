@@ -199,7 +199,7 @@ def creation_liste(conn, cursor, name_table, attribut):
     :param: attribut :
     :return:
     """
-    query = f"SELECT {attribut} FROM {name_table};"
+    query = f"SELECT PrenomJA, NomJa, {attribut} FROM {name_table};"
     cur = execute_query(conn, cursor, query)
 
     result =cur.fetchall()
@@ -207,9 +207,9 @@ def creation_liste(conn, cursor, name_table, attribut):
 
     liste = []
     for row in result:
-        for i in range(len(row)):
-            liste.append(row[i])
-
+        for i in range(len(row)-2):
+            liste.append(f"{row[i]} {row[i+1]} {row[i+2]}")
+    print(liste)
     return(liste)
 
 def getListRow(conn, cursor, name_table, list_attribut, list_valeur):
