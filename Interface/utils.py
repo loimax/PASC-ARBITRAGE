@@ -1,4 +1,5 @@
 import pandas as pd
+import tkinter.messagebox as msg
 import sqlite3
 import os
 
@@ -302,13 +303,13 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
             if values[i][1] == "NULL" and len(d) == 0:
                 liste[i] = "None"
             elif values[i][1] == "NOT NULL" and len(d) == 0:
-                print(f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a \
-comme contrainte '{values[i][1]}'; veuillez entrer une valeur")
-                #il faut une alrte box ici je personaliserai le texte dedans
+                text = f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}'; veuillez entrer une valeur"
+                msg.showerror(title="Erreur : \n", message=text)
                 return
+
             elif values[i][1] == "NOT NULL" and d == "None":
-                print(f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a \
-comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur")
+                text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
+                msg.showerror(title="Erreur : \n", message=text)
                 return
             i+=1
         if not modify:
@@ -322,13 +323,12 @@ comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur")
             if values[i][1] == "NULL" and len(d) == 0:
                 liste[i] = "None"
             elif values[i][1] == "NOT NULL" and len(d) == 0:
-                print(f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte \
-'{values[i][1]}'; ; veuillez entrer une valeur")
-                #il faut une alrte box ici je personaliserai le texte dedans
+                text = f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}'; veuillez entrer une valeur"
+                msg.showerror(title="Erreur : \n", message=text)
                 return
             elif values[i][1] == "NOT NULL" and d == "None":
-                print(f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a \
-comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur")
+                text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
+                msg.showerror(title="Erreur : \n", message=text)
                 return
             i+=1
         if not modify:
