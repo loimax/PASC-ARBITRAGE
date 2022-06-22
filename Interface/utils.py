@@ -361,15 +361,92 @@ def alterTable(conn, cursor, name_table, attributes:list):
             print(query)
     
     execute_query(conn, cursor, query, True)
-    
 
+def createViews(conn, cursor):
+    """
+    Création des vues
+    """
+    queryAllRencontres = """
+        CREATE VIEW AllRencontres AS
+        SELECT journee, DateRenc,  Eq1.division, Eq1.poule, 
+            Club1.NomClub, Eq1.RangEq, 
+            club2.NomClub, Eq2.RangEq, nomJA, prenomJA
+        FROM  Rencontres R left join JA on R.JA = JA.NumLic, EquipeClub Eq1, CLUB Club1, 
+            EquipeClub Eq2, CLUB Club2
+        WHERE   R.NumEq1 = Eq1.NumEq
+        AND   Eq1.numClub = Club1.numClub
+        AND   R.NumEq2 = Eq2.numEq
+        AND   Eq2.numClub = Club2.numClub
+        ORDER BY journee, club1.NomClub, Eq1.RangEq
+        """
+    queryDonneesRencontres = """
+        CREATE VIEW "DonneesRencontres" AS
+        SELECT R.phase AS phase, R.Journee AS journee, EC1.Division AS division, EC1.Poule AS poule,
+            C1.nomClub AS club1, EC1.RangEq AS equipe1, C2.nomClub AS club2, EC2.RangEq AS equipe2, 
+            R.DateRenc AS jour, R.HeureRenc AS heure, C1.AdrClub AS adresseClub, C1.CPClub AS CPClub, C1.VilleClub AS villeClub,
+            C1.Corres AS nomCorr, C1.TelCorr AS telCorr,
+            JA.NumLic AS licenceJA, JA.NomJA AS nomJA, JA.PrenomJA AS prenomJA,
+            CJA.NomClub AS clubJA, JA.AdrJA AS adresseJA, JA.CPJA AS CPJA, JA.VilleJA AS villeJA, JA.TelJA AS telJA, NumRenc
+        FROM Rencontres R, CLUB C1, EquipeClub  EC1, CLUB C2, EquipeClub EC2, JA, CLUB CJA
+        WHERE C1.Numclub = EC1.numclub
+        AND   EC1.numeq = R.NumEq1
+        AND   R.NumEq2 = EC2.numEq
+        AND   EC2.numClub = C2.Numclub
+        AND   JA.NumLic = R.JA
+        AND   JA.ClubJA = CJA.NumClub
+        """
+    queryRecapIndivs = """
+        CREATE VIEW RecapIndivs AS
+        SELECT E2.NumEpreuve, NomEpreuve, DateEpr, TypeJA, nbJA, nomJA, PrenomJA, NumLic, AdrJA, CPJA, VilleJA, TelJA, Adjoint, Lieu, salle, CPLieu, Corres, telcorr, HeureEpr
+        FROM 
+        (SELECT E.NumEpreuve, NomEpreuve, DateEpr, HeureEpr, TypeJA, nbJA,  VilleClub AS Lieu, AdrClub as Salle, CPClub as CPLieu, Corres, telcorr
+        FROM  Epreuves E LEFT JOIN CLUB ON CLUB.NumClub = E.lieu
+        ) E2 
+        LEFT JOIN 
+        ( SELECT numepreuve, nomJA, PrenomJA, Numlic, AdrJA, CPJA, VilleJA, TelJA, Adjoint
+            FROM Autresarbitrages AA, JA
+            WHERE AA.Licarbitre = JA.numLic) A2
+        ON E2.numepreuve = A2.NumEpreuve
+        Order BY DateEpr
+        """
+    queryRecapitulatif = """
+        CREATE VIEW Recapitulatif as
+        SELECT Phase, journee, DateRenc, Eq1.division, Eq1.poule, 
+            Club1.NomClub, Eq1.RangEq, 
+            club2.NomClub, Eq2.RangEq, 
+            nomJA, prenomJA, Club3.NomClub, telJA
+        FROM  Rencontres R, EquipeClub Eq1, CLUB Club1, 
+            EquipeClub Eq2, CLUB Club2,
+            JA, Club Club3
+        WHERE R.NumEq1 = Eq1.NumEq
+        AND   Eq1.numClub = Club1.numClub
+        AND   R.NumEq2 = Eq2.numEq
+        AND   Eq2.numClub = Club2.numClub
+        AND   R.JA = JA.NumLic
+        AND   JA.ClubJA = Club3.numClub
+        ORDER BY journee, DateRenc, Eq1.division
+        """
+
+    checkQueryAllRencontres = "DROP VIEW IF EXISTS AllRencontres;"
+    checkQueryDonneesRencontres = "DROP VIEW IF EXISTS DonneesRencontres;"
+    checkQueryRecapIndivs = "DROP VIEW IF EXISTS RecapIndivs;"
+    checkQueryRecapitulatif = "DROP VIEW IF EXISTS Recapitulatif;" 
+    execute_query(conn, cursor, checkQueryAllRencontres, True)
+    execute_query(conn, cursor, checkQueryDonneesRencontres, True)
+    execute_query(conn, cursor, checkQueryRecapIndivs, True)
+    execute_query(conn, cursor, checkQueryRecapitulatif, True)
+
+    execute_query(conn, cursor, queryAllRencontres, True)
+    execute_query(conn, cursor, queryDonneesRencontres, True)
+    execute_query(conn, cursor, queryRecapIndivs, True)
+    execute_query(conn, cursor, queryRecapitulatif, True)
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
-# display_table(conn, cursor, "EquipeClub")
-
+createViews(conn, cursor)
+display_table(conn, cursor, "")
+# attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
 # display_table(conn, cursor, "EquipeClub")
 
