@@ -28,7 +28,7 @@ def Affectation():
     nb_rencontres = 10
     liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "Equipe 6", "Equipe 7", "Equipe 8", "Equipe 9", "Equipe 10"]
     #liste_JA = ["Damien le Gamin", "Zemmour la pute", "Nezuko-chan", "Arthur le 5e", "LeDave"]
-    liste_JA = creation_liste(conn, cursor, "JA", "NumLic")
+    liste_JA = creation_liste(conn, cursor, "JA", ["PrenomJA","NomJA","NumLic"])
     
     class Table: #Pour faire un tableau
         def __init__(self,Rencontre):
