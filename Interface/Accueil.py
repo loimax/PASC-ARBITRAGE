@@ -48,7 +48,9 @@ class Accueil:
         print(self.main_window.winfo_height()-comite_label.winfo_height())
         #mettre une image en background a la fenetre
         background_label = Label(self.main_window, image=self.background_image)
-        background_label.place(x=725,y=150,relwidth=0.5,relheight=0.5)
+        background_label.place(x = 0, y = 0)
+        self.main_window.update()
+        background_label.place(x = self.main_window.winfo_width()/2+50, y = self.main_window.winfo_height()/2-background_label.winfo_height()/2, relheight=0.5, relwidth=0.5)
             
 
     def setup_buttons(self):
