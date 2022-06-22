@@ -64,7 +64,7 @@ class Poules():
     def retour(self):
         # bouton_retour.destroy()
         self.main_window.destroy()
-        os.system("python Interface/Accueil.py")
+        os.system("python Interface/main.py")
     
 
     def quitter(self):
