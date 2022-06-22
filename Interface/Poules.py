@@ -1,6 +1,7 @@
 import os
 from tkinter import *
 from tkinter.ttk import Combobox
+from Matchs import Matchs
 from utils import *
 
 #window_height : 701
@@ -26,6 +27,18 @@ class Poules():
         self.inputannee = Entry()
         self.inputphase = Entry()
 
+        #créer les combobox
+        self.menuderoulant1 = Combobox()
+        self.menuderoulant2 = Combobox()
+        self.menuderoulant3 = Combobox()
+        self.menuderoulant4 = Combobox()
+        self.menuderoulant5 = Combobox()
+        self.menuderoulant6 = Combobox()
+        self.menuderoulant7 = Combobox()
+        self.menuderoulant8 = Combobox()    
+
+        self.liste_pour_matchs = []
+
         #créer une liste d'équipes et les afficher 
         self.liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "EXEMPT"]
 
@@ -49,27 +62,73 @@ class Poules():
 
     def creer(self):
         print("Creation de la poule")
-        self.main_window.destroy()
-
+        Equipe1 = self.menuderoulant1.get()
+        Equipe2 = self.menuderoulant2.get()
+        Equipe3 = self.menuderoulant3.get()
+        Equipe4 = self.menuderoulant4.get()
+        Equipe5 = self.menuderoulant5.get()
+        Equipe6 = self.menuderoulant6.get()
+        Equipe7 = self.menuderoulant7.get()
+        Equipe8 = self.menuderoulant8.get()
+        print(Equipe1, Equipe2, Equipe3, Equipe4, Equipe5, Equipe6, Equipe7, Equipe8)
+        #faire une liste avec les valeurs des champs
+        Matchs([Equipe1, Equipe2, Equipe3, Equipe4, Equipe5, Equipe6, Equipe7, Equipe8])
 
     def add_phat_table(self, liste_des_equipes):
-        for j in range(8): 
-            self.e = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
-            self.e.place(x = 0, y = 0)
+            # self.e = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+            # self.e.place(x = 0, y = 0)
             
+            # self.e2 = Entry(self.main_window, font=("Arial", 12), width=3, justify=CENTER)
+            # self.e2.place(x = 0, y = 0)
+            # self.e2.insert(END, j+1)      
+            # self.e2.config(state="disabled")
+            # self.e3 = Combobox(self.main_window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
+            # self.e3.place(x = 0, y = 0)
+
+
+
+        self.menuderoulant1 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant2 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant3 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant4 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant5 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant6 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant7 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant8 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))  
+
+        self.menuderoulant1.place(x=0, y=0)
+        self.menuderoulant2.place(x=0, y=0)
+        self.menuderoulant3.place(x=0, y=0)
+        self.menuderoulant4.place(x=0, y=0)
+        self.menuderoulant5.place(x=0, y=0)
+        self.menuderoulant6.place(x=0, y=0)
+        self.menuderoulant7.place(x=0, y=0)
+        self.menuderoulant8.place(x=0, y=0)
+
+
+        #definitely placesx=self.main_window.winfo_width()/2-txt.winfo_width()/2
+        #self.e.place(x=self.main_window.winfo_width()/2-self.e.winfo_width()/2, y=205+j*20)
+        for j in range(8): 
             self.e2 = Entry(self.main_window, font=("Arial", 12), width=3, justify=CENTER)
             self.e2.place(x = 0, y = 0)
             self.e2.insert(END, j+1)      
             self.e2.config(state="disabled")
             self.e3 = Combobox(self.main_window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
             self.e3.place(x = 0, y = 0)
-
             self.main_window.update()
-            #definitely placesx=self.main_window.winfo_width()/2-txt.winfo_width()/2
-            self.e.place(x=self.main_window.winfo_width()/2-self.e.winfo_width()/2, y=205+j*20)
-            self.e2.place(x=self.main_window.winfo_width()/2-self.e2.winfo_width()-self.e.winfo_width()/2, y=205+j*20)
-            self.e3.place(x=self.main_window.winfo_width()/2+self.e.winfo_width()/2, y=205+j*20)
+            self.e2.place(x=self.main_window.winfo_width()/2-self.e2.winfo_width()-self.menuderoulant5.winfo_width()/2, y=205+j*24)
+            self.e3.place(x=self.main_window.winfo_width()/2+self.menuderoulant5.winfo_width()/2, y=205+j*24)
+            
+        self.main_window.update()
 
+        self.menuderoulant1.place(x=self.main_window.winfo_width()/2-self.menuderoulant1.winfo_width()/2, y=205+0*self.menuderoulant1.winfo_height())
+        self.menuderoulant2.place(x=self.main_window.winfo_width()/2-self.menuderoulant2.winfo_width()/2, y=205+1*self.menuderoulant2.winfo_height())
+        self.menuderoulant3.place(x=self.main_window.winfo_width()/2-self.menuderoulant3.winfo_width()/2, y=205+2*self.menuderoulant3.winfo_height())
+        self.menuderoulant4.place(x=self.main_window.winfo_width()/2-self.menuderoulant4.winfo_width()/2, y=205+3*self.menuderoulant4.winfo_height())
+        self.menuderoulant5.place(x=self.main_window.winfo_width()/2-self.menuderoulant5.winfo_width()/2, y=205+4*self.menuderoulant5.winfo_height())
+        self.menuderoulant6.place(x=self.main_window.winfo_width()/2-self.menuderoulant6.winfo_width()/2, y=205+5*self.menuderoulant6.winfo_height())
+        self.menuderoulant7.place(x=self.main_window.winfo_width()/2-self.menuderoulant7.winfo_width()/2, y=205+6*self.menuderoulant7.winfo_height())
+        self.menuderoulant8.place(x=self.main_window.winfo_width()/2-self.menuderoulant8.winfo_width()/2, y=205+7*self.menuderoulant8.winfo_height())
 
     def add_buttons(self):   
         txt = Label(self.main_window, text="Sélectionnez les équipes pour créer une poule :", font=("Arial", 15))
