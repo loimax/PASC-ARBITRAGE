@@ -6,13 +6,10 @@ from Poules import Poules
 from JA import JA
 from Equipes import Equipes
 from Clubs import Clubs
-from utils import *
 
 
 class Accueil:
     def __init__(self):
-        self.conn = create_connection("Interface/testdb/GestionRegionale.db")
-        self.cursor = self.conn.cursor()
         #creer une fenetre
         self.main_window = Tk()
 
@@ -100,25 +97,21 @@ class Accueil:
 
     def open_clubs(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, False, True)
         Clubs()
 
 
     def open_JA(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, False, True)
         JA()
 
 
     def open_teams(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, False, True)
         Equipes()
 
     
     def open_matchs(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, False, True)
         Matchs()
     
 

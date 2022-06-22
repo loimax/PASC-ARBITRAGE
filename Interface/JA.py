@@ -210,9 +210,6 @@ class JA():
         a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
         print(a)
         checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
-        
-        # update_tables(self.conn, self.cursor, False,True)
-        
     
     def setup(self):
         #créer 3 boutons pour les JAs : modifier ajouter supprimer
@@ -252,8 +249,6 @@ class JA():
         bouton_retour = Button(self.JA_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_retour.place(x=725, y=700)
 
-        update_tables(self.conn, self.cursor, True)
-    
         #afficher la fenetre
         # Arb.attributes('-fullscreen', True)
         self.JA_window.mainloop()
