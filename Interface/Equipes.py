@@ -251,7 +251,7 @@ def Equipes():
     def retour():
         # bouton_retour.destroy()
         main_window.destroy()
-        os.system("python Interface\Accueil.py")
+        os.system("python Interface/Accueil.py")
 
     # creer bouton retour vers l'accueil
     bouton_retour = Button(main_window, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))

@@ -62,7 +62,7 @@ def Rencontre():
     # print(txt.winfo_width())
 
     #afficher la fenetre
-    Rencontre.attributes('-fullscreen', True)
+    # Rencontre.attributes('-fullscreen', True)
     Rencontre.mainloop()
 
 #afficher la fenetre

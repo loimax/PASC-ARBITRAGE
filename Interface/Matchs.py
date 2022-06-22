@@ -87,7 +87,7 @@ def Matchs():
     # print(txt.winfo_width())
 
     #afficher la fenetre
-    window.attributes('-fullscreen', True)
+    # window.attributes('-fullscreen', True)
     window.mainloop()
 
 #afficher la fenetre

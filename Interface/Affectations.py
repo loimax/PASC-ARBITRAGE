@@ -67,7 +67,7 @@ def Affectation():
     # print(bouton_generer.winfo_width())
 
     #afficher la fenetre
-    window.attributes('-fullscreen', True)
+    # window.attributes('-fullscreen', True)
     window.mainloop()
 
 #afficher la fenetre

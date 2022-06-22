@@ -259,7 +259,7 @@ def Clubs():
             # bouton_retour.destroy()
             club.destroy()
             close_connection(conn)
-            os.system("python Interface\Accueil.py")
+            os.system("python Interface/Accueil.py")
 
         #creer bouton retour vers l'accueil
         bouton_retour = Button(club, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))

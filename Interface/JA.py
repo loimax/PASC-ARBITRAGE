@@ -253,7 +253,7 @@ def JA():
         def retour():
             # bouton_retour.destroy()
             Arb.destroy()
-            os.system("python Interface\Accueil.py")
+            os.system("python Interface/Accueil.py")
 
         #creer bouton retour vers l'accueil
         bouton_retour = Button(Arb, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
@@ -261,7 +261,7 @@ def JA():
 
     
         #afficher la fenetre
-        Arb.attributes('-fullscreen', True)
+        # Arb.attributes('-fullscreen', True)
         Arb.mainloop()
 
 #afficher la fenetre
