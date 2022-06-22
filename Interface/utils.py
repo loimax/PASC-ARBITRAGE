@@ -443,22 +443,22 @@ def createViews(conn, cursor):
         ORDER BY journee, DateRenc, Eq1.division
         """
 
-    checkQueryAllRencontres = "DROP VIEW IF EXISTS AllRencontres;"
-    checkQueryDonneesRencontres = "DROP VIEW IF EXISTS DonneesRencontres;"
-    checkQueryRecapIndivs = "DROP VIEW IF EXISTS RecapIndivs;"
-    checkQueryRecapitulatif = "DROP VIEW IF EXISTS Recapitulatif;" 
-    execute_query(conn, cursor, checkQueryAllRencontres, True)
-    execute_query(conn, cursor, checkQueryDonneesRencontres, True)
-    execute_query(conn, cursor, checkQueryRecapIndivs, True)
-    execute_query(conn, cursor, checkQueryRecapitulatif, True)
+    # checkQueryAllRencontres = "DROP VIEW IF EXISTS AllRencontres;"
+    # checkQueryDonneesRencontres = "DROP VIEW IF EXISTS DonneesRencontres;"
+    # checkQueryRecapIndivs = "DROP VIEW IF EXISTS RecapIndivs;"
+    # checkQueryRecapitulatif = "DROP VIEW IF EXISTS Recapitulatif;"
+    # execute_query(conn, cursor, checkQueryAllRencontres, True)
+    # execute_query(conn, cursor, checkQueryDonneesRencontres, True)
+    # execute_query(conn, cursor, checkQueryRecapIndivs, True)
+    # execute_query(conn, cursor, checkQueryRecapitulatif, True)
+    #
+    # execute_query(conn, cursor, queryAllRencontres, True)
+    # execute_query(conn, cursor, queryDonneesRencontres, True)
+    # execute_query(conn, cursor, queryRecapIndivs, True)
+    # execute_query(conn, cursor, queryRecapitulatif, True)
 
-    execute_query(conn, cursor, queryAllRencontres, True)
-    execute_query(conn, cursor, queryDonneesRencontres, True)
-    execute_query(conn, cursor, queryRecapIndivs, True)
-    execute_query(conn, cursor, queryRecapitulatif, True)
-
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
 
 # createViews(conn, cursor)
 # display_table(conn, cursor, "")

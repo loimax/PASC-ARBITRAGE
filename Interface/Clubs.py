@@ -5,7 +5,7 @@ from utils import *
 class Clubs():
     def __init__(self):
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
-        self.cursor = conn.cursor()
+        self.cursor = self.conn.cursor()
         #créer une fenetre
         self.club = Tk()
         #donner un titre a la club
@@ -41,7 +41,7 @@ class Clubs():
         self.club_list.place(x=600, y=200)
 
         # créer une liste de clubs
-        self.liste_clubs = creation_liste(conn, cursor, "CLUB", ["NomClub"])
+        self.liste_clubs = creation_liste(self.conn, self.cursor, "CLUB", ["NomClub"])
 
         # afficher le club selectionné
         self.club_list.bind("<<ListboxSelect>>", self.fillout)
@@ -49,14 +49,12 @@ class Clubs():
         # create a binding to the entry box
         self.entry_clubs.bind("<KeyRelease>", self.check)
 
-    def run(self):
-        self.stayInClub = True
-        while self.stayInClub:
-            # Ajouter club selectionne dans listbox
-            self.update_listbox(self.liste_clubs)
-            self.liste_clubs = creation_liste(conn, cursor, "CLUB", ["NomClub"])
-            print("ça tourne")
-            self.club.mainloop()
+        # Ajouter club selectionne dans listbox
+        self.update_listbox(self.liste_clubs)
+        self.liste_clubs = creation_liste(self.conn, self.cursor, "CLUB", ["NomClub"])
+
+        self.club.mainloop()
+
 
     #uptade de la liste des clubs
     def update_listbox(self, data):
@@ -85,7 +83,7 @@ class Clubs():
                 if typed.lower() in item.lower():
                     data.append(item)
 
-        self.update(data)
+        self.update_listbox(data)
 
     #faire une fonction qui ouvre un formulaire pour ajouter un club lorque on clique sur le bouton
     def add_club(self):
@@ -161,7 +159,7 @@ class Clubs():
             print(numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club)
             data = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
 
-            checkInsertModify(conn, cursor, "CLUB", data)
+            checkInsertModify(self.conn, self.cursor, "CLUB", data)
             add_club.destroy()
 
 
@@ -176,15 +174,13 @@ class Clubs():
         name = self.club_list.get(ANCHOR)
         nom = name.rsplit(' ',1)[0]
         print(nom)
-        del_entry(conn, cursor, "CLUB", "NomClub", nom)
+        del_entry(self.conn, self.cursor, "CLUB", "NomClub", nom)
 
     def rafraichir(self):
         self.club.destroy()
-        close_connection(conn)
+        close_connection(self.conn)
         os.system("python Interface/Clubs.py")
 
-
-        #update(liste_clubs)
 
     def modifier_club(self):
         name = self.club_list.get(ANCHOR)
@@ -213,7 +209,7 @@ class Clubs():
         label_Tel.grid(row=7, column=1)
         #on recupere les données du club séléctionné
 
-        data = getListRow(conn, cursor, "CLUB", ["NomClub"], [nom])
+        data = getListRow(self.conn, self.cursor, "CLUB", ["NomClub"], [nom])
         #on les affiche dans le formulaire
         entry_numero_club = Entry(modif_club, width=30)
         entry_numero_club.grid(row=1, column=2)
@@ -248,7 +244,7 @@ class Clubs():
             # mettre les elements dans une liste
             a = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
             print(a)
-            checkInsertModify(conn, cursor, "CLUB", a, True, nom)
+            checkInsertModify(self.conn, self.cursor, "CLUB", a, True, nom)
 
             # modify_entry(conn, cursor, "CLUB", a, getID(data))
             # print(getListRow(conn, cursor, "CLUB", ["NomClub"], [nom]))
@@ -268,7 +264,7 @@ class Clubs():
     def retour(self):
         # bouton_retour.destroy()
         self.club.destroy()
-        close_connection(conn)
+        close_connection(self.conn)
         os.system("python Interface/Accueil.py")
 
 
@@ -280,4 +276,3 @@ class Clubs():
 
 #afficher la fenetre
 club = Clubs()
-club.run()

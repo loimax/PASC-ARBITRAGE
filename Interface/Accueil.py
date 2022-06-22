@@ -123,3 +123,5 @@ class Accueil:
     
     def quit(self):
         self.main_window.destroy()
+
+Accueil()
