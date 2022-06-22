@@ -41,11 +41,18 @@ class Accueil:
     def setup_images(self):
         #ajouter l'image comite.png a la fenetre en bas à droite
         comite_label = Label(self.main_window, image=self.comite)
-        comite_label.place(x=1000,y=500,relwidth=0.5,relheight=0.5)
+        comite_label.place(x = 0, y = 0)
+        self.main_window.update()
+        comite_label.place(x = self.main_window.winfo_width()-comite_label.winfo_width(),y = self.main_window.winfo_height()-comite_label.winfo_height())
+        print(self.main_window.winfo_height())
+        print(self.main_window.winfo_height()-comite_label.winfo_height())
         #mettre une image en background a la fenetre
         background_label = Label(self.main_window, image=self.background_image)
-        background_label.place(x=725,y=150,relwidth=0.5,relheight=0.5)
+        background_label.place(x = 0, y = 0)
+        self.main_window.update()
+        background_label.place(x = self.main_window.winfo_width()/2+50, y = self.main_window.winfo_height()/2-background_label.winfo_height()/2, relheight=0.5, relwidth=0.5)
             
+
     def setup_buttons(self):
         #creer 6 boutons
         bouton_clubs = Button(self.main_window, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_clubs)
