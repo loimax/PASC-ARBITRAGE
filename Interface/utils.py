@@ -457,12 +457,37 @@ def createViews(conn, cursor):
     execute_query(conn, cursor, queryRecapIndivs, True)
     execute_query(conn, cursor, queryRecapitulatif, True)
 
+def update_tables(conn, cursor):
+    """
+    Mise à jour des tables
+    """
+    
+    name_tables = ["EquipeClub", "CLUB"]
+    for table in name_tables:
+        query = f"SELECT * FROM {table};"
+        cur = execute_query(conn, cursor, query)
+        result = cur.fetchall()
+
+        attr = getAttributes(conn, cursor, table)
+        
+        i = 0
+        for row in result:
+            for i in range(len(row)):
+                attr_id = attr[i]
+                query = f"UPDATE {table} SET {attr[i]} = NULL WHERE {attr[i]} = '';"
+                execute_query(conn, cursor, query, True)
+                i+=1  
+            
+            
+            
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
+update_tables(conn, cursor)
+display_table(conn, cursor, "CLUB")
 
 # createViews(conn, cursor)
-# display_table(conn, cursor, "")
+
 # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
-# display_table(conn, cursor, "EquipeClub")
+# display_table(conn, cursor, "CLUB")
 
