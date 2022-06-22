@@ -211,6 +211,7 @@ class JA():
         print(a)
         checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
         
+        update_tables(self.conn, self.cursor, False,True)
         # modify_entry(conn, cursor, "JA", a, getID(data))
         # print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
         # print(display_table(conn, cursor, "JA"))
@@ -253,6 +254,7 @@ class JA():
         bouton_retour = Button(self.JA_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_retour.place(x=725, y=700)
 
+        update_tables(self.conn, self.cursor, True)
     
         #afficher la fenetre
         # Arb.attributes('-fullscreen', True)
