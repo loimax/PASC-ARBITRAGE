@@ -503,6 +503,7 @@ def update_tables(conn, cursor, name_tables, needNull=False):
                     query2 = f"UPDATE {table} SET {attr_id} = 'Valeur_Nulle' WHERE {attr_id} = 'None';"
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur_Nulle';"
+                    query2 = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
                 execute_query(conn, cursor, query, True) 
                 if query2 != "":
                     execute_query(conn, cursor, query2, True)
@@ -529,10 +530,10 @@ def TeamFromClub(liste,club_name):
             
 
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
-# # update_tables(conn, cursor, ["JA"], True)
-# display_table(conn, cursor, "JA")
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
+# update_tables(conn, cursor, ["JA"], True)
+display_table(conn, cursor, "JA")
 
 
 # l = join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
