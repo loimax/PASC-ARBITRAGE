@@ -16,7 +16,7 @@ class JA():
 
         #connexion à la base de données
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
-        self.cursor = conn.cursor()
+        self.cursor = self.conn.cursor()
         self.setup()
 
     def update(self,data):
@@ -117,7 +117,7 @@ class JA():
         print(numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA)
         data = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
 
-        checkInsertModify(conn, cursor, "JA", data)
+        checkInsertModify(self.conn, self.cursor, "JA", data)
         # insert_entry("JA", data)
         self.add_JA.destroy()
     
@@ -125,7 +125,7 @@ class JA():
         nom = self.JA_list.get(ANCHOR)
         #On coupe la string "Prénom Nom NumLicence " pour avoir seulement NumLicence
         Num_Licence = nom.rsplit(' ',2)[1]
-        del_entry(conn, cursor, "JA", "NumLic", Num_Licence)
+        del_entry(self.conn, self.cursor, "JA", "NumLic", Num_Licence)
         #update(liste_JAs)
 
     def rafraichir(self):
@@ -161,7 +161,7 @@ class JA():
         label_tel = Label(modif_JA, text="Tel :")
         label_tel.grid(row=8, column=1)
         #on recupere les données du JA séléctionné
-        data = getListRow(conn, cursor, "JA", ["NumLic"], [Num_Licence])
+        data = getListRow(self.conn, self.cursor, "JA", ["NumLic"], [Num_Licence])
         #on les affiche dans le formulaire
         entry_numero_JA = Entry(modif_JA, width=30)
         entry_numero_JA.grid(row=1, column=2)
@@ -209,7 +209,7 @@ class JA():
         # mettre les elements dans une liste
         a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
         print(a)
-        checkInsertModify(conn, cursor, "JA", a, True, Num_Licence)
+        checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
         
         # modify_entry(conn, cursor, "JA", a, getID(data))
         # print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
@@ -237,8 +237,8 @@ class JA():
 
         #créer une liste de JA 
         #créer une liste de JA
-        display_attributes(conn,cursor,"JA")
-        self.liste_JA = creation_liste(conn, cursor, "JA", ["PrenomJA","NomJA","NumLic"])
+        display_attributes(self.conn,self.cursor,"JA")
+        self.liste_JA = creation_liste(self.conn, self.cursor, "JA", ["PrenomJA","NomJA","NumLic"])
         # liste_JA = ["Nom 1", "Nom 2", "Nom 3", "Nom 4", "Nom 5", "Nom 6", "Nom 7", "Nom 8", "Nom 9", "Nom 10", "Nom 11", "Nom 12", "Nom 13", "Nom 14", "Nom 15", "Nom 16", "Nom 17", "Nom 18", "Nom 19", "Nom 20", "Nom 21", "Nom 22", "Nom 23", "Nom 24", "Nom 25", "Nom 26", "Nom 27", "Nom 28", "Nom 29", "Nom 30", "Nom 31", "Nom 32", "Nom 33", "Nom 34", "Nom 35", "Nom 36"]
         #Ajouter JA dans la liste
         self.update(self.liste_JA)

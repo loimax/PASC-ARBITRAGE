@@ -1,8 +1,9 @@
 
 import os
 from tkinter import *
+from Matchs import Matchs
+from Poules import Poules
 from JA import JA
-from Matchs import *
 
 
 class Accueil:
@@ -121,7 +122,7 @@ class Accueil:
 
     def open_poule(self):
         self.main_window.destroy()
-        os.system("python Interface/Poules.py")
+        Poules()
                     
     
     def quit(self):
