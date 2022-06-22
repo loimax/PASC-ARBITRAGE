@@ -1,3 +1,4 @@
+from numpy import negative
 import pandas as pd
 import tkinter.messagebox as msg
 import sqlite3
@@ -395,8 +396,7 @@ def join_table(conn,cursor,name_table,attributs,values):
         liste.append(row)
     print(liste)
     return liste
-
-    
+   
 def createViews(conn, cursor):
     """
     Création des vues
@@ -476,7 +476,7 @@ def createViews(conn, cursor):
     execute_query(conn, cursor, queryRecapIndivs, True)
     execute_query(conn, cursor, queryRecapitulatif, True)
 
-def update_tables(conn, cursor, needNull=False):
+def update_tables(conn, cursor, needNull=False, needNorm=False):
     """
     Mise à jour des tables
     """
@@ -500,6 +500,8 @@ def update_tables(conn, cursor, needNull=False):
                     query = f"UPDATE {table} SET {attr_id} = 'Valeur Non Nulle à entrer' WHERE {attr_id} = '';"
                 elif needNull:
                     query = f"UPDATE {table} SET {attr_id} = 'Valeur Nulle' WHERE {attr_id} IS NULL;"
+                elif needNorm:
+                    query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur Nulle';"
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
                 execute_query(conn, cursor, query, True)
@@ -507,17 +509,33 @@ def update_tables(conn, cursor, needNull=False):
                 i+=1
         print("La table", table, "a été mise à jour")
          
-            
+def Team(liste,club_name):
+    """
+    :param:
+    :return:
+    """
+    team_liste = []
+    for l in liste:
+        if l == club_name:
+            team_liste.append(l)
+    print(team_liste)
+    return team_liste
+
+
+
+      
             
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
+#Gère erreur des Null
+update_tables(conn, cursor, True)
 # update_tables(conn, cursor)
 # display_table(conn, cursor, "")
-display_table(conn,cursor,"CLUB")
-display_table(conn,cursor,"EquipeClub")
-display_attributes(conn,cursor,"CLUB")
-display_attributes(conn,cursor,"EquipeClub")
-join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+# display_table(conn,cursor,"CLUB")
+# display_table(conn,cursor,"EquipeClub")
+# display_attributes(conn,cursor,"CLUB")
+# display_attributes(conn,cursor,"EquipeClub")
+# join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
 
 # createViews(conn, cursor)
 
