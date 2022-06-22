@@ -460,8 +460,8 @@ def createViews(conn, cursor):
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 
-createViews(conn, cursor)
-display_table(conn, cursor, "")
+# createViews(conn, cursor)
+# display_table(conn, cursor, "")
 # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
 # display_table(conn, cursor, "EquipeClub")
