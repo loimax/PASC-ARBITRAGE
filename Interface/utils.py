@@ -498,16 +498,20 @@ def update_tables(conn, cursor, needNull=False, needNorm=False):
                 attr_id = attr[i]
                 if values[i][1] == "NOT NULL":
                     query = f"UPDATE {table} SET {attr_id} = 'Valeur Non Nulle à entrer' WHERE {attr_id} = '';"
-                elif needNull:
-                    query = f"UPDATE {table} SET {attr_id} = 'Valeur Nulle' WHERE {attr_id} IS NULL;"
-                elif needNorm:
-                    query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur Nulle';"
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
                 execute_query(conn, cursor, query, True)
+
+                if needNull:
+                    query = f"UPDATE {table} SET {attr_id} = 'Valeur Nulle' WHERE {attr_id} IS NULL;"
+                    execute_query(conn, cursor, query, True)
+                elif needNorm:
+                    query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur Nulle';"
+                    execute_query(conn, cursor, query, True)
                 
                 i+=1
-        print("La table", table, "a été mise à jour")
+        print("La table", table, "a été mise à jour et est :")
+        display_table(conn, cursor, table)
          
 def Team(liste,club_name):
     """
@@ -525,13 +529,14 @@ def Team(liste,club_name):
 
       
             
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
+# display_table(conn,cursor,"JA")
 # #Gère erreur des Null
 # update_tables(conn, cursor, True)
-# # update_tables(conn, cursor)
+# update_tables(conn, cursor, False, True)
 # display_table(conn, cursor, "")
-display_table(conn,cursor,"JA")
+
 # display_table(conn,cursor,"EquipeClub")
 # display_attributes(conn,cursor,"CLUB")
 # display_attributes(conn,cursor,"EquipeClub")

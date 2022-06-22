@@ -130,7 +130,7 @@ class JA():
 
     def rafraichir(self):
         self.JA_window.destroy()
-        os.system("python Interface\JA.py")
+        os.system("python Interface/JA.py")
 
     def modifier_JA(self):
         nom = self.JA_list.get(ANCHOR)
@@ -211,10 +211,8 @@ class JA():
         print(a)
         checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
         
-        update_tables(self.conn, self.cursor, False,True)
-        # modify_entry(conn, cursor, "JA", a, getID(data))
-        # print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
-        # print(display_table(conn, cursor, "JA"))
+        # update_tables(self.conn, self.cursor, False,True)
+        
     
     def setup(self):
         #créer 3 boutons pour les JAs : modifier ajouter supprimer
