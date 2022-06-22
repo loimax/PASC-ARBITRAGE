@@ -3,6 +3,7 @@ import os
 from tkinter import *
 from Matchs import Matchs
 from Poules import Poules
+from JA import JA
 
 
 class Accueil:
@@ -100,7 +101,8 @@ class Accueil:
 
     def open_JA(self):
         self.main_window.destroy()
-        os.system("python Interface/JA.py")
+        JA()
+        #os.system("python Interface/JA.py")
 
 
     def open_teams(self):
@@ -125,3 +127,5 @@ class Accueil:
     
     def quit(self):
         self.main_window.destroy()
+
+Accueil()
