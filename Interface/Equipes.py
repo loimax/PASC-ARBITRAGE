@@ -33,24 +33,24 @@ class Equipes():
         self.bouton_rafraichir.place(x=720, y=500)
 
         # creer une zone de texte pour la recherche de equipes
-        self.entry_club = Entry(self.main_window, font=("Helvetica", 20))
-        self.entry_club.place(x=600, y=150)
+        self.entry_equipe = Entry(self.main_window, font=("Helvetica", 20))
+        self.entry_equipe.place(x=600, y=150)
 
         # créer une zone pour la liste de equipes
-        self.club_list = Listbox(self.main_window, width=50)
-        self.club_list.place(x=600, y=200)
+        self.team_list = Listbox(self.main_window, width=50)
+        self.team_list.place(x=600, y=200)
 
         # créer une liste de equipes
-        self.liste_club = creation_liste(self.conn, self.cursor, "CLUB", ["NomClub"])
+        self.liste_equipes = creation_liste(self.conn, self.cursor, "EquipeClub", ["RangEq"])
 
         # Ajouter equipes dans la liste
-        self.update(self.liste_club)
+        self.update_listebox(self.liste_equipes)
 
         # afficher le equipe selectionné
-        self.club_list.bind("<<ListboxSelect>>", self.fillout)
+        self.team_list.bind("<<ListboxSelect>>", self.fillout)
 
         # create a binding to the entry box
-        self.entry_club.bind("<KeyRelease>", self.check)
+        self.entry_equipe.bind("<KeyRelease>", self.check)
 
         # creer bouton retour vers l'accueil
         bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000',
@@ -61,43 +61,34 @@ class Equipes():
         self.main_window.mainloop()
 
     # uptade de la liste des equipes
-    def update(self, data):
-        print("update")
+    def update_listebox(self, data):
         # clear the listbox
-        self.club_list.delete(0, END)
+        self.team_list.delete(0, END)
 
         # ajpouter les equipes dans la listbox
         for item in data:
-            self.club_list.insert(END, item)
+            self.team_list.insert(END, item)
 
-    # afficher le equipe séléctionné
+    # afficher l'equipe séléctionné
     def fillout(self, e):
-        self.entry_club.delete(0, END)
-        self.entry_club.insert(0, self.club_list.get(ANCHOR))
-        equipe_liste = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub"], []) #AFAIRE
+        self.entry_equipe.delete(0, END)
+        self.entry_equipe.insert(0, self.team_list.get(ANCHOR))
+        # team_liste = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub"], []) #AFAIRE
 
     # créer fonction entrée vs liste de equipes
     def check(self, e):
-        liste_equipes = [] 
-        """
-        
-        
-        ATTENTION PEUT ETRE A MODIFIER ! lISTE EQUIPE EXISTE PAS DONC JE L'AI INIT ICI
-        
-        
-        """
         # grab what typed
-        typed = self.entry_club.get()
+        typed = self.entry_equipe.get()
 
         if typed == '':
-            data = liste_equipes
+            data = self.liste_equipes
         else:
             data = []
-            for item in liste_equipes:
+            for item in self.liste_equipes:
                 if typed.lower() in item.lower():
                     data.append(item)
 
-        self.update(data)
+        self.update_listebox(data)
 
     # faire une fonction qui ouvre un formulaire pour ajouter un equipe lorque on clique sur le bouton
     def add_equipe(self):
@@ -161,7 +152,7 @@ class Equipes():
 
 
     def supprimer_equipe(self):
-        equipe_list = []
+        team_list = []
         """
         
         
@@ -169,7 +160,7 @@ class Equipes():
         
         
         """
-        num = equipe_list.get(ANCHOR)
+        num = team_list.get(ANCHOR)
         del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num)
 
 
@@ -179,7 +170,7 @@ class Equipes():
 
 
     def modifier_equipe(self):
-        num = equipe_list.get(ANCHOR)
+        num = team_list.get(ANCHOR)
         # on ouvre une fenetre
         modif_equipe = Tk()
         # on donne un titre a la fenetre
@@ -241,10 +232,10 @@ class Equipes():
         button_valider.grid(row=8, column=2)
         # ,X
 
-    # button_valider = Button(add_equipe, text="Valider",command=lambda : [add_self.main_window_data(), update(liste_equipes)])
+    # button_valider = Button(add_equipe, text="Valider",command=lambda : [add_self.main_window_data(), update_listebox(liste_equipes)])
     # button_valider.grid(row=8, column=2)
 
-    def retour():
+    def retour(self):
         # bouton_retour.destroy()
         self.main_window.destroy()
         os.system("python Interface/Accueil.py")
