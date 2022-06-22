@@ -82,6 +82,8 @@ def Poules():
         ListePoule = getListRow(conn, cursor,"EquipeClub",["Division","Poule"],[niveau,poule])
         print(ListePoule)
         a = getValues(conn, cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
+        while (len(a) != 8):
+            a.append("EXEMPT")
         print(a)
         return a
     
@@ -172,7 +174,7 @@ def Poules():
     print(window.winfo_width())
 
     #afficher la fenetre
-    # window.attributes('-fullscreen', True)
+    window.attributes('-fullscreen', True)
     window.mainloop()
 
 #afficher la fenetre
