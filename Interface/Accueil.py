@@ -89,6 +89,10 @@ def Accueil():
            
             fenetre.destroy()
             os.system("python Interface/Affectations.py")
+
+        def open_poule():
+            fenetre.destroy()
+            os.system("python Interface/Poules.py")
                         
         
         def quit():
@@ -101,7 +105,7 @@ def Accueil():
         bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_teams)
         bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_rencontres)
         bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_affectation)
-        bouton_Poules = Button(fenetre, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'))
+        bouton_Poules = Button(fenetre, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_poule)
         bouton_Quitter = Button(fenetre, text="Quitter" , command=quit, bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'))
 
         #placer les boutons dans la fenetre
