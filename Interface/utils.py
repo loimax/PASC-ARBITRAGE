@@ -345,7 +345,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
         if not modify:
             insert_entry(conn, cursor, name_table, liste)
         else:
-            data = getListRow(conn, cursor, "JA", ["NomJA"], [nom])
+            data = getListRow(conn, cursor, "JA", ["NumLic"], [nom])
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
 

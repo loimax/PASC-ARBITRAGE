@@ -125,10 +125,9 @@ def JA():
 
         def supprimer_JA():
             nom = JA_list.get(ANCHOR)
-            print(nom)
-            del_entry(conn, cursor, "JA", "NomJA", nom)
-            
-
+            #On coupe la string "Prénom Nom NumLicence " pour avoir seulement NumLicence
+            Num_Licence = nom.rsplit(' ',2)[1]
+            del_entry(conn, cursor, "JA", "NumLic", Num_Licence)
             #update(liste_JAs)
 
         def rafraichir():
@@ -138,7 +137,9 @@ def JA():
         
         def modifier_JA():
             nom = JA_list.get(ANCHOR)
-            print(nom)
+            #On coupe la string "Prénom Nom NumLicence " pour avoir seulement NumLicence
+            Num_Licence = nom.rsplit(' ',2)[1]
+            print(Num_Licence)
             #on ouvre une fenetre
             modif_JA = Tk()
             #on donne un titre a la fenetre
@@ -163,7 +164,7 @@ def JA():
             label_tel = Label(modif_JA, text="Tel :")
             label_tel.grid(row=8, column=1)
             #on recupere les données du JA séléctionné
-            data = getListRow(conn, cursor, "JA", ["NomJA"], [nom])
+            data = getListRow(conn, cursor, "JA", ["NumLic"], [Num_Licence])
             #on les affiche dans le formulaire
             entry_numero_JA = Entry(modif_JA, width=30)
             entry_numero_JA.grid(row=1, column=2)
@@ -202,7 +203,7 @@ def JA():
                 # mettre les elements dans une liste
                 a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
                 print(a)
-                checkInsertModify(conn, cursor, "JA", a, True, nom)
+                checkInsertModify(conn, cursor, "JA", a, True, Num_Licence)
                 
                 # modify_entry(conn, cursor, "JA", a, getID(data))
                 # print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
