@@ -530,10 +530,10 @@ def TeamFromClub(liste,club_name):
             
 
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
-# update_tables(conn, cursor, ["JA"], True)
-display_table(conn, cursor, "JA")
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
+# # update_tables(conn, cursor, ["JA"], True)
+# display_table(conn, cursor, "CLUB")
 
 
 # l = join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])

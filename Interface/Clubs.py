@@ -3,9 +3,11 @@ import os
 from utils import *
 
 class Clubs():
+    
     def __init__(self):
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
+        update_tables(self.conn, self.cursor, ["CLUB"], True)
         #créer une fenetre
         self.club = Tk()
         #donner un titre a la club
@@ -243,12 +245,10 @@ class Clubs():
             tel_club = entry_tel_club.get()
             # mettre les elements dans une liste
             a = [numero_club, nom_club, ville_club, adresse_club, cp_club, correspondant_club, tel_club]
-            print(a)
+            # print(a)
             checkInsertModify(self.conn, self.cursor, "CLUB", a, True, nom)
-
-            # modify_entry(conn, cursor, "CLUB", a, getID(data))
-            # print(getListRow(conn, cursor, "CLUB", ["NomClub"], [nom]))
-            # print(display_table(conn, cursor, "CLUB"))
+            
+           
 
         #mettre les elements dans une liste
         #mod = [entry_numero_club, entry_nom_club, entry_ville_club, entry_adresse_club, entry_cp_club, entry_correspondant_club, entry_tel_club]
@@ -264,6 +264,7 @@ class Clubs():
     def retour(self):
         # bouton_retour.destroy()
         self.club.destroy()
+        update_tables(self.conn, self.cursor, ["CLUB"])
         close_connection(self.conn)
         os.system("python Interface/main.py")
 
