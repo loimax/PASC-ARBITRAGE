@@ -348,11 +348,28 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
             data = getListRow(conn, cursor, "JA", ["NumLic"], [nom])
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
+def alterTable(conn, cursor, name_table, attributes:list):
+    print("len = ", len(attributes))
+    
+    query = f"ALTER TABLE {name_table} ADD {attributes[0]};"
+    print(query)
+    if len(attributes) > 1 :
+        for i in range(len(attributes)-1):
+            i+=1
+            execute_query(conn, cursor, query, True)
+            query = f"ALTER TABLE {name_table} ADD {attributes[i]};"
+            print(query)
+    
+    execute_query(conn, cursor, query, True)
+    
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
 
-# display_table(conn, cursor, "CLUB")
-#a = getListRow("EquipeClub",["Division","Poule"],["R2","A"])
-#print(a)
-#print(getValues("CLUB","NomClub","NumClub",getValuesFromList(a,1)))
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
+
+attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
+# display_table(conn, cursor, "EquipeClub")
+
+# alterTable(conn, cursor, "EquipeClub", attributes)
+# display_table(conn, cursor, "EquipeClub")
+
