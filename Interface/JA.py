@@ -126,7 +126,7 @@ def JA():
         def supprimer_JA():
             nom = JA_list.get(ANCHOR)
             print(nom)
-            del_entry("JA", "NomJA", nom)
+            del_entry(conn, cursor, "JA", "NomJA", nom)
             
 
             #update(liste_JAs)
