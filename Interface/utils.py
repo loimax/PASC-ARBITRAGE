@@ -272,7 +272,7 @@ def getValues(conn, cursor, name_table, attribute, id_base, id,):
     :param: attribute : attribut de la valeur qu'on veut récupérer
     :param: id_base : nom de l'attribut qu'on connait de ce qu'on cherche
     :param: id : valeur de l'attribut qu'on connait
-    :return: result[0][0] : renvoie la valeur de l'attribut recherché
+    :return: liste : renvoie la liste des valeurs de l'attribut recherché
     """
     # en cas de liste vide, on retourne directement la liste vide
     if id == [] : return id
@@ -285,7 +285,11 @@ def getValues(conn, cursor, name_table, attribute, id_base, id,):
         i+=1
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
-    return result
+
+    liste = []
+    for row in result:
+        liste.append(row[0])
+    return liste
 
 def getValuesFromList(list,x):
     """
