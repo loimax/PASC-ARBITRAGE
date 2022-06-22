@@ -497,7 +497,7 @@ def update_tables(conn, cursor, name_tables, needNull=False):
                 attr_id = attr[i]
                 query2 = ""
                 if values[i][1] == "NOT NULL":
-                    query = f"UPDATE {table} SET {attr_id} = 'Valeur_Non_Nulle_a_entrer' WHERE {attr_id} = '';"
+                    query = f"UPDATE {table} SET {attr_id} = 'Erreur : Valeur_Non_Nulle_à_entrer' WHERE {attr_id} = '';"
                 elif needNull:
                     query = f"UPDATE {table} SET {attr_id} = 'Valeur_Nulle' WHERE {attr_id} IS NULL;"
                     query2 = f"UPDATE {table} SET {attr_id} = 'Valeur_Nulle' WHERE {attr_id} = 'None';"
