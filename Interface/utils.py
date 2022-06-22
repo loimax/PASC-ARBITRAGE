@@ -194,21 +194,32 @@ def dict(name_table):
 
 def creation_liste(conn, cursor, name_table, attribut):
     """
-
+    Fonction qui renvoie sous forme de liste les attributs spécifié de chaque entrée d'une table 
     :param: name_table : nom de la table
-    :param: attribut :
-    :return:
+    :param: attribut : liste des attributs qu'on veut dans notre liste (Sous la forme : ["a","b",...] OU ["a"])
+    :return: liste : la liste des strings formées par notre demande
     """
-    query = f"SELECT PrenomJA, NomJa, {attribut} FROM {name_table};"
+    query = f"SELECT {attribut[0]}"
+    print(len(attribut))
+    if len(attribut)>1:
+        i = 0
+        for k in range(len(attribut)-1):
+            i+=1
+            query += f",{attribut[i]}"
+            
+    query +=f" FROM {name_table};"
     cur = execute_query(conn, cursor, query)
 
     result =cur.fetchall()
 
-
+    
     liste = []
     for row in result:
-        for i in range(len(row)-2):
-            liste.append(f"{row[i]} {row[i+1]} {row[i+2]}")
+        for i in range(len(row)+1-len(attribut)):
+            JA_infos = ""
+            for j in range(len(attribut)):
+                JA_infos += f"{row[i+j]} "
+            liste.append(JA_infos)
     print(liste)
     return(liste)
 

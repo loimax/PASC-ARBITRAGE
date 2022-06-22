@@ -242,7 +242,8 @@ def JA():
 
         #créer une liste de JA 
         #créer une liste de JA
-        liste_JA = creation_liste(conn, cursor, "JA", "NumLic")
+        display_attributes(conn,cursor,"JA")
+        liste_JA = creation_liste(conn, cursor, "JA", ["PrenomJA","NomJA","NumLic"])
         # liste_JA = ["Nom 1", "Nom 2", "Nom 3", "Nom 4", "Nom 5", "Nom 6", "Nom 7", "Nom 8", "Nom 9", "Nom 10", "Nom 11", "Nom 12", "Nom 13", "Nom 14", "Nom 15", "Nom 16", "Nom 17", "Nom 18", "Nom 19", "Nom 20", "Nom 21", "Nom 22", "Nom 23", "Nom 24", "Nom 25", "Nom 26", "Nom 27", "Nom 28", "Nom 29", "Nom 30", "Nom 31", "Nom 32", "Nom 33", "Nom 34", "Nom 35", "Nom 36"]
         #Ajouter JA dans la liste
         update(liste_JA)
@@ -267,6 +268,6 @@ def JA():
         #afficher la fenetre
         # Arb.attributes('-fullscreen', True)
         Arb.mainloop()
-        display_attributes(conn,cursor,"JA")
+        
 #afficher la fenetre
 JA()
