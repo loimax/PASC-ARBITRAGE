@@ -105,7 +105,9 @@ def JA():
                 # mettre les elements dans une liste
                 print(numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA)
                 data = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
-                insert_entry("JA", data)
+
+                checkInsertModify(conn, cursor, "JA", data)
+                # insert_entry("JA", data)
                 add_JA.destroy()
                 
                 
@@ -200,9 +202,11 @@ def JA():
                 # mettre les elements dans une liste
                 a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
                 print(a)
-                modify_entry(conn, cursor, "JA", a, getID(data))
-                print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
-                print(display_table(conn, cursor, "JA"))
+                checkInsertModify(conn, cursor, "JA", a, True, nom)
+                
+                # modify_entry(conn, cursor, "JA", a, getID(data))
+                # print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
+                # print(display_table(conn, cursor, "JA"))
                 
             #mettre les elements dans une liste
             #mod = [entry_numero_JA, entry_nom_JA, entry_prenom_JA, entry_club_JA, entry_adresse_JA, entry_cp_JA, entry_ville_JA]

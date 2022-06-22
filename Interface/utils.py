@@ -301,12 +301,14 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
         for d in liste:
             if values[i][1] == "NULL" and len(d) == 0:
                 liste[i] = "None"
-            elif (values[i][1] == "NOT NULL" and len(d) == 0):
-                print(f"Test numéro 1 pour d={keys[i]} avec pour valeur {values[i][1]}")
+            elif values[i][1] == "NOT NULL" and len(d) == 0:
+                print(f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a \
+comme contrainte '{values[i][1]}'; veuillez entrer une valeur")
                 #il faut une alrte box ici je personaliserai le texte dedans
                 return
-            elif values[i][1] == "NOT NULL" and d == "NULL":
-                print(f"Test numéro 2 pour d={d}")
+            elif values[i][1] == "NOT NULL" and d == "None":
+                print(f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a \
+comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur")
                 return
             i+=1
         if not modify:
@@ -319,15 +321,21 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
         for d in liste:
             if values[i][1] == "NULL" and len(d) == 0:
                 liste[i] = "None"
-            elif (values[i][1] == "NOT NULL" and len(d) == 0):
-                print(f"Test numéro 1 pour d={d} avec pour valeur {values[i][1]}")
+            elif values[i][1] == "NOT NULL" and len(d) == 0:
+                print(f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte \
+'{values[i][1]}'; ; veuillez entrer une valeur")
                 #il faut une alrte box ici je personaliserai le texte dedans
                 return
-            elif values[i][1] == "NOT NULL" and d == "NULL":
-                print(f"Test numéro 2 pour d={d}")
+            elif values[i][1] == "NOT NULL" and d == "None":
+                print(f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a \
+comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur")
                 return
             i+=1
-        insert_entry(conn, cursor, name_table, liste)
+        if not modify:
+            insert_entry(conn, cursor, name_table, liste)
+        else:
+            data = getListRow(conn, cursor, "JA", ["NomJA"], [nom])
+            modify_entry(conn, cursor, name_table, liste, getID(data))
 
 
 # conn = create_connection("Interface/testdb/GestionRegionale.db")
