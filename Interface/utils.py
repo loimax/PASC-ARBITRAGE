@@ -377,6 +377,7 @@ def join_table(conn,cursor,name_table,attributs,values):
     :return:
     """
     query = f"SELECT {values[0]}, {values[1]} FROM {name_table[0]} INNER JOIN {name_table[1]}"
+    
 def createViews(conn, cursor):
     """
     Création des vues
