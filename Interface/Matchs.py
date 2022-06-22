@@ -3,8 +3,11 @@ import os
 from tkinter.ttk import Combobox
 from utils import *
 
-#window_height : 701
-#window_width : 1284
+from numpy import datetime_as_string
+
+#window_height : 701, nope, dépends de la taille réelle de l'écran
+#window_width : 1284, ça aussi
+
 #faire un tableau avec des listes déroulantes pour choisir l"équipe
 
 def Matchs():
