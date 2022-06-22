@@ -179,7 +179,7 @@ class Clubs():
     def rafraichir(self):
         self.club.destroy()
         close_connection(self.conn)
-        os.system("python Interface/Clubs.py")
+        Clubs()
 
 
     def modifier_club(self):
@@ -265,14 +265,10 @@ class Clubs():
         # bouton_retour.destroy()
         self.club.destroy()
         close_connection(self.conn)
-        os.system("python Interface/Accueil.py")
+        os.system("python Interface/main.py")
 
 
 
 
     #afficher la fenetre
     # club.attributes('-fullscreen', True)
-
-
-#afficher la fenetre
-club = Clubs()
