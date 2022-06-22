@@ -525,13 +525,13 @@ def Team(liste,club_name):
 
       
             
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
-# #Gère erreur des Null
-# update_tables(conn, cursor, True)
-# # update_tables(conn, cursor)
-# display_table(conn, cursor, "")
-display_table(conn,cursor,"JA")
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
+# # #Gère erreur des Null
+# # update_tables(conn, cursor, True)
+# # # update_tables(conn, cursor)
+# # display_table(conn, cursor, "")
+# display_table(conn,cursor,"JA")
 # display_table(conn,cursor,"EquipeClub")
 # display_attributes(conn,cursor,"CLUB")
 # display_attributes(conn,cursor,"EquipeClub")
