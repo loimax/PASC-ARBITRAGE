@@ -2,13 +2,14 @@ from tkinter import *
 import os
 from functools import partial
 from tkinter.ttk import Combobox
-
+from utils import *
 #window_height : 701
 #window_width : 1284
 #faire un tableau avec des listes déroulantes pour choisir l"équipe
 
 def Rencontre():
-
+    conn = create_connection("Interface/testdb/GestionRegionale.db")
+    cursor = conn.cursor()
     #créer une fenetre
     Rencontre = Tk()
     #donner un titre a la Rencontre

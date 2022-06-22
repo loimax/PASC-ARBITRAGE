@@ -1,16 +1,15 @@
 from tkinter import *
 import os
-from functools import partial
 from tkinter.ttk import Combobox
-
-from numpy import datetime_as_string
+from utils import *
 
 #window_height : 701
 #window_width : 1284
 #faire un tableau avec des listes déroulantes pour choisir l"équipe
 
 def Matchs():
-
+    conn = create_connection("Interface/testdb/GestionRegionale.db")
+    cursor = conn.cursor()
     #créer une fenetre
     window = Tk()
     #donner un titre a la Matchs

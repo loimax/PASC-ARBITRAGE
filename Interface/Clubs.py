@@ -137,7 +137,7 @@ def Clubs():
         def rafraichir():
             club.destroy()
             close_connection(conn)
-            os.system("python Interface\Clubs.py")
+            os.system("python Interface/Clubs.py")
 
 
             #update(liste_clubs)
@@ -267,7 +267,7 @@ def Clubs():
 
     
         #afficher la fenetre
-        club.attributes('-fullscreen', True)
+        # club.attributes('-fullscreen', True)
         club.mainloop()
 
 #afficher la fenetre

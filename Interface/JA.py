@@ -161,7 +161,7 @@ def JA():
             label_tel = Label(modif_JA, text="Tel :")
             label_tel.grid(row=8, column=1)
             #on recupere les données du JA séléctionné
-            data = getListRow("JA", ["NomJA"], [nom])
+            data = getListRow(conn, cursor, "JA", ["NomJA"], [nom])
             #on les affiche dans le formulaire
             entry_numero_JA = Entry(modif_JA, width=30)
             entry_numero_JA.grid(row=1, column=2)
@@ -200,9 +200,9 @@ def JA():
                 # mettre les elements dans une liste
                 a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
                 print(a)
-                modify_entry("JA", a, getID(data))
-                print(getListRow("JA", ["NomJA"], [nom]))
-                print(display_table("JA"))
+                modify_entry(conn, cursor, "JA", a, getID(data))
+                print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
+                print(display_table(conn, cursor, "JA"))
                 
             #mettre les elements dans une liste
             #mod = [entry_numero_JA, entry_nom_JA, entry_prenom_JA, entry_club_JA, entry_adresse_JA, entry_cp_JA, entry_ville_JA]

@@ -31,7 +31,7 @@ def Equipes():
     def fillout(e):
         entry_club.delete(0, END)
         entry_club.insert(0, club_list.get(ANCHOR))
-        equipe_liste = getListRow("EquipeClub", ["numClub"], []) #AFAIRE
+        equipe_liste = getListRow(conn, cursor, "EquipeClub", ["numClub"], []) #AFAIRE
 
     # créer fonction entrée vs liste de equipes
     def check(e):
@@ -109,7 +109,7 @@ def Equipes():
             # mettre les elements dans une liste
             print(numero_equipe, numero_club, rang_equipe, masculin, division, poule)
             data = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, "None"]
-            insert_entry("EquipeClub", data)
+            insert_entry(conn, cursor, "EquipeClub", data)
             add_equipe.destroy()
 
         # créer un bouton pour valider les données
@@ -127,7 +127,7 @@ def Equipes():
         
         """
         num = equipe_list.get(ANCHOR)
-        del_entry("EquipeClub", "numEq", num)
+        del_entry(conn, cursor, "EquipeClub", "numEq", num)
 
 
     def rafraichir():
@@ -165,7 +165,7 @@ def Equipes():
         label_poule = Label(modif_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
         # on recupere les données de l'equipe séléctionné
-        data = getListRow("EquipeClub", ["RangEq"], [num])
+        data = getListRow(conn, cursor, "EquipeClub", ["RangEq"], [num])
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
@@ -195,9 +195,9 @@ def Equipes():
             poule = entry_poule.get()
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule]
-            modify_entry("EquipeClub", a, getID(data))
-            print(getListRow("EquipeClub", ["numEq"], [num]))
-            print(display_table("EquipeClub"))
+            modify_entry(conn, cursor, "EquipeClub", a, getID(data))
+            print(getListRow(conn, cursor, "EquipeClub", ["numEq"], [num]))
+            print(display_table(conn, cursor, "EquipeClub"))
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]

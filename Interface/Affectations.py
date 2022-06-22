@@ -1,12 +1,13 @@
 from tkinter import *
 import os
 from tkinter.ttk import Combobox
-
-from setuptools import Command
+from utils import *
 
 #tableau de 3 colonnes, les deux premieres normales (avec les équipes) et la 3e listes déroulantes pour sélectionner un JA
 
 def Affectation():
+    conn = create_connection("Interface/testdb/GestionRegionale.db")
+    cursor = conn.cursor()
     #créer une fenetre
     window = Tk()
     #donner un titre a la window

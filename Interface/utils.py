@@ -12,6 +12,7 @@ def create_connection(db_file):
         conn = None
         try:
             conn = sqlite3.connect(db_file)
+            print("The SQLite connection is opened")
             return conn
         except sqlite3.Error as error:
             print("Error while connecting to sqlite", error)
@@ -253,7 +254,8 @@ def getID(list):
 
 def getValues(conn, cursor, name_table, attribute, id_base, id,):
     """
-    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé et la valeur connu
+    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé 
+    et la valeur connue
     :param: name_table : nom de la table
     :param: attribute : attribut de la valeur qu'on veut récupérer
     :param: id_base : nom de l'attribut qu'on connait de ce qu'on cherche
