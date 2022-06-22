@@ -75,18 +75,7 @@ class Poules():
         Matchs([Equipe1, Equipe2, Equipe3, Equipe4, Equipe5, Equipe6, Equipe7, Equipe8])
 
     def add_phat_table(self, liste_des_equipes):
-            # self.e = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
-            # self.e.place(x = 0, y = 0)
-            
-            # self.e2 = Entry(self.main_window, font=("Arial", 12), width=3, justify=CENTER)
-            # self.e2.place(x = 0, y = 0)
-            # self.e2.insert(END, j+1)      
-            # self.e2.config(state="disabled")
-            # self.e3 = Combobox(self.main_window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
-            # self.e3.place(x = 0, y = 0)
-
-
-
+    
         self.menuderoulant1 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
         self.menuderoulant2 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
         self.menuderoulant3 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
