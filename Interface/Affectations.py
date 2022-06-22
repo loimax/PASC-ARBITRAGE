@@ -50,7 +50,7 @@ def Affectation():
     def retour():
         # bouton_retour.destroy()
         window.destroy()
-        os.system("python Interface/Accueil.py")
+        os.system("python Interface/main.py")
 
     #creer UI
     txt = Label(window, text="Affectez un arbitre à chaque match :", font=("Arial", 15))
