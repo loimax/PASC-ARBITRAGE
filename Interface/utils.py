@@ -450,7 +450,7 @@ def createViews(conn, cursor):
         AND   JA.ClubJA = Club3.numClub
         ORDER BY journee, DateRenc, Eq1.division
         """
-        
+
     checkQueryAllRencontres = "DROP VIEW IF EXISTS AllRencontres;"
     checkQueryDonneesRencontres = "DROP VIEW IF EXISTS DonneesRencontres;"
     checkQueryRecapIndivs = "DROP VIEW IF EXISTS RecapIndivs;"
@@ -499,7 +499,7 @@ def update_tables(conn, cursor):
 # conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
 # update_tables(conn, cursor)
-# display_table(conn, cursor, "JA")
+# display_table(conn, cursor, "")
 
 # createViews(conn, cursor)
 
