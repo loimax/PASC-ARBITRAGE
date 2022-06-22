@@ -88,6 +88,10 @@ class Poules():
 
 
         self.menuderoulant1 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        # print(self.menuderoulant1.get())
+        # print(liste_des_equipes)
+        self.menuderoulant1.bind("<<ComboboxSelected>>", self.updatemenuderoulant(self.menuderoulant1))
+        #liste_des_equipes.remove(self.menuderoulant1.get())
         self.menuderoulant2 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
         self.menuderoulant3 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
         self.menuderoulant4 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
@@ -215,3 +219,7 @@ class Poules():
         print(a)
         self.add_phat_table(a)
         return a
+    
+    def updatemenuderoulant(self, combobox):
+        a = combobox.get()
+        print(a)
