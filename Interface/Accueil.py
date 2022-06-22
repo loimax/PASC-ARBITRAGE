@@ -32,6 +32,13 @@ class Accueil:
         
         self.main_window.mainloop()
 
+
+
+
+
+
+
+
     def setup_images(self):
         #ajouter l'image comite.png a la fenetre en bas à droite
         comite_label = Label(self.main_window, image=self.comite)
