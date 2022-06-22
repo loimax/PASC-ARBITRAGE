@@ -513,15 +513,17 @@ def update_tables(conn, cursor, needNull=False, needNorm=False):
         print("La table", table, "a été mise à jour et est :")
         display_table(conn, cursor, table)
          
-def Team(liste,club_name):
+def TeamFromClub(liste,club_name):
     """
-    :param:
-    :return:
+    Donne une liste des équipes (rang d'équipes, donc numéros) du club spécifié
+    :param: liste : liste qui sort de join_table
+    :param: club_name : nom du club
+    :return: team_liste : la liste des équipes
     """
     team_liste = []
     for l in liste:
-        if l == club_name:
-            team_liste.append(l)
+        if l[0] == club_name:
+            team_liste.append(l[1])
     print(team_liste)
     return team_liste
 
@@ -529,18 +531,22 @@ def Team(liste,club_name):
 
       
             
+
 # conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
-# display_table(conn,cursor,"JA")
-# #Gère erreur des Null
+# Gère erreur des Null
 # update_tables(conn, cursor, True)
-# update_tables(conn, cursor, False, True)
+# update_tables(conn, cursor)
 # display_table(conn, cursor, "")
+#display_table(conn,cursor,"JA")
 
 # display_table(conn,cursor,"EquipeClub")
 # display_attributes(conn,cursor,"CLUB")
 # display_attributes(conn,cursor,"EquipeClub")
-# join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+# l = join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+# TeamFromClub(l,"ST AVERTIN SPORT")
+
+# getListRow(conn,cursor,"EquipeClub",["Division","Poule"],["R3","C"])
 
 # createViews(conn, cursor)
 
