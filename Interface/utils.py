@@ -465,7 +465,7 @@ def createViews(conn, cursor):
     execute_query(conn, cursor, queryRecapIndivs, True)
     execute_query(conn, cursor, queryRecapitulatif, True)
 
-def update_tables(conn, cursor):
+def update_tables(conn, cursor, needNull=False):
     """
     Mise à jour des tables
     """
@@ -487,6 +487,8 @@ def update_tables(conn, cursor):
                 attr_id = attr[i]
                 if values[i][1] == "NOT NULL":
                     query = f"UPDATE {table} SET {attr_id} = 'Valeur Non Nulle à entrer' WHERE {attr_id} = '';"
+                elif needNull:
+                    query = f"UPDATE {table} SET {attr_id} = 'Valeur Nulle' WHERE {attr_id} IS NULL;"
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
                 execute_query(conn, cursor, query, True)
