@@ -497,27 +497,32 @@ def update_tables(conn, cursor, needNull=False, needNorm=False):
             for i in range(len(row)):
                 attr_id = attr[i]
                 if values[i][1] == "NOT NULL":
-                    query = f"UPDATE {table} SET {attr_id} = 'Valeur Non Nulle à entrer' WHERE {attr_id} = '';"
-                elif needNull:
-                    query = f"UPDATE {table} SET {attr_id} = 'Valeur Nulle' WHERE {attr_id} IS NULL;"
-                elif needNorm:
-                    query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur Nulle';"
+                    query = f"UPDATE {table} SET {attr_id} = 'Valeur_Non_Nulle_a_entrer' WHERE {attr_id} = '';"
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
                 execute_query(conn, cursor, query, True)
+
+                if needNull:
+                    query = f"UPDATE {table} SET {attr_id} = 'Valeur_Nulle' WHERE {attr_id} IS NULL;"
+                    execute_query(conn, cursor, query, True)
+                elif needNorm:
+                    query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur_Nulle';"
+                    execute_query(conn, cursor, query, True)
                 
                 i+=1
-        print("La table", table, "a été mise à jour")
+        print("La table", table, "a été mise à jour:")
          
-def Team(liste,club_name):
+def TeamFromClub(liste,club_name):
     """
-    :param:
-    :return:
+    Donne une liste des équipes (rang d'équipes, donc numéros) du club spécifié
+    :param: liste : liste qui sort de join_table
+    :param: club_name : nom du club
+    :return: team_liste : la liste des équipes
     """
     team_liste = []
     for l in liste:
-        if l == club_name:
-            team_liste.append(l)
+        if l[0] == club_name:
+            team_liste.append(l[1])
     print(team_liste)
     return team_liste
 
@@ -535,7 +540,10 @@ def Team(liste,club_name):
 # display_table(conn,cursor,"EquipeClub")
 # display_attributes(conn,cursor,"CLUB")
 # display_attributes(conn,cursor,"EquipeClub")
-# join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+# l = join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+# TeamFromClub(l,"ST AVERTIN SPORT")
+
+# getListRow(conn,cursor,"EquipeClub",["Division","Poule"],["R3","C"])
 
 # createViews(conn, cursor)
 

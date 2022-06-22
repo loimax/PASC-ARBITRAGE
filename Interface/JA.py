@@ -114,7 +114,7 @@ class JA():
         ville_JA = ville.get()
         tel_JA = tel.get()
         # mettre les elements dans une liste
-        print(numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA)
+        # print(numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA)
         data = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
 
         checkInsertModify(self.conn, self.cursor, "JA", data)
@@ -130,13 +130,13 @@ class JA():
 
     def rafraichir(self):
         self.JA_window.destroy()
-        os.system("python Interface\JA.py")
+        os.system("python Interface/JA.py")
 
     def modifier_JA(self):
         nom = self.JA_list.get(ANCHOR)
         #On coupe la string "Prénom Nom NumLicence " pour avoir seulement NumLicence
         Num_Licence = nom.rsplit(' ',2)[1]
-        print(Num_Licence)
+        #print(Num_Licence)
         #on ouvre une fenetre
         modif_JA = Tk()
         #on donne un titre a la fenetre
@@ -208,13 +208,8 @@ class JA():
         tel_JA = tel.get()
         # mettre les elements dans une liste
         a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
-        print(a)
+        # print(a)
         checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
-        
-        update_tables(self.conn, self.cursor, False,True)
-        # modify_entry(conn, cursor, "JA", a, getID(data))
-        # print(getListRow(conn, cursor, "JA", ["NomJA"], [nom]))
-        # print(display_table(conn, cursor, "JA"))
     
     def setup(self):
         #créer 3 boutons pour les JAs : modifier ajouter supprimer
@@ -254,8 +249,6 @@ class JA():
         bouton_retour = Button(self.JA_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_retour.place(x=725, y=700)
 
-        update_tables(self.conn, self.cursor, True)
-    
         #afficher la fenetre
         # Arb.attributes('-fullscreen', True)
         self.JA_window.mainloop()

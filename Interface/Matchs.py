@@ -10,7 +10,9 @@ from utils import *
 #faire un tableau avec des listes déroulantes pour choisir l"équipe
 
 class Matchs():
-    def __init__(self):
+    def __init__(self, liste_from_poules):
+        self.liste_debase_equipes = liste_from_poules
+        print("match list = " + str(self.liste_debase_equipes))
         conn = create_connection("Interface/testdb/GestionRegionale.db")
         cursor = conn.cursor()
         #créer une fenetre
@@ -25,7 +27,6 @@ class Matchs():
         self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
         #créer une liste d'équipes et les afficher 
-        self.liste_debase_equipes = ["UN", "DEUX", "TROIS", "QUATRE", "CINQ", "SIX", "SEPT", "HUIT"]
         self.dates_rencontres = ["25/09/2021", "02/10/2021", "23/10/2021", "06/11/2021", "13/11/2021", "27/11/2021", "11/12/2021"]
 
 
