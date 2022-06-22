@@ -29,7 +29,6 @@ class Accueil:
         self.main_window.attributes('-fullscreen', True)
         self.setup_images()
         self.setup_buttons()
-        
         self.main_window.mainloop()
 
 
