@@ -54,6 +54,22 @@ def show_tables(conn, cursor):
         print(f"{i} : {row[0]}")
         i += 1
 
+def getAllTables(conn, cursor):
+    """
+    Renvoie la liste des tables
+    :param: void
+    :return: tables : liste des tables
+    """
+    query = "SELECT name FROM sqlite_master WHERE type='table';"
+    cur = execute_query(conn, cursor, query)
+    result = cur.fetchall()
+    tables = []
+    for row in result:
+        tables.append(row[0])
+    if "sqlite_sequence" in tables:
+        tables.remove("sqlite_sequence")
+    return tables
+
 def display_attributes(conn, cursor, name_table):
     """
     Affiche la liste des attributs d'une table
@@ -129,9 +145,6 @@ def del_entry(conn, cursor, name_table, attribut, valeur):
     """
     query = f"DELETE FROM {name_table} WHERE {attribut} = '{valeur}'"
     execute_query(conn, cursor, query, True)#False, fonctionne avec True et non pas avec False
-    # Le changement a été fait par Guillaume
-    # Y'a un monde où j'avais juste pas compris comment l'utilisé ave 'True'
-    # On hésite pas à me casser la gueule ou les gueules
 
 def modify_entry(conn, cursor, name_table, list, id): #anciennement modify_value
     """
@@ -152,7 +165,6 @@ def modify_entry(conn, cursor, name_table, list, id): #anciennement modify_value
         query = f"UPDATE {name_table} SET {a} = '{list[i]}' WHERE {attr_id} = '{list[0]}'"
         execute_query(conn, cursor, query,True)
         i+=1
-
 
 #vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
 def dict(name_table):
@@ -176,7 +188,7 @@ def dict(name_table):
     elif name_table == "EquipeClub":
         equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL"], \
             "RangEq":["int", "NOT NULL"], "Masculin":["int", "NOT NULL"], "Division":["TEXT", "NOT NULL"], \
-                "Poule":["TEXT", "NOT NULL"], "CorrEq":["TEXT", "NULL"]}
+                "Poule":["TEXT", "NOT NULL"], "CorrEq":["TEXT", "NULL"], "Année":["int", "NULL"], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
         return equipeClub
     elif name_table == "JA":
         ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
@@ -187,10 +199,6 @@ def dict(name_table):
             "NumEq2":["int", "NOT NULL"], "Phase":["int", "NOT NULL"], "Journee":["int", "NOT NULL"], \
                 "DateRenc":["TEXT", "NOT NULL"], "HeureRenc":["TEXT", "NOT NULL"], "JA":["TEXT", "NULL"]}
         return rencontres
-    # else :
-    #     liste = [autreArb, clubs, epreuves, equipeClub, ja, rencontres]
-    #     return liste
-
 
 def creation_liste(conn, cursor, name_table, attribut):
     """
@@ -464,29 +472,37 @@ def update_tables(conn, cursor):
     """
     Mise à jour des tables
     """
-    
-    name_tables = ["EquipeClub", "CLUB"]
+    name_tables = getAllTables(conn, cursor)
+
     for table in name_tables:
+        dico = dict(table)
+        values = list(dico.values())
         query = f"SELECT * FROM {table};"
         cur = execute_query(conn, cursor, query)
         result = cur.fetchall()
 
         attr = getAttributes(conn, cursor, table)
         
-        i = 0
+        
         for row in result:
+            i = 0
             for i in range(len(row)):
                 attr_id = attr[i]
-                query = f"UPDATE {table} SET {attr[i]} = NULL WHERE {attr[i]} = '';"
+                if values[i][1] == "NOT NULL":
+                    query = f"UPDATE {table} SET {attr_id} = 'Valeur Non Nulle à entrer' WHERE {attr_id} = '';"
+                else:
+                    query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
                 execute_query(conn, cursor, query, True)
-                i+=1  
+                
+                i+=1
+        print("La table", table, "a été mise à jour")
+         
             
             
-            
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
-update_tables(conn, cursor)
-display_table(conn, cursor, "CLUB")
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
+# update_tables(conn, cursor)
+# display_table(conn, cursor, "JA")
 
 # createViews(conn, cursor)
 
