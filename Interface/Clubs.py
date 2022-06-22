@@ -130,7 +130,8 @@ def Clubs():
 
 
         def supprimer_club():
-            nom = club_list.get(ANCHOR)
+            name = club_list.get(ANCHOR)
+            nom = name.rsplit(' ',1)[0]
             print(nom)
             del_entry(conn, cursor, "CLUB", "NomClub", nom)
 
@@ -143,7 +144,8 @@ def Clubs():
             #update(liste_clubs)
         
         def modifier_club():
-            nom = club_list.get(ANCHOR)
+            name = club_list.get(ANCHOR)
+            nom = name.rsplit(' ',1)[0]
             print(nom)
             #on ouvre une fenetre
             modif_club = Tk()
@@ -243,7 +245,7 @@ def Clubs():
         club_list.place(x=600, y=200)
 
         #créer une liste de clubs 
-        liste_clubs = creation_liste(conn, cursor, "CLUB", "NomClub")
+        liste_clubs = creation_liste(conn, cursor, "CLUB", ["NomClub"])
 
         #Ajouter clubs dans la liste
         update(liste_clubs)
