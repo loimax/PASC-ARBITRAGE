@@ -238,6 +238,8 @@ class Matchs():
                 print(" VS ")
                 print(self.list_CB2[i][j].get())
             print("\nNew tab\n")
+
+            
             # nw_lst = [8]
             # nw_lst[i] = 
             

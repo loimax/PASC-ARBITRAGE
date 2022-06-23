@@ -171,6 +171,20 @@ def modify_entry(conn, cursor, name_table, list, id): #anciennement modify_value
         execute_query(conn, cursor, query,True)
         i+=1
 
+def modify_one_entry(conn, cursor, name_table,attribut,value, id): #anciennement modify_value
+    """
+    Modifie un attribut d'une entrée de la table déjà existante
+    :param: name_table : nom de la table que l'on va modifier
+    :param: attribut : nom de l'attribut qu'on veut modifier
+    :param: value : la nouvelle entrée
+    :param: id : clé primaire de l'entrée modifier (on peut la modifier mais il nous la faut avant pour la trouver dans la database)
+    :return: void
+    """
+    attr = getAttributes(conn, cursor, name_table)
+
+    query = f"UPDATE {name_table} SET {attribut} = '{value}' WHERE {attr[0]} = '{id}'"
+    execute_query(conn, cursor, query,True)
+
 #vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
 def dict(name_table):
     """
@@ -531,22 +545,22 @@ def TeamFromClub(liste,club_name):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
-display_attributes(conn,cursor,"Rencontres")
+# display_attributes(conn,cursor,"Rencontres")
 
-# display_table(conn,cursor,"Rencontres")
-# insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
-# 
-# del_entry(conn,cursor,"Rencontres","NumRenc","1111")
-display_table(conn,cursor,"CLUB")
+# # display_table(conn,cursor,"Rencontres")
+# # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
+# # 
+# # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
+# display_table(conn,cursor,"CLUB")
 
-""" "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
-a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
-print(a)
-b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
-c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
-#display_table(conn,cursor,"EquipeClub")
-print(b)
-print(c)
+# """ "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
+# a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
+# print(a)
+# b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
+# c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
+# #display_table(conn,cursor,"EquipeClub")
+# print(b)
+# print(c)
 
 # join_table(conn,cursor,["Club",""])
 
@@ -568,3 +582,8 @@ print(c)
 # alterTable(conn, cursor, "EquipeClub", attributes)
 # display_table(conn, cursor, "CLUB")
 
+# display_attributes(conn,cursor,"EquipeClub")
+# display_table(conn,cursor,"EquipeClub")
+
+# modify_one_entry(conn,cursor,"EquipeClub","Année","2022",164)
+# display_table(conn,cursor,"EquipeClub")
