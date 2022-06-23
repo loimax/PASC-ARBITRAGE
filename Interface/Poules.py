@@ -161,9 +161,13 @@ class Poules():
         self.liste_equipes = join_table_where_4(self.conn, self.cursor, ["CLUB", "EquipeClub"],
                                               ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "NumEq"], ["Phase", "Année","Poule","Division"],
                                               [phase, annee,poule,niveau])
-        
-        self.liste_equipes.append("EXEMPT")
-        self.add_phat_table(self.liste_equipes)
+        self.final_liste_team = []
+        for tuple in self.liste_equipes:
+            one_team =f"{tuple[0]} {tuple[1]} ({tuple[2]})"
+            self.final_liste_team.append(one_team)
+
+        self.final_liste_team.append("EXEMPT")
+        self.add_phat_table(self.final_liste_team)
     
     def updatemenuderoulant(self,combobox):
         club_select = combobox.get()
