@@ -6,10 +6,12 @@ from utils import *
 #tableau de 3 colonnes, les deux premieres normales (avec les équipes) et la 3e listes déroulantes pour sélectionner un JA
 
 class Affectation():
-    def __init__(self):
-        conn = create_connection("Interface/testdb/GestionRegionale.db")
-        cursor = conn.cursor()
+    def __init__(self, list_from_matchs):
+        self.liste_Rencontres = list_from_matchs
+        self.conn = create_connection("Interface/testdb/GestionRegionale.db")
+        self.cursor = self.conn.cursor()
         #créer une fenetre
+        
         self.main_window = Tk()
         #donner un titre a la window
         self.main_window.title("Affectations")
@@ -17,11 +19,9 @@ class Affectation():
         self.main_window.geometry("1920x1080")
 
         #créer une liste de Affectations et les afficher 
-        self.nb_rencontres = 10
-        self.liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "Equipe 6", "Equipe 7", "Equipe 8", "Equipe 9", "Equipe 10"]
 
         #liste_JA = ["Damien le Gamin", "Zemmour la pute", "Nezuko-chan", "Arthur le 5e", "LeDave"]
-        self.liste_JA = creation_liste(conn, cursor, "JA", ["PrenomJA","NomJA","NumLic"])
+        self.liste_JA = creation_liste(self.conn, self.cursor, "JA", ["PrenomJA","NomJA","NumLic"])
 
         self.setup_texte()
         self.setup_boutons()
@@ -34,7 +34,7 @@ class Affectation():
         
     def creation_tableau(self):
         for i in range(2): 
-            for j in range(self.nb_rencontres):
+            for j in range(len(self.liste_Rencontres)):
                 self.e = Entry(self.main_window, font=("Arial", 12))
                 self.e.place(x=642-184*1.5+i*184, y=105+j*20)
                 self.e.insert(END, self.liste_Rencontres[j])      

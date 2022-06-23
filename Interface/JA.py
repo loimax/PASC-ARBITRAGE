@@ -3,11 +3,9 @@ import os
 from utils import *
 
 class JA():
-    def __init__(self, list_from_matchs):
+    def __init__(self):
         #creer une fenetre
         self.main_window = Tk()
-        self.liste_with_bourges = list_from_matchs
-
         #donner un titre a la fenetre
         self.main_window.title("JA")
 
