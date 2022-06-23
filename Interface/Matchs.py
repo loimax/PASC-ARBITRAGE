@@ -246,29 +246,31 @@ class Matchs():
                 
                 rang_equipe1 = self.list_CB1[i][j].get()[len(self.list_CB1[i][j].get())-1]
                 nom_club1 = str(self.list_CB1[i][j].get()[:-2])  
-                print("Nom ",nom_club1," rang : ",rang_equipe1) 
+                print("Nom",nom_club1,"rang :",rang_equipe1) 
                 rang_equipe2 = self.list_CB2[i][j].get()[len(self.list_CB2[i][j].get())-1]
                 nom_club2 = str(self.list_CB2[i][j].get()[:-2])  
-                print("Nom ",nom_club2," rang : ",rang_equipe2) 
+                print("Nom",nom_club2,"rang :",rang_equipe2) 
                 num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
                 num_club2 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club2])
                 print(f"numéros des clubs : {num_club1} , {num_club2}")
 
-                num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club1[0],rang_equipe1])
-                num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club2[0],rang_equipe2])
-                print(f"Numéros des équipes : {num_team1},{num_team2}")
+                if nom_club1 == "EXEMPT" or nom_club2== "EXEMPT":
+                    print("LEzGo !")
+                else:
+                    num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club1[0],rang_equipe1])
+                    num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club2[0],rang_equipe2])
+                    print(f"Numéros des équipes : {num_team1},{num_team2}")
 
-                phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_team2)
-                print(f"Numéros des phases : {phase}")
-                # Petit bloque immonde parce que phase[0] est out if index pour une raison qui m'échappe
-                for a in phase:
-                    nani_phase = a
-                for b in num_team1:
-                    nani_team1 = b
-                for c in num_team2:
-                    nani_team2 = c
-
-                insert_entry(self.conn,self.cursor,"Rencontres",[f"{nani_team1}",f"{nani_team2}",f"{nani_phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+                    phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_team2)
+                    print(f"Numéros des phases : {phase}")
+                    # Petit bloque immonde parce que phase[0] est out if index pour une raison qui m'échappe
+                    for a in phase:
+                        nani_phase = a
+                    for b in num_team1:
+                        nani_team1 = b
+                    for c in num_team2:
+                        nani_team2 = c                
+                    insert_entry(self.conn,self.cursor,"Rencontres",[f"{nani_team1}",f"{nani_team2}",f"{nani_phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
 
                 print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
