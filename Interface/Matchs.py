@@ -1,8 +1,8 @@
 import os
 from tkinter import *
 from tkinter.ttk import Combobox
+from Affectations import Affectation
 from utils import *
-from JA import JA
 
 
 #window_height : 701, nope, dépends de la taille réelle de l'écran
@@ -53,87 +53,6 @@ class Matchs():
         #créer tableau qui hold les équipes
         self.add_phat_table()
         self.add_txt()
-
-
-    def mix_teams(self, list, i):
-        tmp_list = []
-        match i:
-            case 0:
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[3])
-                tmp_list.append(list[7])
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                return tmp_list
-            
-            case 1:
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                tmp_list.append(list[7])
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[3])
-                return tmp_list
-
-            case 2:
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[7])
-                tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                tmp_list.append(list[3])
-                tmp_list.append(list[6])
-                return tmp_list
-
-            case 3:
-                tmp_list.append(list[4])
-                tmp_list.append(list[3])
-                tmp_list.append(list[2])
-                tmp_list.append(list[5])
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[7])
-                tmp_list.append(list[6])
-                return tmp_list
-
-            case 4:
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[6])
-                tmp_list.append(list[7])
-                tmp_list.append(list[3])
-                tmp_list.append(list[2])
-                tmp_list.append(list[4])
-                tmp_list.append(list[5])
-                return tmp_list
-
-            case 5:
-                tmp_list.append(list[2])
-                tmp_list.append(list[1])
-                tmp_list.append(list[3])
-                tmp_list.append(list[4])
-                tmp_list.append(list[0])
-                tmp_list.append(list[7])
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                return tmp_list
-
-            case 6:
-                tmp_list.append(list[0])
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                tmp_list.append(list[7])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[3])
-                tmp_list.append(list[4])
-                return tmp_list
 
 
     def add_phat_table(self):
@@ -246,35 +165,50 @@ class Matchs():
                 
                 rang_equipe1 = self.list_CB1[i][j].get()[len(self.list_CB1[i][j].get())-1]
                 nom_club1 = str(self.list_CB1[i][j].get()[:-2])  
-                print("Nom ",nom_club1," rang : ",rang_equipe1) 
+                print("Nom",nom_club1,"rang :",rang_equipe1) 
                 rang_equipe2 = self.list_CB2[i][j].get()[len(self.list_CB2[i][j].get())-1]
                 nom_club2 = str(self.list_CB2[i][j].get()[:-2])  
-                print("Nom ",nom_club2," rang : ",rang_equipe2) 
+                print("Nom",nom_club2,"rang :",rang_equipe2) 
                 num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
                 num_club2 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club2])
                 print(f"numéros des clubs : {num_club1} , {num_club2}")
 
-                num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club1[0],rang_equipe1])
-                num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club2[0],rang_equipe2])
-                print(f"Numéros des équipes : {num_team1},{num_team2}")
+                if nom_club1 == "EXEMPT" or nom_club2== "EXEMPT":
+                    print("LEzGo !")
+                else:
+                    num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club1[0],rang_equipe1])
+                    num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club2[0],rang_equipe2])
+                    print(f"Numéros des équipes : {num_team1},{num_team2}")
 
-                phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_team2)
-                print(f"Numéros des phases : {phase}")
-                # Petit bloque immonde parce que phase[0] est out if index pour une raison qui m'échappe
-                for a in phase:
-                    nani_phase = a
-                for b in num_team1:
-                    nani_team1 = b
-                for c in num_team2:
-                    nani_team2 = c
-
-                insert_entry(self.conn,self.cursor,"Rencontres",[f"{nani_team1}",f"{nani_team2}",f"{nani_phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+                    phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_team2)
+                    print(f"Numéros des phases : {phase}")
+                    # Petit bloque immonde parce que phase[0] est out if index pour une raison qui m'échappe
+                    for a in phase:
+                        nani_phase = a
+                    for b in num_team1:
+                        nani_team1 = b
+                    for c in num_team2:
+                        nani_team2 = c                
+                    insert_entry(self.conn,self.cursor,"Rencontres",[f"{nani_team1}",f"{nani_team2}",f"{nani_phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
 
                 print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
+        self.test_if_bourges()
+
+    def test_if_bourges(self):
         liste_a_envoyer = []
-        self.main_window.destroy()
-        JA(liste_a_envoyer)
+        for i in range(7):
+            for j in range(4):
+                string = self.list_CB1[i][j].get()
+                splttd = string.split()
+                for k in range(len(splttd)):
+                    if(splttd[k] == "BOURGES"):
+                        liste_a_envoyer.append([self.list_CB1[i][j].get(), self.list_CB2[i][j].get()])
+        
+        if liste_a_envoyer:
+            self.main_window.destroy()
+            Affectation(liste_a_envoyer)
+
 
 
 
@@ -286,3 +220,84 @@ class Matchs():
 
     def quitter(self):
         self.main_window.destroy()
+
+
+    def mix_teams(self, list, i):
+        tmp_list = []
+        match i:
+            case 0:
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
+                tmp_list.append(list[7])
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                tmp_list.append(list[4])
+                return tmp_list
+            
+            case 1:
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                tmp_list.append(list[4])
+                tmp_list.append(list[7])
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
+                return tmp_list
+
+            case 2:
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[7])
+                tmp_list.append(list[5])
+                tmp_list.append(list[4])
+                tmp_list.append(list[3])
+                tmp_list.append(list[6])
+                return tmp_list
+
+            case 3:
+                tmp_list.append(list[4])
+                tmp_list.append(list[3])
+                tmp_list.append(list[2])
+                tmp_list.append(list[5])
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[7])
+                tmp_list.append(list[6])
+                return tmp_list
+
+            case 4:
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[6])
+                tmp_list.append(list[7])
+                tmp_list.append(list[3])
+                tmp_list.append(list[2])
+                tmp_list.append(list[4])
+                tmp_list.append(list[5])
+                return tmp_list
+
+            case 5:
+                tmp_list.append(list[2])
+                tmp_list.append(list[1])
+                tmp_list.append(list[3])
+                tmp_list.append(list[4])
+                tmp_list.append(list[0])
+                tmp_list.append(list[7])
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                return tmp_list
+
+            case 6:
+                tmp_list.append(list[0])
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                tmp_list.append(list[7])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
+                tmp_list.append(list[4])
+                return tmp_list

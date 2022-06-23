@@ -88,7 +88,7 @@ class Poules():
         bouton_creer = Button(self.main_window, text="Créer", command=self.creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
         #on crée un bouton valider
         bouton_valider = Button(self.main_window, text="Valider", bg='#AF7AC5', fg='#000000', font=('Arial', 12),command = self.Valider)
-        self.choiceniveau = Combobox(self.main_window, font=("Arial", 12), values=["N1","N2","N3","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
+        self.choiceniveau = Combobox(self.main_window, font=("Arial", 12), values=["PN","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
         textniveau = Label(self.main_window, text="Niveau", font=("Arial", 12))
         #poules allant de A à P
         self.choicepoule = Combobox(self.main_window, values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"], font=("Arial", 12), width=5, justify=CENTER)
@@ -157,7 +157,7 @@ class Poules():
         print("Poule : ", poule)
         print("Année : ", annee)
         print("Phase : ", phase)
-        ListePoule = getListRow(self.conn, self.cursor,"EquipeClub",["Division","Poule"],[niveau,poule])
+        ListePoule = getListRow(self.conn, self.cursor,"EquipeClub",["Division","Poule","Année","Phase"],[niveau,poule,annee,phase])
         print(ListePoule)
         self.liste_nom_club = getValues(self.conn, self.cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
         
