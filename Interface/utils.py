@@ -25,7 +25,7 @@ def close_connection(conn):
     if conn:
         conn.close()
         print("The SQLite connection is closed")
-       
+
 def execute_query(conn, cursor, query, del_ins=False):
     """
     Execute la requête passé en paramètre
@@ -126,7 +126,7 @@ def insert_entry(conn, cursor, name_table,list,auto_incr=False):
     Insère une nouvelle entrée
     :param: name_table : nom de la table que l'on va modifier
     :param: list : les entrées de l'user sous forme de liste
-    :param: auto_incr : si on veut une auto-incrementation, 
+    :param: auto_incr : si on veut une auto-incrementation,
     on donne le tableau des attributs de la table SAUF celui qui s'auto-incremente
     :return: void
     """
@@ -221,7 +221,7 @@ def dict(name_table):
 
 def creation_liste(conn, cursor, name_table, attribut):
     """
-    Fonction qui renvoie sous forme de liste les attributs spécifié de chaque entrée d'une table 
+    Fonction qui renvoie sous forme de liste les attributs spécifié de chaque entrée d'une table
     :param: name_table : nom de la table
     :param: attribut : liste des attributs qu'on veut dans notre liste (Sous la forme : ["a","b",...] OU ["a"])
     :return: liste : la liste des strings formées par notre demande
@@ -233,13 +233,13 @@ def creation_liste(conn, cursor, name_table, attribut):
         for k in range(len(attribut)-1):
             i+=1
             query += f",{attribut[i]}"
-            
+
     query +=f" FROM {name_table};"
     cur = execute_query(conn, cursor, query)
 
     result =cur.fetchall()
 
-    
+
     liste = []
     for row in result:
         for i in range(len(row)+1-len(attribut)):
@@ -266,21 +266,19 @@ def getListRow(conn, cursor, name_table, list_attribut, list_valeur):
         for i in range(len(list_attribut)-1):
             i+=1
             query += f'AND "{list_attribut[i]}" = "{list_valeur[i]}" '
-    query += ';'
 
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
-    
+
     if len(result) > 1 :
         liste = []
         for row in result:
-            liste.append(row)        
+            liste.append(row)
     else:
         liste = []
         for row in result:
             for i in range(len(row)):
                 liste.append(row[i])
-    print(liste)
     return(liste)
 
 def getID(list):
@@ -293,7 +291,7 @@ def getID(list):
 
 def getValues(conn, cursor, name_table, attribute, id_base, id):
     """
-    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé 
+    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé
     et la valeur connue
     :param: name_table : nom de la table
     :param: attribute : attribut de la valeur qu'on veut récupérer
@@ -318,7 +316,7 @@ def getValues(conn, cursor, name_table, attribute, id_base, id):
 
 def getValuesConstraints(conn, cursor, name_table, attribute, id_base, id):
     """
-    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé 
+    Fonction qui renvoie la valeur de l'attribut demandé en trouvant la bonne entrée grâce à un attribut précisé
     et la valeur connue
     :param: name_table : nom de la table
     :param: attribute : attribut de la valeur qu'on veut récupérer
@@ -354,10 +352,10 @@ def getValuesFromList(list,x):
     for l in list:
         liste.append(l[x])
     return liste
-  
-def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "", datas=[]): 
+
+def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "", datas=[]):
     """
-    on ne peut pas vérifier le type (text, int) 
+    on ne peut pas vérifier le type (text, int)
     car les valeurs retournées par get() de tkinter sont en string par défaut, donc on peut mais ca prend 1000 lignes de code
     """
     dico = dict(name_table)
@@ -427,7 +425,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
 
 def alterTable(conn, cursor, name_table, attributes:list):
     print("len = ", len(attributes))
-    
+
     query = f"ALTER TABLE {name_table} ADD {attributes[0]};"
     print(query)
     if len(attributes) > 1 :
@@ -436,10 +434,10 @@ def alterTable(conn, cursor, name_table, attributes:list):
             execute_query(conn, cursor, query, True)
             query = f"ALTER TABLE {name_table} ADD {attributes[i]};"
             print(query)
-    
+
     execute_query(conn, cursor, query, True)
 
-# fonction qui "concatène" NomClub et rgEquipe qui sont dans deux table différentes    
+# fonction qui "concatène" NomClub et rgEquipe qui sont dans deux table différentes
 def join_table(conn,cursor,name_table,attributs,values):
     """
     INNER JOIN en SQLite, 2 par 2
@@ -491,7 +489,7 @@ def switchPhaseDuplicates(conn, cursor, table):
     # print(result)
     attr = getAttributes(conn, cursor, table)
     # numClub et RangEq
-    i = 0 
+    i = 0
     count = 0
     liste = []
     for row in result:
@@ -501,7 +499,7 @@ def switchPhaseDuplicates(conn, cursor, table):
             elif attr[colonne] == "RangEq":
                 rangEq = row[colonne]
                 i = 1
-            if i == 1 : 
+            if i == 1 :
                 for rows in result:
                     if rows != row and rows not in liste:
                         for colonnes in range(len(rows)):
@@ -517,8 +515,8 @@ def switchPhaseDuplicates(conn, cursor, table):
                 i = 0
     print(count)
 
-                
-            
+
+
 
 def join_table_where_4(conn,cursor,name_table,attributs,values, attributs_spec, attributs_spec_values):
     """
@@ -551,10 +549,10 @@ def createViews(conn, cursor):
     """
     queryAllRencontres = """
         CREATE VIEW AllRencontres AS
-        SELECT journee, DateRenc,  Eq1.division, Eq1.poule, 
-            Club1.NomClub, Eq1.RangEq, 
+        SELECT journee, DateRenc,  Eq1.division, Eq1.poule,
+            Club1.NomClub, Eq1.RangEq,
             club2.NomClub, Eq2.RangEq, nomJA, prenomJA
-        FROM  Rencontres R left join JA on R.JA = JA.NumLic, EquipeClub Eq1, CLUB Club1, 
+        FROM  Rencontres R left join JA on R.JA = JA.NumLic, EquipeClub Eq1, CLUB Club1,
             EquipeClub Eq2, CLUB Club2
         WHERE   R.NumEq1 = Eq1.NumEq
         AND   Eq1.numClub = Club1.numClub
@@ -565,7 +563,7 @@ def createViews(conn, cursor):
     queryDonneesRencontres = """
         CREATE VIEW "DonneesRencontres" AS
         SELECT R.phase AS phase, R.Journee AS journee, EC1.Division AS division, EC1.Poule AS poule,
-            C1.nomClub AS club1, EC1.RangEq AS equipe1, C2.nomClub AS club2, EC2.RangEq AS equipe2, 
+            C1.nomClub AS club1, EC1.RangEq AS equipe1, C2.nomClub AS club2, EC2.RangEq AS equipe2,
             R.DateRenc AS jour, R.HeureRenc AS heure, C1.AdrClub AS adresseClub, C1.CPClub AS CPClub, C1.VilleClub AS villeClub,
             C1.Corres AS nomCorr, C1.TelCorr AS telCorr,
             JA.NumLic AS licenceJA, JA.NomJA AS nomJA, JA.PrenomJA AS prenomJA,
@@ -581,11 +579,11 @@ def createViews(conn, cursor):
     queryRecapIndivs = """
         CREATE VIEW RecapIndivs AS
         SELECT E2.NumEpreuve, NomEpreuve, DateEpr, TypeJA, nbJA, nomJA, PrenomJA, NumLic, AdrJA, CPJA, VilleJA, TelJA, Adjoint, Lieu, salle, CPLieu, Corres, telcorr, HeureEpr
-        FROM 
+        FROM
         (SELECT E.NumEpreuve, NomEpreuve, DateEpr, HeureEpr, TypeJA, nbJA,  VilleClub AS Lieu, AdrClub as Salle, CPClub as CPLieu, Corres, telcorr
         FROM  Epreuves E LEFT JOIN CLUB ON CLUB.NumClub = E.lieu
-        ) E2 
-        LEFT JOIN 
+        ) E2
+        LEFT JOIN
         ( SELECT numepreuve, nomJA, PrenomJA, Numlic, AdrJA, CPJA, VilleJA, TelJA, Adjoint
             FROM Autresarbitrages AA, JA
             WHERE AA.Licarbitre = JA.numLic) A2
@@ -594,11 +592,11 @@ def createViews(conn, cursor):
         """
     queryRecapitulatif = """
         CREATE VIEW Recapitulatif as
-        SELECT Phase, journee, DateRenc, Eq1.division, Eq1.poule, 
-            Club1.NomClub, Eq1.RangEq, 
-            club2.NomClub, Eq2.RangEq, 
+        SELECT Phase, journee, DateRenc, Eq1.division, Eq1.poule,
+            Club1.NomClub, Eq1.RangEq,
+            club2.NomClub, Eq2.RangEq,
             nomJA, prenomJA, Club3.NomClub, telJA
-        FROM  Rencontres R, EquipeClub Eq1, CLUB Club1, 
+        FROM  Rencontres R, EquipeClub Eq1, CLUB Club1,
             EquipeClub Eq2, CLUB Club2,
             JA, Club Club3
         WHERE R.NumEq1 = Eq1.NumEq
@@ -618,7 +616,7 @@ def createViews(conn, cursor):
     execute_query(conn, cursor, checkQueryDonneesRencontres, True)
     execute_query(conn, cursor, checkQueryRecapIndivs, True)
     execute_query(conn, cursor, checkQueryRecapitulatif, True)
-    
+
     execute_query(conn, cursor, queryAllRencontres, True)
     execute_query(conn, cursor, queryDonneesRencontres, True)
     execute_query(conn, cursor, queryRecapIndivs, True)
@@ -638,7 +636,7 @@ def update_tables(conn, cursor, name_tables, needNull=False):
         result = cur.fetchall()
 
         attr = getAttributes(conn, cursor, table)
-        
+
         for row in result:
             i = 0
             for i in range(len(row)):
@@ -652,7 +650,7 @@ def update_tables(conn, cursor, name_tables, needNull=False):
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur_Nulle';"
                     query2 = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
-                execute_query(conn, cursor, query, True) 
+                execute_query(conn, cursor, query, True)
                 if query2 != "":
                     execute_query(conn, cursor, query2, True)
                 i+=1
@@ -660,7 +658,7 @@ def update_tables(conn, cursor, name_tables, needNull=False):
             print("La table", table, "a été mise à jour; toutes les valeurs 'None' ont été remplacées par 'Valeur_Nulle'")
         else:
             print("La table", table, "a été mise à jour; toutes les valeurs 'Valeur_Nulle' ont été remplacées par NULL")
-         
+
 def TeamFromClub(liste,club_name):
     """
     Donne une liste des équipes (rang d'équipes, donc numéros) du club spécifié
@@ -687,9 +685,9 @@ def getMaxValue(conn, cursor, name_table, attribute):
 # # # update_tables(conn, cursor, ["JA"])
 # # switchPhaseDuplicates(conn, cursor, "EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
-
-# # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
-# # 
+# 162
+# # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""])
+# #
 # # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
 # display_table(conn,cursor,"CLUB")
 
