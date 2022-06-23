@@ -142,7 +142,7 @@ def insert_entry(conn, cursor, name_table,list,auto_incr=False):
     print(query)
     execute_query(conn, cursor, query, True)
 
-def get_entry(conn, cursor, name_table, attribut, valeur):
+def del_entry(conn, cursor, name_table, attribut, valeur):
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
