@@ -254,6 +254,9 @@ class Equipes():
         # créer un bouton pour valider les données
         button_valider = Button(add_equipe, text="Valider", command=lambda: [add_equipe_data()])
         button_valider.grid(row=10, column=2)
+        #ajouter un texte pour indiquer que les champs sont obligatoires
+        label_obligatoire = Label(add_equipe, text="* : Champs obligatoires")
+        label_obligatoire.grid(row=11, column=2)
 
     def supprimer_equipe(self):
         chaine_clubXekip = self.team_list.get(ANCHOR)
@@ -418,7 +421,12 @@ class Equipes():
         # on crée un bouton pour valider les données
         button_valider = Button(modif_equipe, text="Valider", command=modif_equipe_data)
         button_valider.grid(row=8, column=2)
+        label_obligatoire = Label(modif_equipe, text="* : Champs obligatoires")
+        label_obligatoire.grid(row=9, column=2)
         # ,X
+        #ajouter un texte pour indiquer que les champs sont obligatoires
+
+        
 
     # button_valider = Button(add_equipe, text="Valider",command=lambda : [add_self.main_window_data(), update_listebox(liste_equipes)])
     # button_valider.grid(row=8, column=2)
