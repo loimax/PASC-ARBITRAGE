@@ -119,7 +119,6 @@ class Equipes():
     def fillout(self, e):
         self.entry_equipe.delete(0, END)
         self.entry_equipe.insert(0, self.team_list.get(ANCHOR))
-        # team_liste = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub"], []) #AFAIRE
 
     # créer fonction entrée vs liste d'équipes
     def check(self, e):
@@ -316,8 +315,8 @@ class Equipes():
         # récupère le numero du club
         num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
         phase = getValues(self.conn, self.cursor, "EquipeClub", "Phase", "numClub", [num_club])[0]
-        # num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"],
-        #                                   [num_club, division_equipe])[0]
+        num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"],
+                                          [num_club, division_equipe])[0]
 
         # on ouvre une fenetre
         modif_equipe = Tk()
@@ -390,14 +389,9 @@ class Equipes():
         i+=1
         text = ""
 
-        # on recupere les données de l'equipe séléctionné
-        data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division","Phase"], [num_club, rang_equipe, division_equipe,phase])
-        print(data)
-        if len(data) == 0:
-            query = f"SELECT * FROM EquipeClub WHERE Phase = 2 AND numClub = {num_club} AND RangEq = {rang_equipe} AND Division = {division_equipe}"
-            cur = execute_query(self.conn, self.cursor, query)
-            resu = cur.fetchall()
-            print(resu)
+        query = f"SELECT * FROM EquipeClub WHERE numEq = {num_equipe}"
+        cur = execute_query(self.conn, self.cursor, query)
+        data = cur.fetchall()[0]
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
