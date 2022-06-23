@@ -594,8 +594,8 @@ def TeamFromClub(liste,club_name):
     return team_liste
 
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
 #display_attributes(conn,cursor,"Rencontres")
 
 #display_table(conn,cursor,"Rencontres")
@@ -627,7 +627,7 @@ def TeamFromClub(liste,club_name):
 # TeamFromClub(l,"ST AVERTIN SPORT")
 
 # getListRow(conn,cursor,"EquipeClub",["Division","Poule"],["R3","C"])
-
+# display_attributes(conn,cursor,"EquipeClub")
 
 # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
@@ -637,4 +637,5 @@ def TeamFromClub(liste,club_name):
 # display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
+#     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
 # display_table(conn,cursor,"EquipeClub")
