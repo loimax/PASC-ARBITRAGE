@@ -155,7 +155,6 @@ class Matchs():
     def creer(self):
         for i in range(7):
             for j in range(4):
-                print(str(self.list_CB1[i][j].get()) + " VS " + str(self.list_CB2[i][j].get()))
                 if self.list_CB1[i][j].get()=="EXEMPT " or self.list_CB2[i][j].get()=="EXEMPT ":
                     print("EXEMPT rencontred")
                 else:
@@ -171,9 +170,7 @@ class Matchs():
                         if debile != len(string_split)-1:
                             nom_club1 += " "
                     
-                    #print(f"nom club : {nom_club1}")
                     string_split = split(' ', self.list_CB2[i][j].get())
-                    print(string_split)
                     string_split.pop()
                     num_eq2 = string_split.pop()
                     num_eq2 = num_eq2.replace(num_eq2[0], "")
@@ -188,33 +185,22 @@ class Matchs():
                     #nom equipe rangEq (numEq)
 
                     num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
-                    print(f"{nom_club1} VS {nom_club2}")
                     for a in num_club1:
                         pre_num_club1 = str(a[0:4])
                        
                     if pre_num_club1 == "0418":
-                        print(str(num_eq1) + " VS " + str(num_eq2))
-                        # print(f"rang : {rang_equipe2} \n nom club : {nom_club2} \n num equipe : {num_eq2} \n")
                         self.list_Cher.append(nom_club1)
                         phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_eq1)
                         insert_entry(self.conn,self.cursor,"Rencontres",[f"{num_eq1}",f"{num_eq2}",f"{phase[0]}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
-            print("new day")
-        #print(self.list_Cher) 
         self.test_if_Cher()
 
+
     def test_if_Cher(self):
-        # liste_a_envoyer = []
-        # for i in range(7):
-        #     for j in range(4):
-        #         string = self.list_CB1[i][j].get()
-        #         splttd = string.split()
-        #         for k in range(len(splttd)):
-        #             if(splttd[k] == "BOURGES"):
-        #                 liste_a_envoyer.append([self.list_CB1[i][j].get(), self.list_CB2[i][j].get()])
-        
-        # if liste_a_envoyer:
-        #     self.main_window.destroy()
-        #     Affectation(liste_a_envoyer)
+        """
+        On regarde si la liste contient des valeurs,
+        si c'est le cas, c'est qu'on a des matchs à domicile dans le Cher
+        On lance donc la fenêtre : affectation de juge-arbitre
+        """
         if self.list_Cher == []:
             pass
         else:
