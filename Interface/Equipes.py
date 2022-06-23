@@ -27,18 +27,13 @@ class Equipes():
         
         bouton_modifier = Button(self.main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'),
                                       command=self.modifier_equipe)
-        bouton_modifier.place(x=600, y=400)
         bouton_ajouter = Button(self.main_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'),
                                      command=self.add_equipe)
-        bouton_ajouter.place(x=725, y=400)
         bouton_supprimer = Button(self.main_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),
                                        command=lambda: [self.supprimer_equipe()])
-        bouton_supprimer.place(x=850, y=400)
         bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
                                         command=self.rafraichir)
-        bouton_rafraichir.place(x=720, y=500)
         bouton_valider = Button(self.main_window, text="Valider", fg='#000000', font=('Arial', 10, 'bold'),command = self.valider)
-        bouton_valider.place(x=950, y=100)
 
         #créer une combobox avec un texte "Phase" au dessus
         self.combobox_phase = Combobox(self.main_window, text="Phase", font=('Arial', 10, 'bold'), values=["1","2"], width=2)
@@ -54,7 +49,7 @@ class Equipes():
         
 
         # creer une zone de texte pour la recherche de equipes
-        self.entry_equipe = Entry(self.main_window, font=("Helvetica", 20))
+        self.entry_equipe = Entry(self.main_window, font=("Arial", 20))
         self.entry_equipe.place(x=600, y=150)
 
         # créer une zone pour la liste de equipes
@@ -75,9 +70,8 @@ class Equipes():
 
         #final place
         self.main_window.update()
-        
-        self.entry_equipe.place(x=self.main_window.winfo_width()/2 - self.entry_equipe.winfo_width()/2, y=200)
-        self.team_list.place(x=self.main_window.winfo_width()/2 - self.team_list.winfo_width()/2, y = 250)
+
+
         title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 100)
         bouton_ajouter.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + ((self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4))
         bouton_supprimer.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + (2 * (self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + bouton_ajouter.winfo_height())

@@ -58,6 +58,8 @@ class Poules():
 
     def add_phat_table(self, liste_des_equipes):
         for i in range(8):
+            txttab = Label(self.main_window, text="      N                   Nom équipe                N°e", font=("Arial", 12))
+            txttab.place(x=0, y=0)
             self.num_equipe = Entry(self.main_window, font=("Arial", 12), width=3, justify=CENTER)
             self.num_equipe.place(x = 0, y = 0)
             self.num_equipe.insert(END, i+1)      
@@ -71,6 +73,7 @@ class Poules():
             self.liste_menuderoulant[i].place(x = 0, y = 0)
 
             self.main_window.update()
+            txttab.place(x=self.main_window.winfo_width()/2-txttab.winfo_width()/2, y= 178)
             self.num_equipe.place(x=self.main_window.winfo_width()/2-self.num_equipe.winfo_width()-self.liste_menuderoulant[i].winfo_width()/2, y=205+i*24)
             self.num_equipe_dec_club[i].place(x=self.main_window.winfo_width()/2+self.liste_menuderoulant[i].winfo_width()/2, y=205+i*24)
             self.liste_menuderoulant[i].place(x=self.main_window.winfo_width()/2 - self.liste_menuderoulant[i].winfo_width()/2, y=205+i*24)
@@ -82,7 +85,6 @@ class Poules():
  
     def add_buttons(self):   
         txt = Label(self.main_window, text="Sélectionnez les équipes pour créer une poule :", font=("Arial", 15))
-        txttab = Label(self.main_window, text="      N                   Nom équipe                N°e", font=("Arial", 12))
         bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_creer = Button(self.main_window, text="Créer", command=self.creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
@@ -104,7 +106,6 @@ class Poules():
         bouton_retour.place(x=0, y=0)
         bouton_quitter.place(x=0, y=0)
         bouton_valider.place(x=0, y=0)
-        txttab.place(x=0, y=0)
         self.choiceniveau.place(x=0, y=0)
         textniveau.place(x=0, y=0)
         self.choicepoule.place(x=0, y=0)
@@ -124,9 +125,7 @@ class Poules():
 
         #bottom buttons
         bouton_creer.place(x=self.main_window.winfo_width()/2-bouton_creer.winfo_width()/2, y=680)
-        bouton_retour.place(x=25, y=680)
-        bouton_quitter.place(x=1200, y= 680)
-        bouton_valider.place(x=1000, y=100)
+        bouton_valider.place(x=self.main_window.winfo_width()/2-bouton_creer.winfo_width()/2 + 220, y=112)
 
         #input boxes au dessus du tableau
         #niveau
@@ -142,8 +141,8 @@ class Poules():
         textphase.place(x=self.main_window.winfo_width()/2+self.inputannee.winfo_width()/2-30, y= 130)
         self.inputphase.place(x=self.main_window.winfo_width()/2+self.inputannee.winfo_width()/2+textannee.winfo_width()-20, y= 130)
 
-        #tableau central
-        txttab.place(x=self.main_window.winfo_width()/2-txttab.winfo_width()/2, y= 178)
+        bouton_retour.place(x = 0.02*self.main_window.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
+        bouton_quitter.place(x = 0.98*self.main_window.winfo_width()-bouton_retour.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
 
 
     def Valider(self):
@@ -167,10 +166,10 @@ class Poules():
     
     def updatemenuderoulant(self,combobox):
         club_select = combobox.get()
-        print('club_select = ', club_select)
+        #print('club_select = ', club_select)
         if club_select != "EXEMPT" and club_select != "":
             self.liste_nom_club.remove(club_select)
-        print("Oh ! Selected")
+        #print("Oh ! Selected")
 
     
     def creer(self):
