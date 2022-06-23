@@ -154,34 +154,24 @@ class Matchs():
 
     def creer(self):
         for i in range(7):
-            print(self.hour_CB[i].get())
-            print(self.list_date[i].get())
-            print(i)
-            print("\n")
             for j in range(4):
-                print("Match :  ")
-                print(self.list_CB1[i][j].get())
-                print(" VS ")
-                print(self.list_CB2[i][j].get())
-                print(f"|{self.list_CB1[i][j].get()}|")
-
+                print(str(self.list_CB1[i][j].get()) + " VS " + str(self.list_CB2[i][j].get()))
                 if self.list_CB1[i][j].get()=="EXEMPT " or self.list_CB2[i][j].get()=="EXEMPT ":
                     print("EXEMPT rencontred")
                 else:
                     string_split = split(' ', self.list_CB1[i][j].get())
-                    print(string_split)
                     string_split.pop()
                     num_eq1 = string_split.pop()
                     num_eq1 = num_eq1.replace(num_eq1[0], "")
                     num_eq1 = num_eq1.replace(num_eq1[len(num_eq1)-1], "")
                     rang_equipe1 = string_split.pop()
                     nom_club1 = ""
-                    for i in range(len(string_split)):
-                        nom_club1 += (string_split[i])
-                        if i != len(string_split)-1:
+                    for debile in range(len(string_split)):
+                        nom_club1 += (string_split[debile])
+                        if debile != len(string_split)-1:
                             nom_club1 += " "
-                    print(f"rang : {rang_equipe1} \n nom club : {nom_club1} \n num equipe : {num_eq1} \n")
                     
+                    #print(f"nom club : {nom_club1}")
                     string_split = split(' ', self.list_CB2[i][j].get())
                     print(string_split)
                     string_split.pop()
@@ -190,31 +180,28 @@ class Matchs():
                     num_eq2 = num_eq2.replace(num_eq2[len(num_eq2)-1], "")
                     rang_equipe2 = string_split.pop()
                     nom_club2 = ""
-                    for i in range(len(string_split)):
-                        nom_club2 += (string_split[i])
-                        if i != len(string_split)-1:
+                    for marrant in range(len(string_split)):
+                        nom_club2 += (string_split[marrant])
+                        if marrant != len(string_split)-1:
                             nom_club2 += " "
 
                     #nom equipe rangEq (numEq)
 
-                    print(f"rang : {rang_equipe2} \n nom club : {nom_club2} \n num equipe : {num_eq2} \n")
+                    
 
                     num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
-                    print(f"num du club : {num_club1}")
+                    print(f"{nom_club1} VS {nom_club2}")
                     for a in num_club1:
                         pre_num_club1 = str(a[0:4])
-                        print(pre_num_club1)
+                       
                     if pre_num_club1 == "0418":
+                        print(str(num_eq1) + " VS " + str(num_eq2))
+                        # print(f"rang : {rang_equipe2} \n nom club : {nom_club2} \n num equipe : {num_eq2} \n")
                         self.list_Cher.append(nom_club1)
-                        print("\nOn est dans le Cher\n")
-
-                    if pre_num_club1 == "0418" :
                         phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_eq1)
                         insert_entry(self.conn,self.cursor,"Rencontres",[f"{num_eq1}",f"{num_eq2}",f"{phase[0]}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
-
-                    print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
-            print("\nNew tab\n")
-        print(self.list_Cher) 
+            print("new day")
+        #print(self.list_Cher) 
         self.test_if_Cher()
 
     def test_if_Cher(self):

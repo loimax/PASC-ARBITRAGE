@@ -727,5 +727,5 @@ display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-# display_table(conn,cursor,"EquipeClub")
+display_table(conn,cursor,"Rencontres")
 # getMaxValue(conn, cursor, "EquipeClub", "numEq")

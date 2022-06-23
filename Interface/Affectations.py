@@ -12,7 +12,7 @@ class Affectation():
         self.cursor = self.conn.cursor()
         #créer une fenetre
         
-        print(self.liste_Rencontres)
+        # print(self.liste_Rencontres)
         
         self.main_window = Tk()
         #donner un titre a la window
