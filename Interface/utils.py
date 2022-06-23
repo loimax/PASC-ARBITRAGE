@@ -596,8 +596,8 @@ def TeamFromClub(liste,club_name):
     return team_liste
 
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
 #display_attributes(conn,cursor,"Rencontres")
 
 #display_table(conn,cursor,"Rencontres")
@@ -614,8 +614,6 @@ cursor = conn.cursor()
 # #display_table(conn,cursor,"EquipeClub")
 # print(b)
 # print(c)
-
-display_table(conn,cursor,"Rencontres")
 
 # join_table(conn,cursor,["Club",""])
 
@@ -641,4 +639,4 @@ display_table(conn,cursor,"Rencontres")
 # display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
-# display_table(conn,cursor,"CLUB")
+# display_table(conn,cursor,"EquipeClub")

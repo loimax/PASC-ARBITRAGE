@@ -18,6 +18,7 @@ class Equipes():
         self.main_window.title("Equipes")
         # donner une taille a la self.main_window
         self.main_window.geometry("1920x1080")
+        self.main_window.attributes('-fullscreen', True)
 
         # créer 3 boutons pour les equipes : modifier ajouter supprimer
         self.bouton_modifier = Button(self.main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'),
@@ -56,11 +57,24 @@ class Equipes():
         self.team_list = Listbox(self.main_window, width=50)
         self.team_list.place(x=600, y=200)
 
+        bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_retour.place(x = 0, y = 0)
+        bouton_quitter.place(x = 0, y = 0)
+        
+
         # # créer une liste de toutes les equipes en affichant UNIQUEMENT leur Rang
         # self.liste_equipes = creation_liste(self.conn, self.cursor, "EquipeClub", ["RangEq"])
 
         # self.liste_equipes = join_table(self.conn, self.cursor, ["CLUB", "EquipeClub"],
         #                                 ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"])
+
+        #final place
+        self.main_window.update()
+        self.entry_equipe.place(x=self.main_window.winfo_width()/2 - self.entry_equipe.winfo_width()/2, y=200)
+        self.team_list.place(x=self.main_window.winfo_width()/2 - self.team_list.winfo_width()/2, y = 250)
+        bouton_retour.place(x = 0.02*self.main_window.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
+        bouton_quitter.place(x = 0.98*self.main_window.winfo_width()-bouton_retour.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
 
         # Ajouter equipes dans la liste
         
@@ -71,12 +85,8 @@ class Equipes():
         # create a binding to the entry box
         self.entry_equipe.bind("<KeyRelease>", self.check)
 
-        # creer bouton retour vers l'accueil
-        bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000',
-                               font=('Arial', 10, 'bold'))
-        bouton_retour.place(x=725, y=700)
-
         # afficher la fenetre
+        
         self.main_window.mainloop()
 
     # uptade de la liste des equipes
@@ -271,3 +281,6 @@ class Equipes():
         # bouton_retour.destroy()
         self.main_window.destroy()
         os.system("python Interface/main.py")
+
+    def quitter(self):
+        self.main_window.destroy()
