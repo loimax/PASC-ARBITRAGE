@@ -1,6 +1,8 @@
 
 import os
 from tkinter import *
+
+from pandas import wide_to_long
 from Matchs import Matchs
 from Poules import Poules
 from JA import JA
@@ -63,35 +65,39 @@ class Accueil:
         bouton_clubs = Button(self.main_window, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_clubs)
         bouton_JA = Button(self.main_window, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_JA)
         bouton_Équipes = Button(self.main_window, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_teams)
-        bouton_Rencontres = Button(self.main_window, text="Matchs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_matchs)
-        bouton_Affectation = Button(self.main_window, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_affectation)
+        # bouton_Rencontres = Button(self.main_window, text="Matchs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_matchs)
+        # bouton_Affectation = Button(self.main_window, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_affectation)
         bouton_Poules = Button(self.main_window, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_poule)
         bouton_Quitter = Button(self.main_window, text="Quitter", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.quit)
+        #void_placeholder = Frame(self.main_window)
 
         #placer les boutons dans la fenetre
         bouton_clubs.grid(row=3, column=2)
         bouton_JA.grid(row=6, column=2)
         bouton_Équipes.grid(row=9, column=2)
-        bouton_Rencontres.grid(row=12, column=2)
-        bouton_Affectation.grid(row=15, column=2)
-        bouton_Poules.grid(row=18, column=2)
-        bouton_Quitter.grid(row=21, column=2)
+        # bouton_Rencontres.grid(row=12, column=2)
+        # bouton_Affectation.grid(row=15, column=2)
+        bouton_Poules.grid(row=12, column=2)
+        #void_placeholder.place(row = 15, column = 2)
+        bouton_Quitter.grid(row=18, column=2)
+
 
         #taille des boutons
         bouton_clubs.config(height=5, width=80)
         bouton_JA.config(height=5, width=80)
         bouton_Équipes.config(height=5, width=80)
-        bouton_Rencontres.config(height=5, width=80)
-        bouton_Affectation.config(height=5, width=80)
+        # bouton_Rencontres.config(height=5, width=80)
+        # bouton_Affectation.config(height=5, width=80)
         bouton_Poules.config(height=5, width=80)
         bouton_Quitter.config(height=5, width=80)
+        #void_placeholder.config(height = 5, width = 80)
 
         #mettre un espace entre les boutons
         bouton_clubs.grid(padx=10, pady=10)
         bouton_JA.grid(padx=10, pady=10)
         bouton_Équipes.grid(padx=10, pady=10)
-        bouton_Rencontres.grid(padx=10, pady=10)
-        bouton_Affectation.grid(padx=10, pady=10)
+        # bouton_Rencontres.grid(padx=10, pady=10)
+        # bouton_Affectation.grid(padx=10, pady=10)
         bouton_Poules.grid(padx=10, pady=10)
         bouton_Quitter.grid(padx=10, pady=10)
 
@@ -111,14 +117,14 @@ class Accueil:
         Equipes()
 
     
-    def open_matchs(self):
-        self.main_window.destroy()
-        Matchs()
+    # def open_matchs(self):
+    #     self.main_window.destroy()
+    #     Matchs()
     
 
-    def open_affectation(self):
-        self.main_window.destroy()
-        Affectation()
+    # def open_affectation(self):
+    #     self.main_window.destroy()
+    #     Affectation()
 
 
     def open_poule(self):

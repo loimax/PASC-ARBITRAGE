@@ -63,6 +63,7 @@ class Equipes():
         bouton_retour.place(x = 0, y = 0)
         bouton_quitter.place(x = 0, y = 0)
         bouton_valider.place(x = 0, y = 0)
+        bouton_rafraichir.place(x = 0, y = 0)
         
 
         # # créer une liste de toutes les equipes en affichant UNIQUEMENT leur Rang
@@ -76,7 +77,7 @@ class Equipes():
 
 
         title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 50)
-        bouton_valider.place(x=self.main_window.winfo_width()/2-bouton_valider.winfo_width()/2 + 220, y=112)
+        bouton_valider.place(x=self.main_window.winfo_width()/2-bouton_valider.winfo_width()/2 + 220, y=125 )
         bouton_ajouter.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + ((self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4))
         bouton_supprimer.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + (2 * (self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + bouton_ajouter.winfo_height())
         bouton_modifier.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + (3 * (self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + 2 * bouton_ajouter.winfo_height())
@@ -86,10 +87,10 @@ class Equipes():
         self.entry_equipe.place(x = self.main_window.winfo_width()/2 - self.entry_equipe.winfo_width()/2, y = 200)
         self.team_list.place(x = self.main_window.winfo_width()/2 - self.team_list.winfo_width()/2, y = 250)
 
-        textannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2, y = 100)
-        self.inputannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2 + self.inputannee.winfo_width(), y = 100)
-        textphase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2 + self.inputannee.winfo_width() + textannee.winfo_width(), y = 100)
-        self.combobox_phase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + self.combobox_phase.winfo_width(), y = 100)
+        textannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2, y = 130)
+        self.inputannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2 + textannee.winfo_width() + 25, y = 130)
+        textphase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + 50, y = 130)
+        self.combobox_phase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + textphase.winfo_width() + 75, y = 130)
         
         # Ajouter equipes dans la liste
         
