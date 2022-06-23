@@ -185,13 +185,13 @@ class Equipes():
         phase = self.combobox_phase.get()
         #annee = self.inputannee.get()
         print(phase)
-        ListeEquipe = getListRow(self.conn, self.cursor,"EquipeClub",["Phase"],[phase])
-        self.liste_nom_club = getValues(self.conn, self.cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListeEquipe,1))
+        self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
+                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"], ["Phase"],
+                                              [phase])
         print("valider")
-        self.update_listebox(self.liste_nom_club)
-        print (self.liste_nom_club)
-         #self.liste_equipes = join_table(self.conn, self.cursor, ["CLUB", "EquipeClub"],
-          #                               ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"])
+        self.update_listebox(self.liste_equipes)
+        print (self.liste_equipes)
+
         
 
     def modifier_equipe(self):
