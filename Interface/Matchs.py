@@ -55,87 +55,6 @@ class Matchs():
         self.add_txt()
 
 
-    def mix_teams(self, list, i):
-        tmp_list = []
-        match i:
-            case 0:
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[3])
-                tmp_list.append(list[7])
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                return tmp_list
-            
-            case 1:
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                tmp_list.append(list[7])
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[3])
-                return tmp_list
-
-            case 2:
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[7])
-                tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                tmp_list.append(list[3])
-                tmp_list.append(list[6])
-                return tmp_list
-
-            case 3:
-                tmp_list.append(list[4])
-                tmp_list.append(list[3])
-                tmp_list.append(list[2])
-                tmp_list.append(list[5])
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[7])
-                tmp_list.append(list[6])
-                return tmp_list
-
-            case 4:
-                tmp_list.append(list[0])
-                tmp_list.append(list[1])
-                tmp_list.append(list[6])
-                tmp_list.append(list[7])
-                tmp_list.append(list[3])
-                tmp_list.append(list[2])
-                tmp_list.append(list[4])
-                tmp_list.append(list[5])
-                return tmp_list
-
-            case 5:
-                tmp_list.append(list[2])
-                tmp_list.append(list[1])
-                tmp_list.append(list[3])
-                tmp_list.append(list[4])
-                tmp_list.append(list[0])
-                tmp_list.append(list[7])
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                return tmp_list
-
-            case 6:
-                tmp_list.append(list[0])
-                tmp_list.append(list[6])
-                tmp_list.append(list[5])
-                tmp_list.append(list[7])
-                tmp_list.append(list[1])
-                tmp_list.append(list[2])
-                tmp_list.append(list[3])
-                tmp_list.append(list[4])
-                return tmp_list
-
-
     def add_phat_table(self):
         nb_rencontres = 7
         nb_matchs_jour = 4
@@ -288,3 +207,84 @@ class Matchs():
 
     def quitter(self):
         self.main_window.destroy()
+
+
+    def mix_teams(self, list, i):
+        tmp_list = []
+        match i:
+            case 0:
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
+                tmp_list.append(list[7])
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                tmp_list.append(list[4])
+                return tmp_list
+            
+            case 1:
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                tmp_list.append(list[4])
+                tmp_list.append(list[7])
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
+                return tmp_list
+
+            case 2:
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[7])
+                tmp_list.append(list[5])
+                tmp_list.append(list[4])
+                tmp_list.append(list[3])
+                tmp_list.append(list[6])
+                return tmp_list
+
+            case 3:
+                tmp_list.append(list[4])
+                tmp_list.append(list[3])
+                tmp_list.append(list[2])
+                tmp_list.append(list[5])
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[7])
+                tmp_list.append(list[6])
+                return tmp_list
+
+            case 4:
+                tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[6])
+                tmp_list.append(list[7])
+                tmp_list.append(list[3])
+                tmp_list.append(list[2])
+                tmp_list.append(list[4])
+                tmp_list.append(list[5])
+                return tmp_list
+
+            case 5:
+                tmp_list.append(list[2])
+                tmp_list.append(list[1])
+                tmp_list.append(list[3])
+                tmp_list.append(list[4])
+                tmp_list.append(list[0])
+                tmp_list.append(list[7])
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                return tmp_list
+
+            case 6:
+                tmp_list.append(list[0])
+                tmp_list.append(list[6])
+                tmp_list.append(list[5])
+                tmp_list.append(list[7])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
+                tmp_list.append(list[4])
+                return tmp_list

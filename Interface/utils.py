@@ -306,10 +306,8 @@ def getValues(conn, cursor, name_table, attribute, id_base, id):
 
     # cas "usuels" d'une liste non vide
     query = f"SELECT {attribute} FROM {name_table} WHERE {id_base}='{id[0]}'"
-    i = 0
-    for k in id:
+    for i in range(1, len(id)):
         query+=f"OR {id_base}='{id[i]}'"
-        i+=1
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
 
@@ -457,7 +455,7 @@ def join_table_where(conn,cursor,name_table,attributs,values, attributs_spec, at
     :param: attributs_spec_values : liste des valeurs des attributs que l'on a spécifié
     :return: liste : une liste des attributs des entrées respectants les paramètres de la jointure
     """
-    query = f"SELECT {values[0]}, {values[1]} FROM {name_table[0]} INNER JOIN {name_table[1]} ON {attributs[0]} == {attributs[1]} WHERE {attributs_spec[0]} == {attributs_spec_values[0]} AND {attributs_spec[1]} == {attributs_spec_values[1]}"
+    query = f"SELECT {values[0]}, {values[1]}, {values[2]} FROM {name_table[0]} INNER JOIN {name_table[1]} ON {attributs[0]} == {attributs[1]} WHERE {attributs_spec[0]} == {attributs_spec_values[0]} AND {attributs_spec[1]} == {attributs_spec_values[1]}"
     cur = execute_query(conn, cursor, query, True)
     resultat = cur.fetchall()
 
