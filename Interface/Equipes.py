@@ -32,6 +32,21 @@ class Equipes():
         self.bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
                                         command=self.rafraichir)
         self.bouton_rafraichir.place(x=720, y=500)
+        self.bouton_valider = Button(self.main_window, text="Valider", fg='#000000', font=('Arial', 10, 'bold'),command = self.valider)
+        self.bouton_valider.place(x=950, y=100)
+
+        #créer une combobox avec un texte "Phase" au dessus
+        self.combobox_phase = Combobox(self.main_window, text="Phase", font=('Arial', 10, 'bold'), values=["1","2"], width=2)
+        self.combobox_phase.place(x=850, y=100)
+        #mettre le texte "Phase" 10 pixels à gauche de la combobox
+        textphase = Label(self.main_window, text="Phase :", font=("Arial", 12))
+        textphase.place(x=780, y=100)
+
+        self.inputannee = Entry(self.main_window, font=("Arial", 12), width=7, justify=CENTER)
+        self.inputannee.place(x=600, y=100)
+        textannee = Label(self.main_window, text="Année :", font=("Arial", 12))
+        textannee.place(x=530, y=100)
+        
 
         # creer une zone de texte pour la recherche de equipes
         self.entry_equipe = Entry(self.main_window, font=("Helvetica", 20))
@@ -44,11 +59,11 @@ class Equipes():
         # # créer une liste de toutes les equipes en affichant UNIQUEMENT leur Rang
         # self.liste_equipes = creation_liste(self.conn, self.cursor, "EquipeClub", ["RangEq"])
 
-        self.liste_equipes = join_table(self.conn, self.cursor, ["CLUB", "EquipeClub"],
-                                        ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"])
+        # self.liste_equipes = join_table(self.conn, self.cursor, ["CLUB", "EquipeClub"],
+        #                                 ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"])
 
         # Ajouter equipes dans la liste
-        self.update_listebox(self.liste_equipes)
+        
 
         # afficher le equipe selectionné
         self.team_list.bind("<<ListboxSelect>>", self.fillout)
@@ -165,6 +180,19 @@ class Equipes():
         self.main_window.destroy()
         Equipes()
         # os.system("python Interface\Equipes.py")
+
+    def valider(self):
+        phase = self.combobox_phase.get()
+        annee = self.inputannee.get()
+        print(phase)
+        self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
+                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"], ["Phase", "Année"],
+                                              [phase, annee])
+        print("valider")
+        self.update_listebox(self.liste_equipes)
+        print (self.liste_equipes)
+
+        
 
     def modifier_equipe(self):
         # récupère la chaine dans la boite de dialogue

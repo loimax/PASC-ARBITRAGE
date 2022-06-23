@@ -171,6 +171,20 @@ def modify_entry(conn, cursor, name_table, list, id): #anciennement modify_value
         execute_query(conn, cursor, query,True)
         i+=1
 
+def modify_one_entry(conn, cursor, name_table,attribut,value, id): #anciennement modify_value
+    """
+    Modifie un attribut d'une entrée de la table déjà existante
+    :param: name_table : nom de la table que l'on va modifier
+    :param: attribut : nom de l'attribut qu'on veut modifier
+    :param: value : la nouvelle entrée
+    :param: id : clé primaire de l'entrée modifier (on peut la modifier mais il nous la faut avant pour la trouver dans la database)
+    :return: void
+    """
+    attr = getAttributes(conn, cursor, name_table)
+
+    query = f"UPDATE {name_table} SET {attribut} = '{value}' WHERE {attr[0]} = '{id}'"
+    execute_query(conn, cursor, query,True)
+
 #vérifie si une valeur entrée en insert est du bon type (Null ou Not Null)
 def dict(name_table):
     """
@@ -400,7 +414,32 @@ def join_table(conn,cursor,name_table,attributs,values):
         liste.append(row)
     print(liste)
     return liste
-   
+
+# fonction qui "concatène" NomClub et rgEquipe qui sont dans deux table différentes
+def join_table_where(conn,cursor,name_table,attributs,values, attributs_spec, attributs_spec_values):
+    """
+    INNER JOIN en SQLite, 2 par 2
+    exemple : join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+    :param: conn :
+    :param: cursor :
+    :param: name_table : nom des DEUX tables qu'on join dans une liste
+    :param: attributs : liste de l'attribut de chaque table dont on veut que les valeurs soient égales
+    :param: values : liste des attributs qu'on veut conserver et mettre dans la liste
+    :param: attributs_spec : liste des attributs que l'on veut spécifier
+    :param: attributs_spec_values : liste des valeurs des attributs que l'on a spécifié
+    :return: liste : une liste des attributs des entrées respectants les paramètres de la jointure
+    """
+    query = f"SELECT {values[0]}, {values[1]} FROM {name_table[0]} INNER JOIN {name_table[1]} ON {attributs[0]} == {attributs[1]} WHERE {attributs_spec[0]} == {attributs_spec_values[0]} AND {attributs_spec[1]} == {attributs_spec_values[1]}"
+    cur = execute_query(conn, cursor, query, True)
+    resultat = cur.fetchall()
+
+    liste = []
+    for row in resultat:
+        liste.append(row)
+    print(liste)
+    return liste
+
+
 def createViews(conn, cursor):
     """
     Création des vues
@@ -531,13 +570,13 @@ def TeamFromClub(liste,club_name):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
-display_attributes(conn,cursor,"Rencontres")
+#display_attributes(conn,cursor,"Rencontres")
 
-# display_table(conn,cursor,"Rencontres")
-# insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
-# 
-# del_entry(conn,cursor,"Rencontres","NumRenc","1111")
-display_table(conn,cursor,"CLUB")
+#display_table(conn,cursor,"Rencontres")
+# # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
+# # 
+# # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
+# display_table(conn,cursor,"CLUB")
 
 """ "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
 a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
@@ -568,3 +607,8 @@ print(c)
 # alterTable(conn, cursor, "EquipeClub", attributes)
 # display_table(conn, cursor, "CLUB")
 
+# display_attributes(conn,cursor,"EquipeClub")
+# display_table(conn,cursor,"EquipeClub")
+# for i in range(165):
+#     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
+display_table(conn,cursor,"EquipeClub")
