@@ -1,3 +1,4 @@
+from cmath import phase
 from tkinter import *
 import os
 from tkinter.ttk import Combobox
@@ -306,12 +307,14 @@ class Equipes():
         chaine_clubXekip = self.team_list.get(ANCHOR)
         # récupère chaque élément de la chaine lue dans des variables séparées
         nom_club = str(chaine_clubXekip[:-5])
+
         chaine_split = split(' ', chaine_clubXekip)
         rang_equipe = chaine_split[len(chaine_split)-2]
         division_equipe = chaine_split[len(chaine_split)-1]
         # print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe)
         # récupère le numero du club
         num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
+        phase = getValues(self.conn, self.cursor, "EquipeClub", "Phase", "numClub", [num_club])[0]
         # num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"],
         #                                   [num_club, division_equipe])[0]
 
@@ -323,12 +326,12 @@ class Equipes():
         modif_equipe.geometry("400x270")
 
         # on crée un formulaire ou on affiche les données du equipe séléctionné
-        # if values[i][1] == "NOT NULL":
-        #     text = "*"
-        # label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
-        # label_numero.grid(row=1, column=1)
-        # i+=1
-        # text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
+        label_numero.grid(row=1, column=1)
+        i+=1
+        text = ""
 
         if values[i][1] == "NOT NULL":
             text = "*"
@@ -387,12 +390,12 @@ class Equipes():
         text = ""
 
         # on recupere les données de l'equipe séléctionné
-        data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division"], [num_club, rang_equipe, division_equipe])
+        data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division","Phase"], [num_club, rang_equipe, division_equipe,phase])
         # print("data = ", data)
         # on les affiche dans le formulaire
-        # entry_numero_equipe = Entry(modif_equipe, width=30)
-        # entry_numero_equipe.grid(row=1, column=2)
-        # entry_numero_equipe.insert(END, data[0])
+        entry_numero_equipe = Entry(modif_equipe, width=30)
+        entry_numero_equipe.grid(row=1, column=2)
+        entry_numero_equipe.insert(END, data[0])
         entry_numero_club = Entry(modif_equipe, width=30)
         entry_numero_club.grid(row=2, column=2)
         entry_numero_club.insert(END, data[1])
@@ -431,7 +434,7 @@ class Equipes():
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, correq, annee, phase]
             # modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
-            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe])
+            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe,phase])
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]
