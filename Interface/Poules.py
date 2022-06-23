@@ -41,11 +41,11 @@ class Poules():
         self.menuderoulant7 = Combobox()
         self.menuderoulant8 = Combobox()    
 
-        self.liste_combobox = []
-        self.liste_combobox.append(self.menuderoulant1)
-        self.liste_combobox.append(self.menuderoulant2)
-        print(self.liste_combobox)
-        print(self.liste_combobox[0])
+        # self.liste_combobox = []
+        # self.liste_combobox.append(self.menuderoulant1)
+        # self.liste_combobox.append(self.menuderoulant2)
+        # print(self.liste_combobox)
+        # print(self.liste_combobox[0])
 
         self.liste_combobox[0]=Combobox(self.main_window, values=self.liste_Rencontres, font=("Arial", 12))
         self.liste_combobox[0].place(x = 0, y = 0)
