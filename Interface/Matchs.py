@@ -13,8 +13,8 @@ class Matchs():
     def __init__(self, liste_from_poules):
         self.liste_debase_equipes = liste_from_poules
         print("match list = " + str(self.liste_debase_equipes))
-        conn = create_connection("Interface/testdb/GestionRegionale.db")
-        cursor = conn.cursor()
+        self.conn = create_connection("Interface/testdb/GestionRegionale.db")
+        self.cursor = self.conn.cursor()
         #créer une fenetre
         self.main_window = Tk()
         #donner un titre a la Matchs
@@ -237,9 +237,12 @@ class Matchs():
                 print(self.list_CB1[i][j].get())
                 print(" VS ")
                 print(self.list_CB2[i][j].get())
+                
+                club_name = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
             print("\nNew tab\n")
 
-            
+        
+
             # nw_lst = [8]
             # nw_lst[i] = 
             
