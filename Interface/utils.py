@@ -578,14 +578,14 @@ cursor = conn.cursor()
 # # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
 # display_table(conn,cursor,"CLUB")
 
-# """ "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
-# a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
-# print(a)
-# b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
-# c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
-# #display_table(conn,cursor,"EquipeClub")
-# print(b)
-# print(c)
+""" "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
+a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
+print(a)
+b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
+c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
+#display_table(conn,cursor,"EquipeClub")
+print(b)
+print(c)
 
 # join_table(conn,cursor,["Club",""])
 
@@ -609,6 +609,6 @@ cursor = conn.cursor()
 
 # display_attributes(conn,cursor,"EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
-
-# modify_one_entry(conn,cursor,"EquipeClub","Année","2022",164)
-# display_table(conn,cursor,"EquipeClub")
+# for i in range(165):
+#     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
+display_table(conn,cursor,"EquipeClub")
