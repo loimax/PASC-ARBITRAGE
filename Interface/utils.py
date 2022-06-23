@@ -615,9 +615,15 @@ def TeamFromClub(liste,club_name):
     print(team_liste)
     return team_liste
 
+def getMaxValue(conn, cursor, name_table, attribute):
+    query = f"SELECT Max({attribute}) FROM {name_table}"
+    cur = execute_query(conn, cursor, query)
+    result = cur.fetchall()
+    return result[0][0]
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
+
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
 # # update_tables(conn, cursor, ["JA"])
 # display_table(conn,cursor,"EquipeClub")
 
@@ -661,4 +667,5 @@ def TeamFromClub(liste,club_name):
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-# display_table(conn,cursor,"EquipeClub")
+display_table(conn,cursor,"EquipeClub")
+getMaxValue(conn, cursor, "EquipeClub", "numEq")
