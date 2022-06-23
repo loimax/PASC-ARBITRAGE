@@ -323,12 +323,12 @@ class Equipes():
         modif_equipe.geometry("400x270")
 
         # on crée un formulaire ou on affiche les données du equipe séléctionné
-        if values[i][1] == "NOT NULL":
-            text = "*"
-        label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
-        label_numero.grid(row=1, column=1)
-        i+=1
-        text = ""
+        # if values[i][1] == "NOT NULL":
+        #     text = "*"
+        # label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
+        # label_numero.grid(row=1, column=1)
+        # i+=1
+        # text = ""
 
         if values[i][1] == "NOT NULL":
             text = "*"
@@ -390,9 +390,9 @@ class Equipes():
         data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division"], [num_club, rang_equipe, division_equipe])
         # print("data = ", data)
         # on les affiche dans le formulaire
-        entry_numero_equipe = Entry(modif_equipe, width=30)
-        entry_numero_equipe.grid(row=1, column=2)
-        entry_numero_equipe.insert(END, data[0])
+        # entry_numero_equipe = Entry(modif_equipe, width=30)
+        # entry_numero_equipe.grid(row=1, column=2)
+        # entry_numero_equipe.insert(END, data[0])
         entry_numero_club = Entry(modif_equipe, width=30)
         entry_numero_club.grid(row=2, column=2)
         entry_numero_club.insert(END, data[1])
@@ -419,7 +419,7 @@ class Equipes():
         entry_phase.insert(END, data[8])
 
         def modif_equipe_data():
-            numero_equipe = entry_numero_equipe.get()
+            numero_equipe = data[0]
             numero_club = entry_numero_club.get()
             rang_equipe = entry_rang_equipe.get()
             masculin = entry_masculin.get()
