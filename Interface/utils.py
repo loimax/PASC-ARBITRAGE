@@ -119,7 +119,6 @@ def display_table(conn, cursor, name_table, specified=False, num_rows=0):
         for i in range(len(row)):
             print(row[i], end=" | ")
         print("\n")
-        # print(row) #print(row[1]) affiche 1re colonne de la table
 
 def insert_entry(conn, cursor, name_table,list,auto_incr=False):
     """
@@ -139,7 +138,6 @@ def insert_entry(conn, cursor, name_table,list,auto_incr=False):
     liste = ','.join("'" + item + "'" for item in list)
 
     query=f"INSERT INTO {name_table}({attrStr}) VALUES ({liste})"
-    print(query)
     execute_query(conn, cursor, query, True)
 
 def del_entry(conn, cursor, name_table, attribut, valeur):
@@ -227,7 +225,6 @@ def creation_liste(conn, cursor, name_table, attribut):
     :return: liste : la liste des strings formées par notre demande
     """
     query = f"SELECT {attribut[0]}"
-    print(len(attribut))
     if len(attribut)>1:
         i = 0
         for k in range(len(attribut)-1):
@@ -247,7 +244,6 @@ def creation_liste(conn, cursor, name_table, attribut):
             for j in range(len(attribut)):
                 JA_infos += f"{row[i+j]} "
             liste.append(JA_infos)
-    print(liste)
     return(liste)
 
 def getListRow(conn, cursor, name_table, list_attribut, list_valeur):
@@ -332,7 +328,6 @@ def getValuesConstraints(conn, cursor, name_table, attribute, id_base, id):
     if len(id) > 1:
         for i in range(1, len(id)):
             query+=f"AND {id_base[i]}='{id[i]}'"
-    print(query)
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
 
@@ -424,17 +419,13 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
 def alterTable(conn, cursor, name_table, attributes:list):
-    print("len = ", len(attributes))
-
     query = f"ALTER TABLE {name_table} ADD {attributes[0]};"
-    print(query)
     if len(attributes) > 1 :
         for i in range(len(attributes)-1):
             i+=1
             execute_query(conn, cursor, query, True)
             query = f"ALTER TABLE {name_table} ADD {attributes[i]};"
-            print(query)
-
+    
     execute_query(conn, cursor, query, True)
 
 # fonction qui "concatène" NomClub et rgEquipe qui sont dans deux table différentes
@@ -486,7 +477,6 @@ def switchPhaseDuplicates(conn, cursor, table):
     query = f"SELECT * FROM {table};"
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
-    # print(result)
     attr = getAttributes(conn, cursor, table)
     # numClub et RangEq
     i = 0
@@ -506,7 +496,6 @@ def switchPhaseDuplicates(conn, cursor, table):
                             if rows[colonnes] == numClub and rows[colonnes+1] == rangEq:
                                 # rows[colonnes+7] = 2
                                 query = f"UPDATE {table} SET 'Phase' = 2 WHERE {attr[0]} ='{rows[colonnes-1]}';"
-                                print(query)
                                 execute_query(conn, cursor, query, True)
                                 # print(rows[colonnes+7])
                                 # print("à la ligne", rows, "et à la ligne", row)
@@ -538,7 +527,6 @@ def join_table_where_4(conn,cursor,name_table,attributs,values, attributs_spec, 
     liste = []
     for row in resultat:
         liste.append(row)
-    print(liste)
     return liste
 
 
@@ -670,7 +658,6 @@ def TeamFromClub(liste,club_name):
     for l in liste:
         if l[0] == club_name:
             team_liste.append(l[1])
-    print(team_liste)
     return team_liste
 
 def getMaxValue(conn, cursor, name_table, attribute):
@@ -680,8 +667,8 @@ def getMaxValue(conn, cursor, name_table, attribute):
     return result[0][0]
 
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
 # # # update_tables(conn, cursor, ["JA"])
 # # switchPhaseDuplicates(conn, cursor, "EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
@@ -725,5 +712,5 @@ def getMaxValue(conn, cursor, name_table, attribute):
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-# display_table(conn,cursor,"Rencontres")
+display_table(conn,cursor,"Rencontres")
 # getMaxValue(conn, cursor, "EquipeClub", "numEq")
