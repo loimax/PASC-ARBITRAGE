@@ -11,6 +11,8 @@ class Affectation():
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
         #créer une fenetre
+
+        print(self.liste_Rencontres)
         
         self.main_window = Tk()
         #donner un titre a la window
@@ -29,6 +31,8 @@ class Affectation():
 
         self.main_window.attributes('-fullscreen', True)
         self.main_window.mainloop()
+
+
 
 
         

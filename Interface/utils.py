@@ -205,9 +205,9 @@ def dict(name_table):
                 "TypeJA":["int", "NOT NULL", "3" ], "NbJA":["int", "NOT NULL", "1"]}
         return epreuves
     elif name_table == "EquipeClub":
-        equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL"], \
-            "RangEq":["int", "NOT NULL"], "Masculin":["int", "NOT NULL"], "Division":["TEXT", "NOT NULL"], \
-                "Poule":["TEXT", "NOT NULL"], "CorrEq":["TEXT", "NULL"], "Année":["int", "NULL"], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
+        equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL", ""], \
+            "RangEq":["int", "NOT NULL", ""], "Masculin":["int", "NOT NULL", ""], "Division":["TEXT", "NOT NULL", ""], \
+                "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], "Année":["int", "NULL", ""], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
         return equipeClub
     elif name_table == "JA":
         ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
@@ -331,10 +331,9 @@ def getValuesConstraints(conn, cursor, name_table, attribute, id_base, id):
 
     # cas "usuels" d'une liste non vide
     query = f"SELECT {attribute} FROM {name_table} WHERE {id_base[0]}='{id[0]}'"
-    i = 0
-    for k in id:
-        query+=f"AND {id_base[i]}='{id[i]}'"
-        i+=1
+    if len(id) > 1:
+        for i in range(1, len(id)):
+            query+=f"AND {id_base[i]}='{id[i]}'"
     print(query)
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
@@ -403,6 +402,26 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
             insert_entry(conn, cursor, name_table, liste)
         else:
             data = getListRow(conn, cursor, "JA", ["NumLic"], [nom])
+            modify_entry(conn, cursor, name_table, liste, getID(data))
+    elif name_table == "EquipeClub":
+        for d in liste:
+            if values[i][1] == "NULL" and len(d) == 0:
+                liste[i] = "None"
+            elif values[i][1] == "NOT NULL" and len(d) == 0:
+                text = f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}'; veuillez entrer une valeur"
+                msg.showerror(title="Erreur : \n", message=text)
+                return
+            elif values[i][1] == "NOT NULL" and d == "None":
+                text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
+                msg.showerror(title="Erreur : \n", message=text)
+                return
+            if values[i][2] == "DEFAULT 1" and len(d) == 0:
+                liste[i] = "1"
+            i+=1
+        if not modify:
+            insert_entry(conn, cursor, name_table, liste)
+        else:
+            data = getListRow(conn, cursor, "EquipeClub", ["NumClub", "RangEq"], nom)
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
 def alterTable(conn, cursor, name_table, attributes:list):
@@ -573,6 +592,9 @@ def update_tables(conn, cursor, name_tables, needNull=False):
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur_Nulle';"
                     query2 = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
+                    print("""
+                    update pour remettre les valeurs à None
+                    """)
                 execute_query(conn, cursor, query, True) 
                 if query2 != "":
                     execute_query(conn, cursor, query2, True)
@@ -596,7 +618,8 @@ def TeamFromClub(liste,club_name):
 
 # conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
-#display_attributes(conn,cursor,"Rencontres")
+# # update_tables(conn, cursor, ["JA"])
+# display_table(conn,cursor,"JA")
 
 #display_table(conn,cursor,"Rencontres")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
@@ -619,7 +642,7 @@ def TeamFromClub(liste,club_name):
 # display_table(conn,cursor,"Rencontres")
 # conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
-# # update_tables(conn, cursor, ["JA"], True)
+
 # display_table(conn, cursor, "CLUB")
 
 
@@ -627,14 +650,15 @@ def TeamFromClub(liste,club_name):
 # TeamFromClub(l,"ST AVERTIN SPORT")
 
 # getListRow(conn,cursor,"EquipeClub",["Division","Poule"],["R3","C"])
-
+# display_attributes(conn,cursor,"EquipeClub")
 
 # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
-# display_table(conn, cursor, "CLUB")
+#display_table(conn, cursor, "CLUB")
 
 # display_attributes(conn,cursor,"EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
+#     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
 # display_table(conn,cursor,"EquipeClub")

@@ -207,13 +207,16 @@ class Equipes():
 
     def supprimer_equipe(self):
         chaine_clubXekip = self.team_list.get(ANCHOR)
-        num_equipe = getValues(self.conn, self.cursor, "CLUB", "NumEquipe", "NomClub", [str(chaine_clubXekip[:-5])])
-        del_entry(self.conn, self.cursor, "EquipeClub", "", num_club)
+        chaine_split = split(' ', chaine_clubXekip)
+        division_equipe = chaine_split[len(chaine_split) - 1]
+        nom_club = str(chaine_clubXekip[:-5])
+        num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
+        num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"], [num_club, division_equipe])[0]
+        del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num_equipe)
 
     def rafraichir(self):
         self.main_window.destroy()
         Equipes()
-        # os.system("python Interface\Equipes.py")
 
     def valider(self):
         phase = self.combobox_phase.get()
@@ -222,8 +225,6 @@ class Equipes():
         self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
                                               ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "Division"], ["Phase", "Année"],
                                               [phase, annee])
-        print("valider")
-        print(self.liste_equipes)
         self.update_listebox(self.liste_equipes)
 
         
@@ -238,7 +239,9 @@ class Equipes():
         division_equipe = chaine_split[len(chaine_split)-1]
         print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe)
         # récupère le numero du club
-        num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])
+        num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
+        # num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"],
+        #                                   [num_club, division_equipe])[0]
 
         # on ouvre une fenetre
         modif_equipe = Tk()
@@ -260,9 +263,15 @@ class Equipes():
         label_division.grid(row=5, column=1)
         label_poule = Label(modif_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
+        label_correq = Label(modif_equipe, text="Correq :")
+        label_correq.grid(row=7, column=1)
+        label_annee = Label(modif_equipe, text="Année :")
+        label_annee.grid(row=8, column=1)
+        label_phase = Label(modif_equipe, text="Phase :")
+        label_phase.grid(row=9, column=1)
 
         # on recupere les données de l'equipe séléctionné
-        data = getListRow(self.conn, self.cursor, "EquipeClub", ["NumClub", "RangEq"], [num_club, rang_equipe])
+        data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division"], [num_club, rang_equipe, division_equipe])
         print("data = ", data)
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)

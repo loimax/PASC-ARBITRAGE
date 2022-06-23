@@ -122,32 +122,49 @@ class Clubs():
         entry_tel_club = Entry(add_club, width=30)
         entry_tel_club.grid(row=7, column=2)
         #afficher les titres des zones de texte
-        label_numero = Label(add_club, text=f"Numéro de club : {values[i]}")
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero = Label(add_club, text=f"Numéro de club : {text}")
         label_numero.grid(row=1, column=1)
         i+=1
+        text = ""
 
-        label_nomclub = Label(add_club, text=f"Nom du club : {values[i]}")
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_nomclub = Label(add_club, text=f"Nom du club : {text}")
         label_nomclub.grid(row=2, column=1)
         i+=1
+        text = ""
 
-        label_ville_club = Label(add_club, text=f"Ville : {values[i]}")
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_ville_club = Label(add_club, text=f"Ville : {text}")
         label_ville_club.grid(row=3, column=1)
         i+=1
-
-        label_adresseclub = Label(add_club, text=f"Adresse : {values[i]}")
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_adresseclub = Label(add_club, text=f"Adresse : {text}")
         label_adresseclub.grid(row=4, column=1)
         i+=1
-
-        label_cp_club = Label(add_club, text=f"CP : {values[i]}")
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_cp_club = Label(add_club, text=f"CP : {text}")
         label_cp_club.grid(row=5, column=1)
         i+=1
-
-        label_correspondant = Label(add_club, text=f"Correspondant : {values[i]}")
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_correspondant = Label(add_club, text=f"Correspondant : {text}")
         label_correspondant.grid(row=6, column=1)
         i+=1
-
-        label_Tel = Label(add_club, text=f"Téléphone : {values[i]}")
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_Tel = Label(add_club, text=f"Téléphone : {text}")
         label_Tel.grid(row=7, column=1)
+        text = ""
         #recuperer les données du formulaire
         def add_club_data():
             numero_club = entry_numero_club.get()
@@ -185,6 +202,9 @@ class Clubs():
 
 
     def modifier_club(self):
+        clubs = dict("CLUB")
+        values = list(clubs.values())
+        i = 0
         name = self.club_list.get(ANCHOR)
         nom = name.rsplit(' ',1)[0]
         print(nom)
@@ -195,20 +215,48 @@ class Clubs():
         #on donne une taille a la fenetre
         modif_club.geometry("400x200")
         #on crée un formulaire ou on affiche les données du club séléctionné
-        label_numero = Label(modif_club, text="Numéro de club :")
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero = Label(modif_club, text=f"Numéro de club : {text}")
         label_numero.grid(row=1, column=1)
-        label_nomclub = Label(modif_club, text="Nom du club :")
+        i+=1
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_nomclub = Label(modif_club, text=f"Nom du club : {text}")
         label_nomclub.grid(row=2, column=1)
-        label_ville_club = Label(modif_club, text="Ville :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_ville_club = Label(modif_club, text=f"Ville : {text}")
         label_ville_club.grid(row=3, column=1)
-        label_adresseclub = Label(modif_club, text="Adresse :")
+        i+=1
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_adresseclub = Label(modif_club, text=f"Adresse : {text}")
         label_adresseclub.grid(row=4, column=1)
-        label_cp_club = Label(modif_club, text="CP :")
+        i+=1
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_cp_club = Label(modif_club, text=f"CP : {text}")
         label_cp_club.grid(row=5, column=1)
-        label_correspondant = Label(modif_club, text="Correspondant :")
+        i+=1
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_correspondant = Label(modif_club, text=f"Correspondant : {text}")
         label_correspondant.grid(row=6, column=1)
-        label_Tel = Label(modif_club, text="Téléphone :")
+        i+=1
+        text = ""
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_Tel = Label(modif_club, text=f"Téléphone : {text}")
         label_Tel.grid(row=7, column=1)
+        text = ""
         #on recupere les données du club séléctionné
 
         data = getListRow(self.conn, self.cursor, "CLUB", ["NomClub"], [nom])
