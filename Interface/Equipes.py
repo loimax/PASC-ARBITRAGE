@@ -434,7 +434,7 @@ class Equipes():
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, correq, annee, phase]
             # modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
-            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe])
+            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe,phase])
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]

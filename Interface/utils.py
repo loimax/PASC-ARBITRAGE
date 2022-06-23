@@ -422,7 +422,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
         if not modify:
             insert_entry(conn, cursor, name_table, liste,["numClub","RangEq","Masculin","Division","Poule","CorrEq","Année","Phase"])
         else:
-            data = getListRow(conn, cursor, "EquipeClub", ["numClub", "RangEq", "Division"], datas)
+            data = getListRow(conn, cursor, "EquipeClub", ["numClub", "RangEq", "Division","Phase"], datas)
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
 def alterTable(conn, cursor, name_table, attributes:list):
@@ -684,8 +684,8 @@ def getMaxValue(conn, cursor, name_table, attribute):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
-# update_tables(conn, cursor, ["JA"])
-switchPhaseDuplicates(conn, cursor, "EquipeClub")
+# # update_tables(conn, cursor, ["JA"])
+# switchPhaseDuplicates(conn, cursor, "EquipeClub")
 display_table(conn,cursor,"EquipeClub")
 
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
