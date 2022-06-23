@@ -11,11 +11,15 @@ from JA import JA
 #faire un tableau avec des listes déroulantes pour choisir l"équipe
 
 class Matchs():
-    def __init__(self, liste_from_poules):
+    def __init__(self, liste_from_poules, niveau, poule, année=2022, phase=1):
         self.liste_debase_equipes = liste_from_poules
         print("match list = " + str(self.liste_debase_equipes))
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
+        self.niveau = niveau
+        self.poule = poule
+        self.année = année
+        self.phase = phase
         #créer une fenetre
         self.main_window = Tk()
         #donner un titre a la Matchs
@@ -207,7 +211,7 @@ class Matchs():
 
 
     def add_txt(self):
-        txt = Label(self.main_window, text="Voici la feuille de match pour la poule X de X/X/XX", font=("Arial", 18))
+        txt = Label(self.main_window, text="Voici la feuille de match pour la poule " + self.poule + " de " + self.niveau + " - " + self.année + " phase " + self.phase, font=("Arial", 18))
         bouton_creer = Button(self.main_window, text="Créer", command=self.creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
         bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
