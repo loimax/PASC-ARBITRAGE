@@ -1,6 +1,4 @@
 from Accueil import *
-from Matchs import Matchs
-import sys
 
 def main():
     Accueil()
