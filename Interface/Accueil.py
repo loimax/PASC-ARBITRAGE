@@ -6,6 +6,7 @@ from Poules import Poules
 from JA import JA
 from Equipes import Equipes
 from Clubs import Clubs
+from Affectations import Affectation
 
 
 class Accueil:
@@ -117,7 +118,7 @@ class Accueil:
 
     def open_affectation(self):
         self.main_window.destroy()
-        os.system("python Interface/Affectations.py")
+        Affectation()
 
 
     def open_poule(self):

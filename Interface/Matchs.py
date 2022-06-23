@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from tkinter.ttk import Combobox
 from utils import *
+from JA import JA
 
 
 #window_height : 701, nope, dépends de la taille réelle de l'écran
@@ -10,11 +11,15 @@ from utils import *
 #faire un tableau avec des listes déroulantes pour choisir l"équipe
 
 class Matchs():
-    def __init__(self, liste_from_poules):
+    def __init__(self, liste_from_poules, niveau, poule, année=2022, phase=1):
         self.liste_debase_equipes = liste_from_poules
         print("match list = " + str(self.liste_debase_equipes))
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
+        self.niveau = niveau
+        self.poule = poule
+        self.année = année
+        self.phase = phase
         #créer une fenetre
         self.main_window = Tk()
         #donner un titre a la Matchs
@@ -200,13 +205,13 @@ class Matchs():
                     tmp_list_CB1[j].place(x=start_array+e_size+num_journee_size, y=offset_top+j*e_sizeh+i*140)
                     tmp_list_CB2[j].place(x=start_array+e_size+num_journee_size+tmp_list_CB1[j].winfo_width(), y=offset_top+j*e_sizeh+i*140)
 
-                self.list_CB1.append(tmp_list_CB1)
-                self.list_CB2.append(tmp_list_CB2)
+            self.list_CB1.append(tmp_list_CB1)
+            self.list_CB2.append(tmp_list_CB2)
 
 
 
     def add_txt(self):
-        txt = Label(self.main_window, text="Voici la feuille de match pour la poule X de X/X/XX", font=("Arial", 18))
+        txt = Label(self.main_window, text="Voici la feuille de match pour la poule " + self.poule + " de " + self.niveau + " - " + self.année + " phase " + self.phase, font=("Arial", 18))
         bouton_creer = Button(self.main_window, text="Créer", command=self.creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
         bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
@@ -237,16 +242,40 @@ class Matchs():
                 print(self.list_CB1[i][j].get())
                 print(" VS ")
                 print(self.list_CB2[i][j].get())
+                print(f"|{self.list_CB1[i][j].get()}|")
                 
-                club_name = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
+                rang_equipe1 = self.list_CB1[i][j].get()[len(self.list_CB1[i][j].get())-1]
+                nom_club1 = str(self.list_CB1[i][j].get()[:-2])  
+                print("Nom ",nom_club1," rang : ",rang_equipe1) 
+                rang_equipe2 = self.list_CB2[i][j].get()[len(self.list_CB2[i][j].get())-1]
+                nom_club2 = str(self.list_CB2[i][j].get()[:-2])  
+                print("Nom ",nom_club2," rang : ",rang_equipe2) 
+                num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
+                num_club2 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club2])
+                print(f"numéros des clubs : {num_club1} , {num_club2}")
+
+                num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club1[0],rang_equipe1])
+                num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club2[0],rang_equipe2])
+                print(f"Numéros des équipes : {num_team1},{num_team2}")
+
+                phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_team2)
+                print(f"Numéros des phases : {phase}")
+                # Petit bloque immonde parce que phase[0] est out if index pour une raison qui m'échappe
+                for a in phase:
+                    nani_phase = a
+                for b in num_team1:
+                    nani_team1 = b
+                for c in num_team2:
+                    nani_team2 = c
+
+                insert_entry(self.conn,self.cursor,"Rencontres",[f"{nani_team1}",f"{nani_team2}",f"{nani_phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+
+                print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
+        liste_a_envoyer = []
+        self.main_window.destroy()
+        JA(liste_a_envoyer)
 
-        
-
-            # nw_lst = [8]
-            # nw_lst[i] = 
-            
-        # print(nw_lst)
 
 
     def retour(self):
