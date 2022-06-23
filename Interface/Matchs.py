@@ -69,69 +69,69 @@ class Matchs():
                 return tmp_list
             
             case 1:
-                tmp_list.append(list[5])
                 tmp_list.append(list[6])
-                tmp_list.append(list[7])
+                tmp_list.append(list[5])
                 tmp_list.append(list[4])
-                tmp_list.append(list[3])
-                tmp_list.append(list[2])
-                tmp_list.append(list[1])
+                tmp_list.append(list[7])
                 tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
                 return tmp_list
 
             case 2:
                 tmp_list.append(list[0])
                 tmp_list.append(list[1])
                 tmp_list.append(list[2])
-                tmp_list.append(list[4])
-                tmp_list.append(list[5])
-                tmp_list.append(list[3])
                 tmp_list.append(list[7])
+                tmp_list.append(list[5])
+                tmp_list.append(list[4])
+                tmp_list.append(list[3])
                 tmp_list.append(list[6])
                 return tmp_list
 
             case 3:
-                tmp_list.append(list[7])
+                tmp_list.append(list[4])
                 tmp_list.append(list[3])
                 tmp_list.append(list[2])
-                tmp_list.append(list[6])
                 tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                tmp_list.append(list[1])
                 tmp_list.append(list[0])
+                tmp_list.append(list[1])
+                tmp_list.append(list[7])
+                tmp_list.append(list[6])
                 return tmp_list
 
             case 4:
                 tmp_list.append(list[0])
                 tmp_list.append(list[1])
-                tmp_list.append(list[5])
-                tmp_list.append(list[4])
                 tmp_list.append(list[6])
                 tmp_list.append(list[7])
-                tmp_list.append(list[2])
                 tmp_list.append(list[3])
+                tmp_list.append(list[2])
+                tmp_list.append(list[4])
+                tmp_list.append(list[5])
                 return tmp_list
 
             case 5:
                 tmp_list.append(list[2])
                 tmp_list.append(list[1])
                 tmp_list.append(list[3])
+                tmp_list.append(list[4])
+                tmp_list.append(list[0])
                 tmp_list.append(list[7])
                 tmp_list.append(list[6])
                 tmp_list.append(list[5])
-                tmp_list.append(list[4])
-                tmp_list.append(list[0])
                 return tmp_list
 
             case 6:
                 tmp_list.append(list[0])
-                tmp_list.append(list[5])
                 tmp_list.append(list[6])
-                tmp_list.append(list[4])
+                tmp_list.append(list[5])
                 tmp_list.append(list[7])
-                tmp_list.append(list[3])
-                tmp_list.append(list[2])
                 tmp_list.append(list[1])
+                tmp_list.append(list[2])
+                tmp_list.append(list[3])
+                tmp_list.append(list[4])
                 return tmp_list
 
 
@@ -167,7 +167,7 @@ class Matchs():
 
                 self.e4 = Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12))
                 self.e4.place(x=0, y=0)
-                self.e4.insert(END,self.mix_teams(self.liste_debase_equipes,i)[-j-1])
+                self.e4.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j+4])
                 # self.e4.config(state='disabled')
 
 

@@ -49,8 +49,6 @@ class Poules():
         self.liste_combobox[0]=Combobox(self.main_window, values=self.liste_Rencontres, font=("Arial", 12))
         self.liste_combobox[0].place(x = 0, y = 0)
 
-        self.liste_pour_matchs = []
-
         #créer une liste d'équipes et les afficher 
 
         self.add_buttons()
