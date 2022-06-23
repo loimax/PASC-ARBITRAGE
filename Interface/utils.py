@@ -207,7 +207,7 @@ def dict(name_table):
     elif name_table == "EquipeClub":
         equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL", ""], \
             "RangEq":["int", "NOT NULL", ""], "Masculin":["int", "NOT NULL", ""], "Division":["TEXT", "NOT NULL", ""], \
-                "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], "Année":["int", "NULL", ""], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
+                "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], "Année":["int", "NOT NULL", "DEFAULT 2022"], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
         return equipeClub
     elif name_table == "JA":
         ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
@@ -619,7 +619,7 @@ def TeamFromClub(liste,club_name):
 # conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
 # # update_tables(conn, cursor, ["JA"])
-# display_table(conn,cursor,"JA")
+# display_table(conn,cursor,"EquipeClub")
 
 #display_table(conn,cursor,"Rencontres")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
