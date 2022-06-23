@@ -125,10 +125,12 @@ class JA():
         #On coupe la string "Prénom Nom NumLicence " pour avoir seulement NumLicence
         Num_Licence = nom.rsplit(' ',2)[1]
         del_entry(self.conn, self.cursor, "JA", "NumLic", Num_Licence)
+        update_tables(self.conn, self.cursor, ["JA"])
         #update(liste_JAs)
 
     def rafraichir(self):
         self.main_window.destroy()
+        update_tables(self.conn, self.cursor, ["JA"])
         JA()
         # os.system("python Interface/JA.py")
 
@@ -209,8 +211,9 @@ class JA():
         # mettre les elements dans une liste
         a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
         # print(a)
-        checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
         update_tables(self.conn, self.cursor, ["JA"])
+        checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
+        
 
     def setup(self):
         #créer 3 boutons pour les JAs : modifier ajouter supprimer
@@ -257,4 +260,5 @@ class JA():
     def retour(self):
         # bouton_retour.destroy()
         self.main_window.destroy()
+        update_tables(self.conn, self.cursor, ["JA"])
         os.system("python Interface/main.py")
