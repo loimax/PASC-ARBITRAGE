@@ -207,7 +207,7 @@ def dict(name_table):
     elif name_table == "EquipeClub":
         equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL", ""], \
             "RangEq":["int", "NOT NULL", ""], "Masculin":["int", "NOT NULL", ""], "Division":["TEXT", "NOT NULL", ""], \
-                "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], "Année":["int", "NULL", ""], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
+                "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], "Année":["int", "NOT NULL", "DEFAULT 2022"], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
         return equipeClub
     elif name_table == "JA":
         ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
@@ -331,10 +331,9 @@ def getValuesConstraints(conn, cursor, name_table, attribute, id_base, id):
 
     # cas "usuels" d'une liste non vide
     query = f"SELECT {attribute} FROM {name_table} WHERE {id_base[0]}='{id[0]}'"
-    i = 0
-    for k in id:
-        query+=f"AND {id_base[i]}='{id[i]}'"
-        i+=1
+    if len(id) > 1:
+        for i in range(1, len(id)):
+            query+=f"AND {id_base[i]}='{id[i]}'"
     print(query)
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
@@ -616,11 +615,16 @@ def TeamFromClub(liste,club_name):
     print(team_liste)
     return team_liste
 
+def getMaxValue(conn, cursor, name_table, attribute):
+    query = f"SELECT Max({attribute}) FROM {name_table}"
+    cur = execute_query(conn, cursor, query)
+    result = cur.fetchall()
+    return result[0][0]
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 # # update_tables(conn, cursor, ["JA"])
-# display_table(conn,cursor,"JA")
+# display_table(conn,cursor,"EquipeClub")
 
 #display_table(conn,cursor,"Rencontres")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
@@ -655,11 +659,12 @@ cursor = conn.cursor()
 
 # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
-# display_table(conn, cursor, "CLUB")
+#display_table(conn, cursor, "CLUB")
 
 # display_attributes(conn,cursor,"EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-display_table(conn,cursor,"EquipeClub")
+# display_table(conn,cursor,"EquipeClub")
+# getMaxValue(conn, cursor, "EquipeClub", "numEq")

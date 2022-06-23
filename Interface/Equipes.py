@@ -3,7 +3,7 @@ import os
 import sys
 from tkinter.ttk import Combobox
 from re import split
-
+from datetime import date
 from utils import *
 
 
@@ -11,7 +11,8 @@ class Equipes():
     def __init__(self):
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
-
+        if "Année" not in getAttributes(self.conn, self.cursor, "EquipeClub") and "Phase" not in getAttributes(self.conn, self.cursor, "EquipeClub"):
+            alterTable(self.conn, self.cursor, "EquipeClub", [f"Année INTEGER NOT NULL DEFAULT {date.today().year}", "Phase INT NOT NULL DEFAULT 1"])
         # créer une fenetre
         self.main_window = Tk()
         # donner un titre a la self.main_window
@@ -124,6 +125,9 @@ class Equipes():
 
     # faire une fonction qui ouvre un formulaire pour ajouter une équipe lorsqu'on clique sur le bouton
     def add_equipe(self):
+        clubs = dict("EquipeClub")
+        values = list(clubs.values())
+        i = 0
         # récupère les données de l'équipe sélectionné
         chaine_clubXekip = self.team_list.get(ANCHOR)
         nom_club = chaine_clubXekip[:-5]
@@ -166,24 +170,70 @@ class Equipes():
         entry_phase.grid(row=9, column=2)
 
         # afficher les titres des zones de texte
-        label_numero = Label(add_equipe, text="Numéro d'équipe :")
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero = Label(add_equipe, text=f"Numéro d'équipe : {text}")
         label_numero.grid(row=1, column=1)
-        label_numero_club = Label(add_equipe, text="Numéro du club :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero_club = Label(add_equipe, text=f"Numéro du club : {text}")
         label_numero_club.grid(row=2, column=1)
-        label_rang_equipe = Label(add_equipe, text="Rang équipe :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_rang_equipe = Label(add_equipe, text=f"Rang équipe : {text}")
         label_rang_equipe.grid(row=3, column=1)
-        label_masculin = Label(add_equipe, text="Masculin :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_masculin = Label(add_equipe, text=f"Masculin : {text}")
         label_masculin.grid(row=4, column=1)
-        label_division = Label(add_equipe, text="Division :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_division = Label(add_equipe, text=f"Division : {text}")
         label_division.grid(row=5, column=1)
-        label_poule = Label(add_equipe, text="Poule :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_poule = Label(add_equipe, text=f"Poule : {text}")
         label_poule.grid(row=6, column=1)
-        label_correq = Label(add_equipe, text="CorrEq :")
+        i+=1
+        text = ""
+        
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_correq = Label(add_equipe, text=f"CorrEq : {text}")
         label_correq.grid(row=7, column=1)
-        label_annee = Label(add_equipe, text="Année :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_annee = Label(add_equipe, text=f"Année : {text}")
         label_annee.grid(row=8, column=1)
-        label_phase = Label(add_equipe, text="Numéro de phase :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_phase = Label(add_equipe, text=f"Numéro de phase : {text}")
         label_phase.grid(row=9, column=1)
+        i+=1
+        text = ""
+        
 
         # recuperer les données du formulaire
         def add_equipe_data():
@@ -207,13 +257,16 @@ class Equipes():
 
     def supprimer_equipe(self):
         chaine_clubXekip = self.team_list.get(ANCHOR)
-        num_equipe = getValues(self.conn, self.cursor, "CLUB", "NumEquipe", "NomClub", [str(chaine_clubXekip[:-5])])
-        del_entry(self.conn, self.cursor, "EquipeClub", "", num_club)
+        chaine_split = split(' ', chaine_clubXekip)
+        division_equipe = chaine_split[len(chaine_split) - 1]
+        nom_club = str(chaine_clubXekip[:-5])
+        num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
+        num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"], [num_club, division_equipe])[0]
+        del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num_equipe)
 
     def rafraichir(self):
         self.main_window.destroy()
         Equipes()
-        # os.system("python Interface\Equipes.py")
 
     def valider(self):
         phase = self.combobox_phase.get()
@@ -222,13 +275,14 @@ class Equipes():
         self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
                                               ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "Division"], ["Phase", "Année"],
                                               [phase, annee])
-        print("valider")
-        print(self.liste_equipes)
         self.update_listebox(self.liste_equipes)
 
         
 
     def modifier_equipe(self):
+        clubs = dict("EquipeClub")
+        values = list(clubs.values())
+        i = 0
         # récupère la chaine dans la boite de dialogue
         chaine_clubXekip = self.team_list.get(ANCHOR)
         # récupère chaque élément de la chaine lue dans des variables séparées
@@ -238,7 +292,9 @@ class Equipes():
         division_equipe = chaine_split[len(chaine_split)-1]
         print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe)
         # récupère le numero du club
-        num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])
+        num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
+        # num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"],
+        #                                   [num_club, division_equipe])[0]
 
         # on ouvre une fenetre
         modif_equipe = Tk()
@@ -248,21 +304,71 @@ class Equipes():
         modif_equipe.geometry("400x200")
 
         # on crée un formulaire ou on affiche les données du equipe séléctionné
-        label_numero = Label(modif_equipe, text="Numéro d'équipe :")
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
         label_numero.grid(row=1, column=1)
-        label_num_club = Label(modif_equipe, text="Numéro du club :")
-        label_num_club.grid(row=2, column=1)
-        label_rang_eq = Label(modif_equipe, text="Rang de l'équipe :")
-        label_rang_eq.grid(row=3, column=1)
-        label_masculin = Label(modif_equipe, text="Masculin :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero_club = Label(modif_equipe, text=f"Numéro du club : {text}")
+        label_numero_club.grid(row=2, column=1)
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_rang_equipe = Label(modif_equipe, text=f"Rang équipe : {text}")
+        label_rang_equipe.grid(row=3, column=1)
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_masculin = Label(modif_equipe, text=f"Masculin : {text}")
         label_masculin.grid(row=4, column=1)
-        label_division = Label(modif_equipe, text="Division :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_division = Label(modif_equipe, text=f"Division : {text}")
         label_division.grid(row=5, column=1)
-        label_poule = Label(modif_equipe, text="Poule :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_poule = Label(modif_equipe, text=f"Poule : {text}")
         label_poule.grid(row=6, column=1)
+        i+=1
+        text = ""
+        
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_correq = Label(modif_equipe, text=f"CorrEq : {text}")
+        label_correq.grid(row=7, column=1)
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_annee = Label(modif_equipe, text=f"Année : {text}")
+        label_annee.grid(row=8, column=1)
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_phase = Label(modif_equipe, text=f"Numéro de phase : {text}")
+        label_phase.grid(row=9, column=1)
+        i+=1
+        text = ""
 
         # on recupere les données de l'equipe séléctionné
-        data = getListRow(self.conn, self.cursor, "EquipeClub", ["NumClub", "RangEq"], [num_club, rang_equipe])
+        data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division"], [num_club, rang_equipe, division_equipe])
         print("data = ", data)
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
