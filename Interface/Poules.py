@@ -117,8 +117,8 @@ class Poules():
         textannee.place(x=0, y=0)
         self.inputphase.place(x=0, y=0)
         textphase.place(x=0, y=0)
-        self.choiceniveau.insert(END, "R3")
-        self.choicepoule.insert(END, "C")
+        self.choiceniveau.insert(END, "R1")
+        self.choicepoule.insert(END, "A")
         self.inputannee.insert(END, "2022")
         self.inputphase.insert(END, "1")
         
