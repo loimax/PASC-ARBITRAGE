@@ -1,7 +1,6 @@
 from tkinter import *
 import os
 
-from numpy import tile
 from utils import *
 
 class JA():

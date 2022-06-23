@@ -28,6 +28,8 @@ class Affectation():
         #donner une taille a la Affectation
         self.main_window.geometry("1920x1080")
 
+        self.final_JA_list = []
+
         #créer une liste de Affectations et les afficher 
 
         #liste_JA = ["Damien le Gamin", "Zemmour la pute", "Nezuko-chan", "Arthur le 5e", "LeDave"]
@@ -51,9 +53,9 @@ class Affectation():
                 else :
                     self.e.insert(END, self.liste_exterieur[j])     
                 self.e.config(state="disabled")
-                self.f = Combobox(self.main_window, values=self.liste_JA, font=("Arial", 12))
-                self.f.place(x=642+184*0.5, y=105+j*20)
-                self.f.insert(END, "Juge Arbitre")
+                self.final_JA_list.append(Combobox(self.main_window, values=self.liste_JA, font=("Arial", 12)))
+                self.final_JA_list[j].place(x=642+184*0.5, y=105+j*20)
+                self.final_JA_list[j].insert(END, "Juge Arbitre")
                 
 
     def setup_texte(self):
@@ -76,11 +78,14 @@ class Affectation():
         self.main_window.destroy()
 
     def generer(self):
-        print(self.f.get())
-        splitingResultJA = split(' ',self.f.get())
-        splitingResultJA.pop()
-        licenceJA = splitingResultJA.pop()
-        modify_one_entry(self.conn,self.cursor,"Rencontres","JA",licenceJA,self.liste_NumRencontre[3])
+        
+        for i in range(len(self.liste_Rencontres)):
+            print(self.final_JA_list[i].get())
+        
+            splitingResultJA = split(' ',self.final_JA_list[i].get())
+            splitingResultJA.pop()
+            licenceJA = splitingResultJA.pop()
+            modify_one_entry(self.conn,self.cursor,"Rencontres","JA",licenceJA,self.liste_NumRencontre[i])
         print("Génération des convocations en cours")
         self.main_window.destroy()
 
