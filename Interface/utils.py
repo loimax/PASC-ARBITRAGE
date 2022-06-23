@@ -142,7 +142,7 @@ def insert_entry(conn, cursor, name_table,list,auto_incr=False):
     print(query)
     execute_query(conn, cursor, query, True)
 
-def del_entry(conn, cursor, name_table, attribut, valeur):
+def get_entry(conn, cursor, name_table, attribut, valeur):
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
@@ -306,10 +306,8 @@ def getValues(conn, cursor, name_table, attribute, id_base, id,):
 
     # cas "usuels" d'une liste non vide
     query = f"SELECT {attribute} FROM {name_table} WHERE {id_base}='{id[0]}'"
-    i = 0
-    for k in id:
+    for i in range(1, len(id)):
         query+=f"OR {id_base}='{id[i]}'"
-        i+=1
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
 
@@ -429,7 +427,7 @@ def join_table_where(conn,cursor,name_table,attributs,values, attributs_spec, at
     :param: attributs_spec_values : liste des valeurs des attributs que l'on a spécifié
     :return: liste : une liste des attributs des entrées respectants les paramètres de la jointure
     """
-    query = f"SELECT {values[0]}, {values[1]} FROM {name_table[0]} INNER JOIN {name_table[1]} ON {attributs[0]} == {attributs[1]} WHERE {attributs_spec[0]} == {attributs_spec_values[0]} AND {attributs_spec[1]} == {attributs_spec_values[1]}"
+    query = f"SELECT {values[0]}, {values[1]}, {values[2]} FROM {name_table[0]} INNER JOIN {name_table[1]} ON {attributs[0]} == {attributs[1]} WHERE {attributs_spec[0]} == {attributs_spec_values[0]} AND {attributs_spec[1]} == {attributs_spec_values[1]}"
     cur = execute_query(conn, cursor, query, True)
     resultat = cur.fetchall()
 
@@ -578,37 +576,37 @@ cursor = conn.cursor()
 # # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
 # display_table(conn,cursor,"CLUB")
 
-""" "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
-a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
-print(a)
-b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
-c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
+# """ "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
+# a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
+# print(a)
+# b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
+# c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
+# #display_table(conn,cursor,"EquipeClub")
+# print(b)
+# print(c)
+#
+# # join_table(conn,cursor,["Club",""])
+#
+# # insert_entry(conn,cursor,"Rencontres",["874","01845","78456","1","5","20/06/2022","17h00",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+# # display_table(conn,cursor,"Rencontres")
+# # conn = create_connection("Interface/testdb/GestionRegionale.db")
+# # cursor = conn.cursor()
+# # # update_tables(conn, cursor, ["JA"], True)
+# # display_table(conn, cursor, "CLUB")
+#
+#
+# # l = join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+# # TeamFromClub(l,"ST AVERTIN SPORT")
+#
+# # getListRow(conn,cursor,"EquipeClub",["Division","Poule"],["R3","C"])
+#
+#
+# # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
+# # alterTable(conn, cursor, "EquipeClub", attributes)
+# # display_table(conn, cursor, "CLUB")
+#
+# # display_attributes(conn,cursor,"EquipeClub")
+# # display_table(conn,cursor,"EquipeClub")
+# # for i in range(165):
+# #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #display_table(conn,cursor,"EquipeClub")
-print(b)
-print(c)
-
-# join_table(conn,cursor,["Club",""])
-
-# insert_entry(conn,cursor,"Rencontres",["874","01845","78456","1","5","20/06/2022","17h00",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
-# display_table(conn,cursor,"Rencontres")
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
-# # update_tables(conn, cursor, ["JA"], True)
-# display_table(conn, cursor, "CLUB")
-
-
-# l = join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
-# TeamFromClub(l,"ST AVERTIN SPORT")
-
-# getListRow(conn,cursor,"EquipeClub",["Division","Poule"],["R3","C"])
-
-
-# attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
-# alterTable(conn, cursor, "EquipeClub", attributes)
-# display_table(conn, cursor, "CLUB")
-
-# display_attributes(conn,cursor,"EquipeClub")
-# display_table(conn,cursor,"EquipeClub")
-# for i in range(165):
-#     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
-display_table(conn,cursor,"EquipeClub")

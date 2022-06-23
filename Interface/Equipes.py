@@ -86,7 +86,7 @@ class Equipes():
 
         # ajpouter les equipes dans la listbox
         for item in data:
-            item_str = item[0] + " " + str(item[1])
+            item_str = item[0] + " " + str(item[1]) + " " + item[2]
             self.team_list.insert(END, item_str)
 
     # afficher l'équipe sélectionnée
@@ -106,40 +106,55 @@ class Equipes():
         else:
             data = []
             for item in self.liste_equipes:
-                item_str = item[0] + " " + str(item[1])
+                item_str = item[0] + " " + str(item[1]) + " " + item[2]
                 if typed.lower() in item_str.lower():
                     data.append(item)
 
         self.update_listebox(data)
 
-    # faire une fonction qui ouvre un formulaire pour ajouter un equipe lorque on clique sur le bouton
+    # faire une fonction qui ouvre un formulaire pour ajouter une équipe lorsqu'on clique sur le bouton
     def add_equipe(self):
+        # récupère les données de l'équipe sélectionné
+        chaine_clubXekip = self.team_list.get(ANCHOR)
+        nom_club = chaine_clubXekip[:-5]
+        num_club = getValues(self.conn, self.cursor, "CLUB", "NumClub", "NomClub", [nom_club])
         # créer une fenetre
         add_equipe = Tk()
         # donner un titre a la fenetre
         add_equipe.title("Ajouter une équipe")
         # donner une taille a la fenetre
-        add_equipe.geometry("400x200")
+        add_equipe.geometry("400x250")
         # couleur de fond de la fenetre
         add_equipe.configure(background='#DADAD7')
-        # créer une zone de texte pour les noms des equipes
+        # créer une zone de texte pour le numéro de l'équipe
         entry_numero_equipe = Entry(add_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
-        # créer une zone de texte pour les noms des equipes
+        # créer une zone de texte pour le numéro du club
         entry_numero_club = Entry(add_equipe, width=30)
         entry_numero_club.grid(row=2, column=2)
-        # créer une zone de texte pour les noms des equipes
+        entry_numero_club.insert(0, num_club)
+        # créer une zone de texte pour le rang de l'équipe
         entry_rang_equipe = Entry(add_equipe, width=30)
         entry_rang_equipe.grid(row=3, column=2)
-        # créer une zone de texte pour les noms des equipes
+        # créer une zone de texte pour savoir si c'est une équipe masculine ou non
         entry_masculin = Entry(add_equipe, width=30)
         entry_masculin.grid(row=4, column=2)
-        # créer une zone de texte pour les noms des equipes
+        # créer une zone de texte pour la division de l'équipe
         entry_division = Entry(add_equipe, width=30)
         entry_division.grid(row=5, column=2)
-        # créer une zone de texte pour les noms des equipes
+        # créer une zone de texte pour le nom de la poule
         entry_poule = Entry(add_equipe, width=30)
         entry_poule.grid(row=6, column=2)
+        # créer une zone de texte pour le correq
+        entry_correq = Entry(add_equipe, width=30)
+        entry_correq.grid(row=7, column=2)
+        # créer une zone de texte pour les noms des années
+        entry_annee = Entry(add_equipe, width=30)
+        entry_annee.grid(row=8, column=2)
+        # créer une zone de texte pour les noms des phases
+        entry_phase = Entry(add_equipe, width=30)
+        entry_phase.grid(row=9, column=2)
+
         # afficher les titres des zones de texte
         label_numero = Label(add_equipe, text="Numéro d'équipe :")
         label_numero.grid(row=1, column=1)
@@ -153,6 +168,12 @@ class Equipes():
         label_division.grid(row=5, column=1)
         label_poule = Label(add_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
+        label_correq = Label(add_equipe, text="CorrEq :")
+        label_correq.grid(row=7, column=1)
+        label_annee = Label(add_equipe, text="Année :")
+        label_annee.grid(row=8, column=1)
+        label_phase = Label(add_equipe, text="Numéro de phase :")
+        label_phase.grid(row=9, column=1)
 
         # recuperer les données du formulaire
         def add_equipe_data():
@@ -162,19 +183,22 @@ class Equipes():
             masculin = entry_masculin.get()
             division = entry_division.get()
             poule = entry_poule.get()
+            annee = entry_annee.get()
+            phase = entry_phase.get()
             # mettre les elements dans une liste
-            print(numero_equipe, numero_club, rang_equipe, masculin, division, poule)
-            data = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, "None"]
+            print(numero_equipe, numero_club, rang_equipe, masculin, division, poule, annee, phase)
+            data = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, "None", annee, phase]
             insert_entry(self.conn, self.cursor, "EquipeClub", data)
             add_equipe.destroy()
 
         # créer un bouton pour valider les données
         button_valider = Button(add_equipe, text="Valider", command=lambda: [add_equipe_data()])
-        button_valider.grid(row=8, column=2)
+        button_valider.grid(row=10, column=2)
 
     def supprimer_equipe(self):
-        num = self.team_list.get(ANCHOR)
-        del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num)
+        chaine_clubXekip = self.team_list.get(ANCHOR)
+        num_equipe = getValues(self.conn, self.cursor, "CLUB", "NumEquipe", "NomClub", [str(chaine_clubXekip[:-5])])
+        del_entry(self.conn, self.cursor, "EquipeClub", "", num_club)
 
     def rafraichir(self):
         self.main_window.destroy()
@@ -186,21 +210,23 @@ class Equipes():
         annee = self.inputannee.get()
         print(phase)
         self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
-                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"], ["Phase", "Année"],
+                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "Division"], ["Phase", "Année"],
                                               [phase, annee])
         print("valider")
+        print(self.liste_equipes)
         self.update_listebox(self.liste_equipes)
-        print (self.liste_equipes)
 
         
 
     def modifier_equipe(self):
         # récupère la chaine dans la boite de dialogue
         chaine_clubXekip = self.team_list.get(ANCHOR)
-        # récupère chaque élément de la chaine lu dans des variables separees
-        rang_equipe = chaine_clubXekip[len(chaine_clubXekip)-1]
-        nom_club = str(chaine_clubXekip[:-2])
-        print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe)
+        # récupère chaque élément de la chaine lue dans des variables séparées
+        nom_club = str(chaine_clubXekip[:-5])
+        chaine_split = split(' ', chaine_clubXekip)
+        rang_equipe = chaine_split[len(chaine_split)-2]
+        division_equipe = chaine_split[len(chaine_split)-1]
+        print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe)
         # récupère le numero du club
         num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])
 
@@ -210,6 +236,7 @@ class Equipes():
         modif_equipe.title("Modifier une équipe")
         # on donne une taille a la fenetre
         modif_equipe.geometry("400x200")
+
         # on crée un formulaire ou on affiche les données du equipe séléctionné
         label_numero = Label(modif_equipe, text="Numéro d'équipe :")
         label_numero.grid(row=1, column=1)
@@ -223,6 +250,7 @@ class Equipes():
         label_division.grid(row=5, column=1)
         label_poule = Label(modif_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
+
         # on recupere les données de l'equipe séléctionné
         data = getListRow(self.conn, self.cursor, "EquipeClub", ["NumClub", "RangEq"], [num_club, rang_equipe])
         print("data = ", data)
@@ -245,6 +273,15 @@ class Equipes():
         entry_poule = Entry(modif_equipe, width=30)
         entry_poule.grid(row=6, column=2)
         entry_poule.insert(END, data[5])
+        entry_correq = Entry(modif_equipe, width=30)
+        entry_correq.grid(row=7, column=2)
+        entry_correq.insert(END, data[6])
+        entry_annee = Entry(modif_equipe, width=30)
+        entry_annee.grid(row=8, column=2)
+        entry_annee.insert(END, data[7])
+        entry_phase = Entry(modif_equipe, width=30)
+        entry_phase.grid(row=9, column=2)
+        entry_phase.insert(END, data[8])
 
         def modif_equipe_data():
             numero_equipe = entry_numero_equipe.get()
@@ -253,8 +290,11 @@ class Equipes():
             masculin = entry_masculin.get()
             division = entry_division.get()
             poule = entry_poule.get()
+            correq = entry_correq.get()
+            annee = entry_annee.get()
+            phase = entry_phase.get()
             # mettre les elements dans une liste
-            a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule]
+            a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, correq, annee, phase]
             modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
 
         # mettre les elements dans une liste
