@@ -207,7 +207,7 @@ class Clubs():
         print(nom)
         del_entry(self.conn, self.cursor, "CLUB", "NomClub", nom)
         update_tables(self.conn, self.cursor, ["CLUB"])
-        
+
     def rafraichir(self):
         self.main_window.destroy()
         update_tables(self.conn, self.cursor, ["CLUB"])
@@ -333,6 +333,7 @@ class Clubs():
         os.system("python Interface/main.py")
 
     def quitter(self):
+        close_connection(self.conn)
         self.main_window.destroy()
 
 

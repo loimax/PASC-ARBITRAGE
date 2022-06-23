@@ -64,6 +64,7 @@ class Affectation():
 
 
     def quitter(self):
+        close_connection(self.conn)
         self.main_window.destroy()
 
     def generer(self):
