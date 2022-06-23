@@ -13,6 +13,7 @@ class Equipes():
         self.cursor = self.conn.cursor()
         if "Année" not in getAttributes(self.conn, self.cursor, "EquipeClub") and "Phase" not in getAttributes(self.conn, self.cursor, "EquipeClub"):
             alterTable(self.conn, self.cursor, "EquipeClub", [f"Année INTEGER NOT NULL DEFAULT {date.today().year}", "Phase INT NOT NULL DEFAULT 1"])
+        update_tables(self.conn, self.cursor, ["EquipeClub"], True)
         # créer une fenetre
         self.main_window = Tk()
         # donner un titre a la self.main_window
@@ -137,7 +138,7 @@ class Equipes():
         # donner un titre a la fenetre
         add_equipe.title("Ajouter une équipe")
         # donner une taille a la fenetre
-        add_equipe.geometry("400x250")
+        add_equipe.geometry("400x270")
         # couleur de fond de la fenetre
         add_equipe.configure(background='#DADAD7')
         # créer une zone de texte pour le numéro de l'équipe
@@ -248,7 +249,8 @@ class Equipes():
             # mettre les elements dans une liste
             print(numero_equipe, numero_club, rang_equipe, masculin, division, poule, annee, phase)
             data = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, "None", annee, phase]
-            insert_entry(self.conn, self.cursor, "EquipeClub", data)
+            
+            checkInsertModify(self.conn, self.cursor, "EquipeClub", data)
             add_equipe.destroy()
 
         # créer un bouton pour valider les données
@@ -266,9 +268,11 @@ class Equipes():
         num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
         num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"], [num_club, division_equipe])[0]
         del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num_equipe)
+        update_tables(self.conn, self.cursor, ["EquipeClub"])
 
     def rafraichir(self):
         self.main_window.destroy()
+        update_tables(self.conn, self.cursor, ["EquipeClub"])
         Equipes()
 
     def valider(self):
@@ -304,7 +308,7 @@ class Equipes():
         # on donne un titre a la fenetre
         modif_equipe.title("Modifier une équipe")
         # on donne une taille a la fenetre
-        modif_equipe.geometry("400x200")
+        modif_equipe.geometry("400x270")
 
         # on crée un formulaire ou on affiche les données du equipe séléctionné
         if values[i][1] == "NOT NULL":
@@ -414,15 +418,16 @@ class Equipes():
             phase = entry_phase.get()
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, correq, annee, phase]
-            modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
+            # modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
+            checkInsertModify(self.conn, self.cursor, "CLUB", a, True, "", [num_club, rang_equipe, division_equipe])
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]
         # on crée un bouton pour valider les données
         button_valider = Button(modif_equipe, text="Valider", command=modif_equipe_data)
-        button_valider.grid(row=8, column=2)
+        button_valider.grid(row=10, column=2)
         label_obligatoire = Label(modif_equipe, text="* : Champs obligatoires")
-        label_obligatoire.grid(row=9, column=2)
+        label_obligatoire.grid(row=11, column=2)
         # ,X
         #ajouter un texte pour indiquer que les champs sont obligatoires
 
@@ -433,7 +438,9 @@ class Equipes():
 
     def retour(self):
         self.main_window.destroy()
+        update_tables(self.conn, self.cursor, ["EquipeClub"])
         os.system("python Interface/main.py")
 
     def quitter(self):
+        update_tables(self.conn, self.cursor, ["EquipeClub"])
         self.main_window.destroy()

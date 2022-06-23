@@ -355,7 +355,7 @@ def getValuesFromList(list,x):
         liste.append(l[x])
     return liste
   
-def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = ""): 
+def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "", datas=[]): 
     """
     on ne peut pas vérifier le type (text, int) 
     car les valeurs retournées par get() de tkinter sont en string par défaut, donc on peut mais ca prend 1000 lignes de code
@@ -415,13 +415,11 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
                 text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
                 msg.showerror(title="Erreur : \n", message=text)
                 return
-            if values[i][2] == "DEFAULT 1" and len(d) == 0:
-                liste[i] = "1"
             i+=1
         if not modify:
             insert_entry(conn, cursor, name_table, liste)
         else:
-            data = getListRow(conn, cursor, "EquipeClub", ["NumClub", "RangEq"], nom)
+            data = getListRow(conn, cursor, "EquipeClub", ["numClub", "RangEq", "Division"], datas)
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
 def alterTable(conn, cursor, name_table, attributes:list):
@@ -623,8 +621,8 @@ def getMaxValue(conn, cursor, name_table, attribute):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
-# # update_tables(conn, cursor, ["JA"])
-# display_table(conn,cursor,"EquipeClub")
+# update_tables(conn, cursor, ["JA"])
+display_table(conn,cursor,"EquipeClub")
 
 #display_table(conn,cursor,"Rencontres")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
