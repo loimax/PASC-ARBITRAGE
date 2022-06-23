@@ -154,8 +154,8 @@ class Equipes():
         # couleur de fond de la fenetre
         add_equipe.configure(background='#DADAD7')
         # créer une zone de texte pour le numéro de l'équipe
-        entry_numero_equipe = Entry(add_equipe, width=30)
-        entry_numero_equipe.grid(row=1, column=2)
+        # entry_numero_equipe = Entry(add_equipe, width=30)
+        # entry_numero_equipe.grid(row=1, column=2)
         # créer une zone de texte pour le numéro du club
         entry_numero_club = Entry(add_equipe, width=30)
         entry_numero_club.grid(row=2, column=2)
@@ -184,12 +184,12 @@ class Equipes():
 
         # afficher les titres des zones de texte
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
-        label_numero = Label(add_equipe, text=f"Numéro d'équipe : {text}")
-        label_numero.grid(row=1, column=1)
-        i+=1
-        text = ""
+        # if values[i][1] == "NOT NULL":
+        #     text = "*"
+        # label_numero = Label(add_equipe, text=f"Numéro d'équipe : {text}")
+        # label_numero.grid(row=1, column=1)
+        # i+=1
+        # text = ""
 
         if values[i][1] == "NOT NULL":
             text = "*"
@@ -250,7 +250,7 @@ class Equipes():
 
         # recuperer les données du formulaire
         def add_equipe_data():
-            numero_equipe = entry_numero_equipe.get()
+            # numero_equipe = entry_numero_equipe.get()
             numero_club = entry_numero_club.get()
             rang_equipe = entry_rang_equipe.get()
             masculin = entry_masculin.get()
@@ -260,7 +260,7 @@ class Equipes():
             phase = entry_phase.get()
             # mettre les elements dans une liste
             # print(numero_equipe, numero_club, rang_equipe, masculin, division, poule, annee, phase)
-            data = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, "None", annee, phase]
+            data = [numero_club, rang_equipe, masculin, division, poule, "None", annee, phase]
             
             checkInsertModify(self.conn, self.cursor, "EquipeClub", data)
             add_equipe.destroy()
