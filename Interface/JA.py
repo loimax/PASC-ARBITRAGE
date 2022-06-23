@@ -159,7 +159,6 @@ class JA():
         ville_JA = ville.get()
         tel_JA = tel.get()
         # mettre les elements dans une liste
-        # print(numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA)
         data = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
 
         checkInsertModify(self.conn, self.cursor, "JA", data)
@@ -185,7 +184,6 @@ class JA():
         nom = self.JA_list.get(ANCHOR)
         #On coupe la string "Prénom Nom NumLicence " pour avoir seulement NumLicence
         Num_Licence = nom.rsplit(' ',2)[1]
-        #print(Num_Licence)
         #on ouvre une fenetre
         modif_JA = Tk()
         #on donne un titre a la fenetre
@@ -260,7 +258,6 @@ class JA():
         tel_JA = tel.get()
         # mettre les elements dans une liste
         a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
-        # print(a)
         update_tables(self.conn, self.cursor, ["JA"])
         checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
         

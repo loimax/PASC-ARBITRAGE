@@ -159,10 +159,6 @@ class Poules():
         annee = self.inputannee.get()
         phase = self.inputphase.get()
         #on affiche les valeurs des champs
-        print("Niveau : ", niveau)
-        print("Poule : ", poule)
-        print("Année : ", annee)
-        print("Phase : ", phase)
         self.liste_equipes = join_table_where_4(self.conn, self.cursor, ["CLUB", "EquipeClub"],
                                               ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "NumEq"], ["Phase", "Année","Poule","Division"],
                                               [phase, annee,poule,niveau])
@@ -176,10 +172,8 @@ class Poules():
     
     def updatemenuderoulant(self,combobox):
         club_select = combobox.get()
-        #print('club_select = ', club_select)
         if club_select != "EXEMPT" and club_select != "":
             self.liste_nom_club.remove(club_select)
-        #print("Oh ! Selected")
 
     
     def creer(self):

@@ -11,8 +11,15 @@ class Affectation():
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
         #créer une fenetre
-        
-        # print(self.liste_Rencontres)
+
+        # création des différentes listes
+        self.liste_domicile = []
+        self.liste_exterieur = []
+        self.liste_NumRencontre =[]
+        for row in self.liste_Rencontres:
+            self.liste_domicile.append(row[0])
+            self.liste_exterieur.append(row[1])
+            self.liste_NumRencontre.append(row[2])
         
         self.main_window = Tk()
         #donner un titre a la window
@@ -32,16 +39,16 @@ class Affectation():
         self.main_window.attributes('-fullscreen', True)
         self.main_window.mainloop()
 
-
-
-
         
     def creation_tableau(self):
         for i in range(2): 
             for j in range(len(self.liste_Rencontres)):
                 self.e = Entry(self.main_window, font=("Arial", 12))
                 self.e.place(x=642-184*1.5+i*184, y=105+j*20)
-                self.e.insert(END, self.liste_Rencontres[j])      
+                if i < 1 :
+                    self.e.insert(END, self.liste_domicile[j]) 
+                else :
+                    self.e.insert(END, self.liste_exterieur[j])     
                 self.e.config(state="disabled")
                 self.f = Combobox(self.main_window, values=self.liste_JA, font=("Arial", 12))
                 self.f.place(x=642+184*0.5, y=105+j*20)
@@ -68,6 +75,9 @@ class Affectation():
         self.main_window.destroy()
 
     def generer(self):
+        print(self.f.get())
+        licenceJA = self.f.get()[len(self.f.get())-7:-1]
+        modify_one_entry(self.conn,self.cursor,"Rencontres","JA",licenceJA,self.liste_NumRencontre[3])
         print("Génération des convocations en cours")
         self.main_window.destroy()
 
