@@ -545,9 +545,9 @@ def TeamFromClub(liste,club_name):
 
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
-# display_attributes(conn,cursor,"Rencontres")
+#display_attributes(conn,cursor,"Rencontres")
 
-# # display_table(conn,cursor,"Rencontres")
+#display_table(conn,cursor,"Rencontres")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
 # # 
 # # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
