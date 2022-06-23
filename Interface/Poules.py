@@ -158,13 +158,12 @@ class Poules():
         print("Poule : ", poule)
         print("Année : ", annee)
         print("Phase : ", phase)
-        ListePoule = getListRow(self.conn, self.cursor,"EquipeClub",["Division","Poule","Année","Phase"],[niveau,poule,annee,phase])
-        print(ListePoule)
-        self.liste_nom_club = getValues(self.conn, self.cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
+        self.liste_equipes = join_table_where_4(self.conn, self.cursor, ["CLUB", "EquipeClub"],
+                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "NumEq"], ["Phase", "Année","Poule","Division"],
+                                              [phase, annee,poule,niveau])
         
-        self.liste_nom_club.append("EXEMPT")
-        print(self.liste_nom_club)
-        self.add_phat_table(self.liste_nom_club)
+        self.liste_equipes.append("EXEMPT")
+        self.add_phat_table(self.liste_equipes)
     
     def updatemenuderoulant(self,combobox):
         club_select = combobox.get()
