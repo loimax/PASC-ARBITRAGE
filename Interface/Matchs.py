@@ -1,8 +1,8 @@
 import os
 from tkinter import *
 from tkinter.ttk import Combobox
+from Affectations import Affectation
 from utils import *
-from JA import JA
 
 
 #window_height : 701, nope, dépends de la taille réelle de l'écran
@@ -194,12 +194,21 @@ class Matchs():
                 print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
         self.test_if_bourges()
-        liste_a_envoyer = []
-        self.main_window.destroy()
-        JA(liste_a_envoyer)
 
     def test_if_bourges(self):
-        pass
+        liste_a_envoyer = []
+        for i in range(7):
+            for j in range(4):
+                string = self.list_CB1[i][j].get()
+                splttd = string.split()
+                for k in range(len(splttd)):
+                    if(splttd[k] == "BOURGES"):
+                        liste_a_envoyer.append([self.list_CB1[i][j].get(), self.list_CB2[i][j].get()])
+        
+        if liste_a_envoyer:
+            self.main_window.destroy()
+            Affectation(liste_a_envoyer)
+
 
 
 
