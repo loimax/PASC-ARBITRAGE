@@ -9,44 +9,42 @@ class Clubs():
         self.cursor = self.conn.cursor()
         update_tables(self.conn, self.cursor, ["CLUB"], True)
         #créer une fenetre
-        self.club = Tk()
+        self.main_window = Tk()
         #donner un titre a la club
-        self.club.title("Clubs")
+        self.main_window.title("Clubs")
+        self.main_window.attributes('-fullscreen', True)
+
         #donner une taille a la club
         #club.geometry("1920x1080")
         #taille de la club s'adapte a la taille de l'ecran
-        self.club.geometry("{0}x{1}+0+0".format(self.club.winfo_screenwidth(), self.club.winfo_screenheight()))
+        self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
+        title = Label(self.main_window, text="Liste des Clubs :", font=('Arial', 24))
         # créer 3 boutons pour les clubs : modifier ajouter supprimer
-        self.bouton_modifier = Button(self.club, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'), command=self.modifier_club)
-        self.bouton_modifier.place(x=600, y=400)
-        self.bouton_ajouter = Button(self.club, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'), command=self.add_club)
-        self.bouton_ajouter.place(x=725, y=400)
-        self.bouton_supprimer = Button(self.club, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),
-                                  command=lambda: [self.supprimer_club()])
-        self.bouton_supprimer.place(x=850, y=400)
-        self.bouton_rafraichir = Button(self.club, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
-                                   command=self.rafraichir)
-        self.bouton_rafraichir.place(x=720, y=500)
+        bouton_modifier = Button(self.main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'), command=self.modifier_club)
+        bouton_ajouter = Button(self.main_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'), command=self.add_club)
+        bouton_supprimer = Button(self.main_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),command=self.supprimer_club)
+        bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),command=self.rafraichir)
+        bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        self.entry_clubs = Entry(self.main_window, font=("Helvetica", 20))
+        self.main_window_list = Listbox(self.main_window, width=50)
 
-        # creer bouton retour vers l'accueil
-        self.bouton_retour = Button(self.club, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000',
-                               font=('Arial', 10, 'bold'))
-        self.bouton_retour.place(x=725, y=700)
-
-        # creer une zone de texte pour la recherche de clubs
-        self.entry_clubs = Entry(self.club, font=("Helvetica", 20))
-        self.entry_clubs.place(x=600, y=150)
-
-        # créer une zone pour la liste de clubs
-        self.club_list = Listbox(self.club, width=50)
-        self.club_list.place(x=600, y=200)
+        title.place(x = 0, y = 0)
+        bouton_modifier.place(x = 0, y = 0)
+        bouton_ajouter.place(x = 0, y = 0)
+        bouton_supprimer.place(x = 0, y = 0)
+        bouton_rafraichir.place(x = 0, y = 0)
+        bouton_retour.place(x = 0, y = 0)
+        bouton_quitter.place(x = 0, y = 0)
+        self.entry_clubs.place(x = 0, y = 0)
+        self.main_window_list.place(x = 0, y = 0)
 
         # créer une liste de clubs
         self.liste_clubs = creation_liste(self.conn, self.cursor, "CLUB", ["NomClub"])
 
         # afficher le club selectionné
-        self.club_list.bind("<<ListboxSelect>>", self.fillout)
+        self.main_window_list.bind("<<ListboxSelect>>", self.fillout)
 
         # create a binding to the entry box
         self.entry_clubs.bind("<KeyRelease>", self.check)
@@ -55,22 +53,33 @@ class Clubs():
         self.update_listbox(self.liste_clubs)
         self.liste_clubs = creation_liste(self.conn, self.cursor, "CLUB", ["NomClub"])
 
-        self.club.mainloop()
+        self.main_window.update()
+        title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 100)
+        bouton_ajouter.place(x = self.main_window.winfo_width()/2 + self.entry_clubs.winfo_width()/2 + 50, y = 250 + ((self.main_window_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4))
+        bouton_supprimer.place(x = self.main_window.winfo_width()/2 + self.entry_clubs.winfo_width()/2 + 50, y = 250 + (2 * (self.main_window_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + bouton_ajouter.winfo_height())
+        bouton_modifier.place(x = self.main_window.winfo_width()/2 + self.entry_clubs.winfo_width()/2 + 50, y = 250 + (3 * (self.main_window_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + 2 * bouton_ajouter.winfo_height())
+        bouton_rafraichir.place(x = self.main_window.winfo_width()/2 - bouton_rafraichir.winfo_width()/2, y = 450)
+        bouton_retour.place(x = 0.02*self.main_window.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
+        bouton_quitter.place(x = 0.98*self.main_window.winfo_width()-bouton_retour.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
+        self.entry_clubs.place(x = self.main_window.winfo_width()/2 - self.entry_clubs.winfo_width()/2, y = 200)
+        self.main_window_list.place(x = self.main_window.winfo_width()/2 - self.entry_clubs.winfo_width()/2, y = 250)
+
+        self.main_window.mainloop()
 
 
     #uptade de la liste des clubs
     def update_listbox(self, data):
         #clear the listbox
-        self.club_list.delete(0, END)
+        self.main_window_list.delete(0, END)
 
         #ajpouter les clubs dans la listbox
         for item in data:
-            self.club_list.insert(END, item)
+            self.main_window_list.insert(END, item)
 
     #afficher le club séléctionné
     def fillout(self, e):
         self.entry_clubs.delete(0, END)
-        self.entry_clubs.insert(0, self.club_list.get(ANCHOR))
+        self.entry_clubs.insert(0, self.main_window_list.get(ANCHOR))
 
     #créer fonction entrée vs liste de clubs
     def check(self, e):
@@ -193,13 +202,13 @@ class Clubs():
 
 
     def supprimer_club(self):
-        name = self.club_list.get(ANCHOR)
+        name = self.main_window_list.get(ANCHOR)
         nom = name.rsplit(' ',1)[0]
         print(nom)
         del_entry(self.conn, self.cursor, "CLUB", "NomClub", nom)
 
     def rafraichir(self):
-        self.club.destroy()
+        self.main_window.destroy()
         close_connection(self.conn)
         Clubs()
 
@@ -208,7 +217,7 @@ class Clubs():
         clubs = dict("CLUB")
         values = list(clubs.values())
         i = 0
-        name = self.club_list.get(ANCHOR)
+        name = self.main_window_list.get(ANCHOR)
         nom = name.rsplit(' ',1)[0]
         print(nom)
         #on ouvre une fenetre
@@ -316,11 +325,14 @@ class Clubs():
 
 
     def retour(self):
-        # bouton_retour.destroy()
-        self.club.destroy()
+        self.main_window.destroy()
         update_tables(self.conn, self.cursor, ["CLUB"])
         close_connection(self.conn)
         os.system("python Interface/main.py")
+
+    def quitter(self):
+        self.main_window.destroy()
+
 
 
 
