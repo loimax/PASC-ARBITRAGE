@@ -237,8 +237,13 @@ class Matchs():
                 print(self.list_CB1[i][j].get())
                 print(" VS ")
                 print(self.list_CB2[i][j].get())
+                print(f"|{self.list_CB1[i][j].get()}|")
                 
-                club_name = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
+                # rang_equipe = self.list_CB1[i][j].get()[len(self.list_CB1[i][j].get())-1]
+                # nom_club = str(self.list_CB1[i][j].get()[:-2])  
+                # print("Nom ",nom_club," rang : ",rang_equipe) 
+                # num_club = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club])
+
             print("\nNew tab\n")
 
         
