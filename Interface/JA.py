@@ -130,7 +130,8 @@ class JA():
 
     def rafraichir(self):
         self.main_window.destroy()
-        os.system("python Interface/JA.py")
+        JA()
+        # os.system("python Interface/JA.py")
 
     def modifier_JA(self):
         nom = self.JA_list.get(ANCHOR)
