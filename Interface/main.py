@@ -1,5 +1,4 @@
 from Accueil import *
-import sys
 
 def main():
     #Accueil()
