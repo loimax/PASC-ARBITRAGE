@@ -60,7 +60,7 @@ class JA():
         #donner un titre a la fenetre
         self.add_JA.title("Ajouter un JA")
         #donner une taille a la fenetre
-        self.add_JA.geometry("400x200")
+        self.add_JA.geometry("400x250")
         #couleur de fond de la fenetre
         self.add_JA.configure(background='#DADAD7')
         #créer une zone de texte pour les noms des JAs
@@ -144,7 +144,9 @@ class JA():
         #créer un bouton pour valider les données
         button_valider = Button(self.add_JA, text="Valider",command=lambda : [self.add_JA_data(entry_numero_JA,entry_nom_JA,entry_prenom_JA,entry_club_JA,entry_adresse_JA,entry_cp_JA,entry_ville_JA,entry_tel_JA)])
         button_valider.grid(row=9, column=2)
-
+          #ajouter un texte pour indiquer que les champs sont obligatoires
+        label_obligatoire = Label(self.add_JA, text="* : Champs obligatoires")
+        label_obligatoire.grid(row=10, column=2)
     #recuperer les données du formulaire
     def add_JA_data(self,num,nom,prenom,club,adresse,cp,ville,tel):
         numero_JA = num.get()
@@ -187,7 +189,7 @@ class JA():
         #on donne un titre a la fenetre
         modif_JA.title("Modifier un JA")
         #on donne une taille a la fenetre
-        modif_JA.geometry("400x200")
+        modif_JA.geometry("400x250")
         #on crée un formulaire ou on affiche les données du JA séléctionné
         label_numero = Label(modif_JA, text="Numéro de Licence du JA : *")
         label_numero.grid(row=1, column=1)
@@ -238,6 +240,9 @@ class JA():
         #on crée un bouton pour valider les données
         button_valider = Button(modif_JA, text="Valider", command = lambda : [self.modif_JA_data(entry_numero_JA,entry_nom_JA,entry_prenom_JA,entry_club_JA,entry_adresse_JA,entry_cp_JA,entry_ville_JA,entry_tel_JA,Num_Licence), modif_JA.destroy()])
         button_valider.grid(row=9, column=2)
+          #ajouter un texte pour indiquer que les champs sont obligatoires
+        label_obligatoire = Label(modif_JA, text="* : Champs obligatoires")
+        label_obligatoire.grid(row=10, column=2)
         #,X
         # button_valider = Button(add_JA, text="Valider",command=lambda : [add_JA_data(), update(liste_JAs)])
         #button_valider.grid(row=8, column=2)
