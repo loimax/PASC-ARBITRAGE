@@ -26,6 +26,8 @@ class Matchs():
         #taille de la fenetre s'adapte a la taille de l'écran
         self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
+        self.hour_CB = []
+
         #créer une liste d'équipes et les afficher 
         self.dates_rencontres = ["25/09/2021", "02/10/2021", "23/10/2021", "06/11/2021", "13/11/2021", "27/11/2021", "11/12/2021"]
 
@@ -169,6 +171,9 @@ class Matchs():
                 self.e4.place(x=0, y=0)
                 self.e4.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j+4])
                 # self.e4.config(state='disabled')
+
+                #CB pour les heures
+                self.hour_CB[j] = Combobox(self.main_window, values = ["9:30", "17:00"], font=("Arial", 12))
 
 
                 self.main_window.update()
