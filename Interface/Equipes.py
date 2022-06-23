@@ -434,12 +434,12 @@ class Equipes():
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, correq, annee, phase]
             # modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
-            checkInsertModify(self.conn, self.cursor, "CLUB", a, True, "", [num_club, rang_equipe, division_equipe])
+            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe])
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]
         # on crée un bouton pour valider les données
-        button_valider = Button(modif_equipe, text="Valider", command=modif_equipe_data)
+        button_valider = Button(modif_equipe, text="Valider", command = lambda : [modif_equipe_data(), modif_equipe.destroy()])
         button_valider.grid(row=10, column=2)
         label_obligatoire = Label(modif_equipe, text="* : Champs obligatoires")
         label_obligatoire.grid(row=11, column=2)
