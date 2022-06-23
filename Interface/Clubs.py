@@ -206,9 +206,11 @@ class Clubs():
         nom = name.rsplit(' ',1)[0]
         print(nom)
         del_entry(self.conn, self.cursor, "CLUB", "NomClub", nom)
-
+        update_tables(self.conn, self.cursor, ["CLUB"])
+        
     def rafraichir(self):
         self.main_window.destroy()
+        update_tables(self.conn, self.cursor, ["CLUB"])
         close_connection(self.conn)
         Clubs()
 
