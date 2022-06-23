@@ -50,6 +50,7 @@ class JA():
 
         self.update(data)
 
+    
     #faire une fonction qui ouvre un formulaire pour ajouter un JA lorque on clique sur le bouton
     def func_add_JA(self):
         clubs = dict("CLUB")
@@ -282,10 +283,8 @@ class JA():
         bouton_quitter.place(x = 0, y = 0)
 
         #creer une zone de texte pour la recherche de JA
-        self.entry_JA = Entry(self.main_window, font=("Helvetica", 20))
+        self.entry_JA = Entry(self.main_window, font=("Arial", 20))
         self.entry_JA.place(x = 0, y = 0)
-
-        #créer une zone pour la liste de JA
         self.JA_list = Listbox(self.main_window, width=50)
         self.JA_list.place(x = 0, y = 0)
 

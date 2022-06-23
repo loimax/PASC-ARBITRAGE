@@ -621,7 +621,6 @@ def getMaxValue(conn, cursor, name_table, attribute):
     result = cur.fetchall()
     return result[0][0]
 
-
 conn = create_connection("Interface/testdb/GestionRegionale.db")
 cursor = conn.cursor()
 # # update_tables(conn, cursor, ["JA"])
@@ -667,5 +666,5 @@ cursor = conn.cursor()
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-display_table(conn,cursor,"EquipeClub")
-getMaxValue(conn, cursor, "EquipeClub", "numEq")
+# display_table(conn,cursor,"EquipeClub")
+# getMaxValue(conn, cursor, "EquipeClub", "numEq")
