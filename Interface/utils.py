@@ -1,4 +1,3 @@
-from numpy import delete, negative
 import pandas as pd
 import tkinter.messagebox as msg
 import sqlite3
