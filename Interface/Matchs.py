@@ -239,10 +239,16 @@ class Matchs():
                 print(self.list_CB2[i][j].get())
                 print(f"|{self.list_CB1[i][j].get()}|")
                 
-                # rang_equipe = self.list_CB1[i][j].get()[len(self.list_CB1[i][j].get())-1]
-                # nom_club = str(self.list_CB1[i][j].get()[:-2])  
-                # print("Nom ",nom_club," rang : ",rang_equipe) 
-                # num_club = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club])
+                rang_equipe1 = self.list_CB1[i][j].get()[len(self.list_CB1[i][j].get())-1]
+                nom_club1 = str(self.list_CB1[i][j].get()[:-2])  
+                print("Nom ",nom_club1," rang : ",rang_equipe1) 
+                rang_equipe2 = self.list_CB2[i][j].get()[len(self.list_CB2[i][j].get())-1]
+                nom_club2 = str(self.list_CB2[i][j].get()[:-2])  
+                print("Nom ",nom_club2," rang : ",rang_equipe2) 
+                num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
+                num_club2 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club2])
+                print(f"{num_club1} , {num_club2}")
+
 
                 print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
