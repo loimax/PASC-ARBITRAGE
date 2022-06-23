@@ -14,7 +14,6 @@ from re import split
 class Matchs():
     def __init__(self, liste_from_poules, niveau, poule, année=2022, phase=1):
         self.liste_debase_equipes = liste_from_poules
-        print("match list = " + str(self.liste_debase_equipes))
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
         self.niveau = niveau
@@ -44,7 +43,6 @@ class Matchs():
         # Liste des équipes dans le Cher (0418 au début de leur numClub)
         self.list_Cher = []
         # self.main_window.update()
-        # print(txt.winfo_width())
         self.create_UI()
         #afficher la fenetre
         self.main_window.mainloop()
@@ -189,9 +187,9 @@ class Matchs():
                         pre_num_club1 = str(a[0:4])
                        
                     if pre_num_club1 == "0418":
-                        self.list_Cher.append(nom_club1)
                         phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_eq1)
                         insert_entry(self.conn,self.cursor,"Rencontres",[f"{num_eq1}",f"{num_eq2}",f"{phase[0]}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+                        self.list_Cher.append([nom_club1,nom_club2,getMaxValue(self.conn,self.cursor,"Rencontres","NumRenc")])
         self.test_if_Cher()
 
 

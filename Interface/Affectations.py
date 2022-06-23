@@ -2,6 +2,7 @@ from tkinter import *
 import os
 from tkinter.ttk import Combobox
 from utils import *
+from re import split
 
 #tableau de 3 colonnes, les deux premieres normales (avec les équipes) et la 3e listes déroulantes pour sélectionner un JA
 
@@ -11,14 +12,23 @@ class Affectation():
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
         #créer une fenetre
-        
-        # print(self.liste_Rencontres)
+
+        # création des différentes listes
+        self.liste_domicile = []
+        self.liste_exterieur = []
+        self.liste_NumRencontre =[]
+        for row in self.liste_Rencontres:
+            self.liste_domicile.append(row[0])
+            self.liste_exterieur.append(row[1])
+            self.liste_NumRencontre.append(row[2])
         
         self.main_window = Tk()
         #donner un titre a la window
         self.main_window.title("Affectations")
         #donner une taille a la Affectation
         self.main_window.geometry("1920x1080")
+
+        self.final_JA_list = []
 
         #créer une liste de Affectations et les afficher 
 
@@ -32,20 +42,20 @@ class Affectation():
         self.main_window.attributes('-fullscreen', True)
         self.main_window.mainloop()
 
-
-
-
         
     def creation_tableau(self):
         for i in range(2): 
             for j in range(len(self.liste_Rencontres)):
                 self.e = Entry(self.main_window, font=("Arial", 12))
                 self.e.place(x=642-184*1.5+i*184, y=105+j*20)
-                self.e.insert(END, self.liste_Rencontres[j])      
+                if i < 1 :
+                    self.e.insert(END, self.liste_domicile[j]) 
+                else :
+                    self.e.insert(END, self.liste_exterieur[j])     
                 self.e.config(state="disabled")
-                self.f = Combobox(self.main_window, values=self.liste_JA, font=("Arial", 12))
-                self.f.place(x=642+184*0.5, y=105+j*20)
-                self.f.insert(END, "Juge Arbitre")
+                self.final_JA_list.append(Combobox(self.main_window, values=self.liste_JA, font=("Arial", 12)))
+                self.final_JA_list[j].place(x=642+184*0.5, y=105+j*20)
+                self.final_JA_list[j].insert(END, "Juge Arbitre")
                 
 
     def setup_texte(self):
@@ -68,6 +78,14 @@ class Affectation():
         self.main_window.destroy()
 
     def generer(self):
+        
+        for i in range(len(self.liste_Rencontres)):
+            print(self.final_JA_list[i].get())
+        
+            splitingResultJA = split(' ',self.final_JA_list[i].get())
+            splitingResultJA.pop()
+            licenceJA = splitingResultJA.pop()
+            modify_one_entry(self.conn,self.cursor,"Rencontres","JA",licenceJA,self.liste_NumRencontre[i])
         print("Génération des convocations en cours")
         self.main_window.destroy()
 
