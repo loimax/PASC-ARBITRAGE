@@ -183,11 +183,11 @@ class Equipes():
 
     def valider(self):
         phase = self.combobox_phase.get()
-        #annee = self.inputannee.get()
+        annee = self.inputannee.get()
         print(phase)
         self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
-                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"], ["Phase"],
-                                              [phase])
+                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"], ["Phase", "Année"],
+                                              [phase, annee])
         print("valider")
         self.update_listebox(self.liste_equipes)
         print (self.liste_equipes)
