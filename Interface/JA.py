@@ -5,14 +5,14 @@ from utils import *
 class JA():
     def __init__(self):
         #creer une fenetre
-        self.JA_window = Tk()
+        self.main_window = Tk()
 
         #donner un titre a la fenetre
-        self.JA_window.title("JA")
+        self.main_window.title("JA")
 
         #donner une taille a la fenetre
         #taille de la fenetre s'adapte a la taille de l'ecran
-        self.JA_window.geometry("{0}x{1}+0+0".format(self.JA_window.winfo_screenwidth(), self.JA_window.winfo_screenheight()))
+        self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
         #connexion à la base de données
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
@@ -129,8 +129,9 @@ class JA():
         #update(liste_JAs)
 
     def rafraichir(self):
-        self.JA_window.destroy()
-        os.system("python Interface/JA.py")
+        self.main_window.destroy()
+        JA()
+        # os.system("python Interface/JA.py")
 
     def modifier_JA(self):
         nom = self.JA_list.get(ANCHOR)
@@ -214,22 +215,22 @@ class JA():
 
     def setup(self):
         #créer 3 boutons pour les JAs : modifier ajouter supprimer
-        bouton_modifier = Button(self.JA_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'),command=self.modifier_JA)
+        bouton_modifier = Button(self.main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'),command=self.modifier_JA)
         bouton_modifier.place(x=600, y=400)
-        bouton_ajouter = Button(self.JA_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'),command=self.func_add_JA)
+        bouton_ajouter = Button(self.main_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'),command=self.func_add_JA)
         bouton_ajouter.place(x=725, y=400)
-        bouton_supprimer = Button(self.JA_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'), command=lambda : [self.supprimer_JA()])
+        bouton_supprimer = Button(self.main_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'), command=lambda : [self.supprimer_JA()])
         bouton_supprimer.place(x=850, y=400)
-        bouton_rafraichir = Button(self.JA_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
+        bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
                                 command=self.rafraichir)
         bouton_rafraichir.place(x=720, y=500)
 
         #creer une zone de texte pour la recherche de JA
-        self.entry_JA = Entry(self.JA_window, font=("Helvetica", 20))
+        self.entry_JA = Entry(self.main_window, font=("Helvetica", 20))
         self.entry_JA.place(x=600, y=150)
 
         #créer une zone pour la liste de JA
-        self.JA_list = Listbox(self.JA_window, width=50)
+        self.JA_list = Listbox(self.main_window, width=50)
         self.JA_list.place(x=600, y=200)
 
         #créer une liste de JA 
@@ -247,14 +248,14 @@ class JA():
         self.entry_JA.bind("<KeyRelease>", self.check)
 
         #creer bouton retour vers l'accueil
-        bouton_retour = Button(self.JA_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_retour.place(x=725, y=700)
         update_tables(self.conn, self.cursor, ["JA"], True)
         #afficher la fenetre
         # Arb.attributes('-fullscreen', True)
-        self.JA_window.mainloop()
+        self.main_window.mainloop()
 
     def retour(self):
         # bouton_retour.destroy()
-        self.JA_window.destroy()
+        self.main_window.destroy()
         os.system("python Interface/main.py")
