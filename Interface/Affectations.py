@@ -2,6 +2,7 @@ from tkinter import *
 import os
 from tkinter.ttk import Combobox
 from utils import *
+from re import split
 
 #tableau de 3 colonnes, les deux premieres normales (avec les équipes) et la 3e listes déroulantes pour sélectionner un JA
 
@@ -76,7 +77,9 @@ class Affectation():
 
     def generer(self):
         print(self.f.get())
-        licenceJA = self.f.get()[len(self.f.get())-7:-1]
+        splitingResultJA = split(' ',self.f.get())
+        splitingResultJA.pop()
+        licenceJA = splitingResultJA.pop()
         modify_one_entry(self.conn,self.cursor,"Rencontres","JA",licenceJA,self.liste_NumRencontre[3])
         print("Génération des convocations en cours")
         self.main_window.destroy()
