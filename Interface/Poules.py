@@ -158,9 +158,10 @@ class Poules():
         print("Poule : ", poule)
         print("Année : ", annee)
         print("Phase : ", phase)
-        self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
-                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "NumEq"], ["Phase", "Année","Poule","Niveau"],
+        self.liste_equipes = join_table_where_4(self.conn, self.cursor, ["CLUB", "EquipeClub"],
+                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "NumEq"], ["Phase", "Année","Poule","Division"],
                                               [phase, annee,poule,niveau])
+        
         self.liste_equipes.append("EXEMPT")
         self.add_phat_table(self.liste_equipes)
     
