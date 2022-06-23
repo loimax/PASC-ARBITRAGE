@@ -1,5 +1,7 @@
 from tkinter import *
 import os
+
+from numpy import tile
 from utils import *
 
 class JA():
@@ -50,6 +52,9 @@ class JA():
 
     #faire une fonction qui ouvre un formulaire pour ajouter un JA lorque on clique sur le bouton
     def func_add_JA(self):
+        clubs = dict("CLUB")
+        values = list(clubs.values())
+        i = 0
         #créer une fenetre
         self.add_JA = Tk()
         #donner un titre a la fenetre
@@ -83,26 +88,62 @@ class JA():
         entry_tel_JA = Entry(self.add_JA, width=30)
         entry_tel_JA.grid(row=8, column=2)
         #afficher les titres des zones de texte
-        label_numero = Label(self.add_JA, text="Numéro de Licence du JA :")
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_numero = Label(self.add_JA, text=f"Numéro de Licence du JA : {text}")
         label_numero.grid(row=1, column=1)
-        label_nomJA = Label(self.add_JA, text="Nom du JA :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_nomJA = Label(self.add_JA, text=f"Nom du JA : {text}")
         label_nomJA.grid(row=2, column=1)
-        label_prenom_JA = Label(self.add_JA, text="Prenom :")
+        i+=1
+        text = ""
+        
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_prenom_JA = Label(self.add_JA, text=f"Prenom : {text}")
         label_prenom_JA.grid(row=3, column=1)
-        label_clubJA = Label(self.add_JA, text="club :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_clubJA = Label(self.add_JA, text=f"club : {text}")
         label_clubJA.grid(row=4, column=1)
-        label_adresse_JA = Label(self.add_JA, text="Adresse :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_adresse_JA = Label(self.add_JA, text=f"Adresse : {text}")
         label_adresse_JA.grid(row=5, column=1)
-        label_cp = Label(self.add_JA, text="cp :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_cp = Label(self.add_JA, text=f"cp : {text}")
         label_cp.grid(row=6, column=1)
-        label_ville = Label(self.add_JA, text="Ville :")
+        i+=1
+        text = ""
+
+        if values[i][1] == "NOT NULL":
+            text = "*"
+        label_ville = Label(self.add_JA, text=f"Ville : {text}")
         label_ville.grid(row=7, column=1)
-        label_tel = Label(self.add_JA, text="Tel :")
+        i+=1
+        text = "*"
+
+        label_tel = Label(self.add_JA, text=f"Tel : {text}")
         label_tel.grid(row=8, column=1)
 
         #créer un bouton pour valider les données
         button_valider = Button(self.add_JA, text="Valider",command=lambda : [self.add_JA_data(entry_numero_JA,entry_nom_JA,entry_prenom_JA,entry_club_JA,entry_adresse_JA,entry_cp_JA,entry_ville_JA,entry_tel_JA)])
-        button_valider.grid(row=8, column=2)
+        button_valider.grid(row=9, column=2)
 
     #recuperer les données du formulaire
     def add_JA_data(self,num,nom,prenom,club,adresse,cp,ville,tel):
@@ -148,21 +189,21 @@ class JA():
         #on donne une taille a la fenetre
         modif_JA.geometry("400x200")
         #on crée un formulaire ou on affiche les données du JA séléctionné
-        label_numero = Label(modif_JA, text="Numéro de Licence du JA :")
+        label_numero = Label(modif_JA, text="Numéro de Licence du JA : *")
         label_numero.grid(row=1, column=1)
-        label_nomJA = Label(modif_JA, text="Nom du JA :")
+        label_nomJA = Label(modif_JA, text="Nom du JA : *")
         label_nomJA.grid(row=2, column=1)
-        label_prenom_JA = Label(modif_JA, text="Prénom du JA :")
+        label_prenom_JA = Label(modif_JA, text="Prénom du JA : *")
         label_prenom_JA.grid(row=3, column=1)
-        label_clubJA = Label(modif_JA, text="club :")
+        label_clubJA = Label(modif_JA, text="Club du JA: *")
         label_clubJA.grid(row=4, column=1)
         label_adresse_JA = Label(modif_JA, text="adresse :")
         label_adresse_JA.grid(row=5, column=1)
-        label_cp = Label(modif_JA, text="cp :")
+        label_cp = Label(modif_JA, text="CP :")
         label_cp.grid(row=6, column=1)
         label_ville = Label(modif_JA, text="Ville :")
         label_ville.grid(row=7, column=1)
-        label_tel = Label(modif_JA, text="Tel :")
+        label_tel = Label(modif_JA, text="TelJA: *")
         label_tel.grid(row=8, column=1)
         #on recupere les données du JA séléctionné
         data = getListRow(self.conn, self.cursor, "JA", ["NumLic"], [Num_Licence])
@@ -219,31 +260,33 @@ class JA():
 
     def setup(self):
         #créer 3 boutons pour les JAs : modifier ajouter supprimer
-        bouton_modifier = Button(self.main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'),command=self.modifier_JA)
-        bouton_modifier.place(x=600, y=400)
-        bouton_ajouter = Button(self.main_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'),command=self.func_add_JA)
-        bouton_ajouter.place(x=725, y=400)
-        bouton_supprimer = Button(self.main_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'), command=lambda : [self.supprimer_JA()])
-        bouton_supprimer.place(x=850, y=400)
-        bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
-                                command=self.rafraichir)
-        bouton_rafraichir.place(x=720, y=500)
+        title = Label(self.main_window, text="Liste des Joueurs Arbitres :", font=('Arial', 24))
+        bouton_modifier = Button(self.main_window, text="Modifier", fg='#000000', font=('Arial', 10),command=self.modifier_JA)
+        bouton_ajouter = Button(self.main_window, text="Ajouter", fg='#000000', font=('Arial', 10),command=self.func_add_JA)
+        bouton_supprimer = Button(self.main_window, text="Supprimer", fg='#000000', font=('Arial', 10), command=lambda : [self.supprimer_JA()])
+        bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),command=self.rafraichir)
         bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        
+        title.place(x = 0, y = 0)
+        bouton_modifier.place(x = 0, y = 0)
+        bouton_ajouter.place(x = 0, y = 0)
+        bouton_supprimer.place(x = 0, y = 0)
+        bouton_rafraichir.place(x = 0, y = 0)
         bouton_retour.place(x = 0, y = 0)
         bouton_quitter.place(x = 0, y = 0)
 
         #creer une zone de texte pour la recherche de JA
         self.entry_JA = Entry(self.main_window, font=("Helvetica", 20))
-        self.entry_JA.place(x=600, y=150)
+        self.entry_JA.place(x = 0, y = 0)
 
         #créer une zone pour la liste de JA
         self.JA_list = Listbox(self.main_window, width=50)
-        self.JA_list.place(x=600, y=200)
+        self.JA_list.place(x = 0, y = 0)
 
         #créer une liste de JA 
         #créer une liste de JA
-        display_attributes(self.conn,self.cursor,"JA")
+        #display_attributes(self.conn,self.cursor,"JA")
         self.liste_JA = creation_liste(self.conn, self.cursor, "JA", ["PrenomJA","NomJA","NumLic"])
         # liste_JA = ["Nom 1", "Nom 2", "Nom 3", "Nom 4", "Nom 5", "Nom 6", "Nom 7", "Nom 8", "Nom 9", "Nom 10", "Nom 11", "Nom 12", "Nom 13", "Nom 14", "Nom 15", "Nom 16", "Nom 17", "Nom 18", "Nom 19", "Nom 20", "Nom 21", "Nom 22", "Nom 23", "Nom 24", "Nom 25", "Nom 26", "Nom 27", "Nom 28", "Nom 29", "Nom 30", "Nom 31", "Nom 32", "Nom 33", "Nom 34", "Nom 35", "Nom 36"]
         #Ajouter JA dans la liste
@@ -259,9 +302,18 @@ class JA():
         update_tables(self.conn, self.cursor, ["JA"], True)
         #afficher la fenetre
         
+        
         self.main_window.update()
+
+        title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 100)
+        bouton_ajouter.place(x = self.main_window.winfo_width()/2 + self.entry_JA.winfo_width()/2 + 50, y = 250 + ((self.JA_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4))
+        bouton_supprimer.place(x = self.main_window.winfo_width()/2 + self.entry_JA.winfo_width()/2 + 50, y = 250 + (2 * (self.JA_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + bouton_ajouter.winfo_height())
+        bouton_modifier.place(x = self.main_window.winfo_width()/2 + self.entry_JA.winfo_width()/2 + 50, y = 250 + (3 * (self.JA_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + 2 * bouton_ajouter.winfo_height())
+        bouton_rafraichir.place(x = self.main_window.winfo_width()/2 - bouton_rafraichir.winfo_width()/2, y = 450)
         bouton_retour.place(x = 0.02*self.main_window.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
         bouton_quitter.place(x = 0.98*self.main_window.winfo_width()-bouton_retour.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
+        self.entry_JA.place(x = self.main_window.winfo_width()/2 - self.entry_JA.winfo_width()/2, y = 200)
+        self.JA_list.place(x = self.main_window.winfo_width()/2 - self.JA_list.winfo_width()/2, y = 250)
 
     def retour(self):
         self.main_window.destroy()
