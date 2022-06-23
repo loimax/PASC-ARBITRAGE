@@ -1,6 +1,7 @@
 import os
 from tkinter import *
 from tkinter.ttk import Combobox
+from webbrowser import get
 from Matchs import Matchs
 from utils import *
 
@@ -53,6 +54,9 @@ class Poules():
 
         #créer une liste d'équipes et les afficher 
 
+        #liste des noms des clubs correspondant a la division et la poule
+        self.liste_nom_club = []
+
         self.add_buttons()
         #self.add_phat_table()
 
@@ -93,12 +97,19 @@ class Poules():
         self.menuderoulant1.bind("<<ComboboxSelected>>", self.updatemenuderoulant(self.menuderoulant1))
         #liste_des_equipes.remove(self.menuderoulant1.get())
         self.menuderoulant2 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant2.bind("<<ComboboxSelected>>", self.updatemenuderoulant(self.menuderoulant2))
         self.menuderoulant3 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant3.bind("<<ComboboxSelected>>", self.updatemenuderoulant)
         self.menuderoulant4 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant4.bind("<<ComboboxSelected>>", self.updatemenuderoulant)
         self.menuderoulant5 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant5.bind("<<ComboboxSelected>>", self.updatemenuderoulant)
         self.menuderoulant6 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant6.bind("<<ComboboxSelected>>", self.updatemenuderoulant)
         self.menuderoulant7 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
+        self.menuderoulant7.bind("<<ComboboxSelected>>", self.updatemenuderoulant)
         self.menuderoulant8 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))  
+        self.menuderoulant8.bind("<<ComboboxSelected>>", self.updatemenuderoulant)
 
         self.menuderoulant1.place(x=0, y=0)
         self.menuderoulant2.place(x=0, y=0)
@@ -213,13 +224,20 @@ class Poules():
         print("Phase : ", phase)
         ListePoule = getListRow(self.conn, self.cursor,"EquipeClub",["Division","Poule"],[niveau,poule])
         print(ListePoule)
-        a = getValues(self.conn, self.cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
-        while (len(a) != 8):
-            a.append("EXEMPT")
-        print(a)
-        self.add_phat_table(a)
-        return a
+        self.liste_nom_club = getValues(self.conn, self.cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
+        while (len(self.liste_nom_club) != 8):
+            self.liste_nom_club.append("EXEMPT")
+        print(self.liste_nom_club)
+        self.add_phat_table(self.liste_nom_club)
     
-    def updatemenuderoulant(self, combobox):
-        a = combobox.get()
-        print(a)
+    def updatemenuderoulant(self,combobox):
+        club_select = combobox.get()
+        print('club_select = ', club_select)
+        if club_select != "EXEMPT" and club_select != "":
+            self.liste_nom_club.remove(club_select)
+        print("Oh ! Selected")
+      
+    
+
+        
+
