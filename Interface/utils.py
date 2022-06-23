@@ -331,10 +331,9 @@ def getValuesConstraints(conn, cursor, name_table, attribute, id_base, id):
 
     # cas "usuels" d'une liste non vide
     query = f"SELECT {attribute} FROM {name_table} WHERE {id_base[0]}='{id[0]}'"
-    i = 0
-    for k in id:
-        query+=f"AND {id_base[i]}='{id[i]}'"
-        i+=1
+    if len(id) > 1:
+        for i in range(1, len(id)):
+            query+=f"AND {id_base[i]}='{id[i]}'"
     print(query)
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
@@ -651,14 +650,15 @@ def TeamFromClub(liste,club_name):
 # TeamFromClub(l,"ST AVERTIN SPORT")
 
 # getListRow(conn,cursor,"EquipeClub",["Division","Poule"],["R3","C"])
-
+# display_attributes(conn,cursor,"EquipeClub")
 
 # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
-# display_table(conn, cursor, "CLUB")
+#display_table(conn, cursor, "CLUB")
 
 # display_attributes(conn,cursor,"EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
+#     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
 # display_table(conn,cursor,"EquipeClub")
