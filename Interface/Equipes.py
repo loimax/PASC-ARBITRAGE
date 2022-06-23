@@ -1,7 +1,5 @@
-from cmath import phase
 from tkinter import *
 import os
-import sys
 from tkinter.ttk import Combobox
 from re import split
 from datetime import date
@@ -37,7 +35,7 @@ class Equipes():
         bouton_valider = Button(self.main_window, text="Valider", fg='#000000', font=('Arial', 10, 'bold'),command = self.valider)
 
         #créer une combobox avec un texte "Phase" au dessus
-        self.combobox_phase = Entry(self.main_window, font=('Arial', 10, 'bold'), width=2)
+        self.combobox_phase = Entry(self.main_window, font=('Arial', 10, 'bold'), width=4)
         self.combobox_phase.place(x=0, y=0)
         #mettre le texte "Phase" 10 pixels à gauche de la combobox
         textphase = Label(self.main_window, text="Phase :", font=("Arial", 12))
