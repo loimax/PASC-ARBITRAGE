@@ -187,6 +187,9 @@ class Clubs():
         #créer un bouton pour valider les données
         button_valider = Button(add_club, text="Valider",command=lambda : [add_club_data()])
         button_valider.grid(row=8, column=2)
+        #ajouter un texte pour indiquer que les champs sont obligatoires
+        label_obligatoire = Label(add_club, text="* : Champs obligatoires")
+        label_obligatoire.grid(row=9, column=2)
 
 
     def supprimer_club(self):
@@ -303,6 +306,9 @@ class Clubs():
         #on crée un bouton pour valider les données
         button_valider = Button(modif_club, text="Valider", command = lambda : [modif_club_data(), modif_club.destroy()])
         button_valider.grid(row=8, column=2)
+        label_obligatoire = Label(modif_club, text="* : Champs obligatoires")
+        label_obligatoire.grid(row=9, column=2)
+
         #,X
        # button_valider = Button(add_club, text="Valider",command=lambda : [add_club_data(), update(liste_clubs)])
         #button_valider.grid(row=8, column=2)
