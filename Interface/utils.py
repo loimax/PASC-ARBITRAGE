@@ -590,14 +590,14 @@ def update_tables(conn, cursor, name_tables, needNull=False):
                 else:
                     query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur_Nulle';"
                     query2 = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
-                    print("""
-                    update pour remettre les valeurs à None
-                    """)
                 execute_query(conn, cursor, query, True) 
                 if query2 != "":
                     execute_query(conn, cursor, query2, True)
                 i+=1
-        print("La table", table, "a été mise à jour:")
+        if needNull:
+            print("La table", table, "a été mise à jour; toutes les valeurs 'None' ont été remplacées par 'Valeur_Nulle'")
+        else:
+            print("La table", table, "a été mise à jour; toutes les valeurs 'Valeur_Nulle' ont été remplacées par NULL")
          
 def TeamFromClub(liste,club_name):
     """
@@ -619,10 +619,10 @@ def getMaxValue(conn, cursor, name_table, attribute):
     result = cur.fetchall()
     return result[0][0]
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
-# update_tables(conn, cursor, ["JA"])
-display_table(conn,cursor,"EquipeClub")
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
+# # update_tables(conn, cursor, ["JA"])
+# display_table(conn,cursor,"EquipeClub")
 
 #display_table(conn,cursor,"Rencontres")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
