@@ -187,8 +187,6 @@ class Matchs():
 
                     #nom equipe rangEq (numEq)
 
-                    
-
                     num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
                     print(f"{nom_club1} VS {nom_club2}")
                     for a in num_club1:
