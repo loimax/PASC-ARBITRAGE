@@ -2,6 +2,7 @@ from tkinter import *
 import os
 import sys
 from tkinter.ttk import Combobox
+from re import split
 
 from utils import *
 
@@ -20,16 +21,16 @@ class Equipes():
 
         # créer 3 boutons pour les equipes : modifier ajouter supprimer
         self.bouton_modifier = Button(self.main_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'),
-                                 command=self.modifier_equipe)
+                                      command=self.modifier_equipe)
         self.bouton_modifier.place(x=600, y=400)
         self.bouton_ajouter = Button(self.main_window, text="Ajouter", fg='#000000', font=('Arial', 10, 'bold'),
-                                command=self.add_equipe)
+                                     command=self.add_equipe)
         self.bouton_ajouter.place(x=725, y=400)
         self.bouton_supprimer = Button(self.main_window, text="Supprimer", fg='#000000', font=('Arial', 10, 'bold'),
-                                  command=lambda: [self.supprimer_equipe()])
+                                       command=lambda: [self.supprimer_equipe()])
         self.bouton_supprimer.place(x=850, y=400)
         self.bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
-                                   command=self.rafraichir)
+                                        command=self.rafraichir)
         self.bouton_rafraichir.place(x=720, y=500)
 
         # creer une zone de texte pour la recherche de equipes
@@ -40,8 +41,11 @@ class Equipes():
         self.team_list = Listbox(self.main_window, width=50)
         self.team_list.place(x=600, y=200)
 
-        # créer une liste de equipes
-        self.liste_equipes = creation_liste(self.conn, self.cursor, "EquipeClub", ["RangEq"])
+        # # créer une liste de toutes les equipes en affichant UNIQUEMENT leur Rang
+        # self.liste_equipes = creation_liste(self.conn, self.cursor, "EquipeClub", ["RangEq"])
+
+        self.liste_equipes = join_table(self.conn, self.cursor, ["CLUB", "EquipeClub"],
+                                        ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq"])
 
         # Ajouter equipes dans la liste
         self.update_listebox(self.liste_equipes)
@@ -67,25 +71,28 @@ class Equipes():
 
         # ajpouter les equipes dans la listbox
         for item in data:
-            self.team_list.insert(END, item)
+            item_str = item[0] + " " + str(item[1])
+            self.team_list.insert(END, item_str)
 
-    # afficher l'equipe séléctionné
+    # afficher l'équipe sélectionnée
     def fillout(self, e):
         self.entry_equipe.delete(0, END)
         self.entry_equipe.insert(0, self.team_list.get(ANCHOR))
         # team_liste = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub"], []) #AFAIRE
 
-    # créer fonction entrée vs liste de equipes
+    # créer fonction entrée vs liste d'équipes
     def check(self, e):
         # grab what typed
         typed = self.entry_equipe.get()
+        print("self.liste_equipes", self.liste_equipes)
 
         if typed == '':
             data = self.liste_equipes
         else:
             data = []
             for item in self.liste_equipes:
-                if typed.lower() in item.lower():
+                item_str = item[0] + " " + str(item[1])
+                if typed.lower() in item_str.lower():
                     data.append(item)
 
         self.update_listebox(data)
@@ -150,20 +157,25 @@ class Equipes():
         button_valider = Button(add_equipe, text="Valider", command=lambda: [add_equipe_data()])
         button_valider.grid(row=8, column=2)
 
-
     def supprimer_equipe(self):
         num = self.team_list.get(ANCHOR)
         del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num)
-
 
     def rafraichir(self):
         self.main_window.destroy()
         Equipes()
         # os.system("python Interface\Equipes.py")
 
-
     def modifier_equipe(self):
-        num = self.team_list.get(ANCHOR)
+        # récupère la chaine dans la boite de dialogue
+        chaine_clubXekip = self.team_list.get(ANCHOR)
+        # récupère chaque élément de la chaine lu dans des variables separees
+        rang_equipe = chaine_clubXekip[len(chaine_clubXekip)-1]
+        nom_club = str(chaine_clubXekip[:-2])
+        print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe)
+        # récupère le numero du club
+        num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])
+
         # on ouvre une fenetre
         modif_equipe = Tk()
         # on donne un titre a la fenetre
@@ -184,7 +196,8 @@ class Equipes():
         label_poule = Label(modif_equipe, text="Poule :")
         label_poule.grid(row=6, column=1)
         # on recupere les données de l'equipe séléctionné
-        data = getListRow(self.conn, self.cursor, "EquipeClub", ["RangEq"], [num])
+        data = getListRow(self.conn, self.cursor, "EquipeClub", ["NumClub", "RangEq"], [num_club, rang_equipe])
+        print("data = ", data)
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
@@ -215,8 +228,6 @@ class Equipes():
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule]
             modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
-            print(getListRow(self.conn, self.cursor, "EquipeClub", ["numEq"], [num]))
-            print(display_table(self.conn, self.cursor, "EquipeClub"))
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]

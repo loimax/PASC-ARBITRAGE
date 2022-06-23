@@ -22,6 +22,9 @@ class Poules():
         #taille de la fenetre s'adapte a la taille de l'écran
         self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
+
+        self.liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "EXEMPT"]
+
         self.choiceniveau = Combobox()
         self.choicepoule = Combobox()
         self.inputannee = Entry()
@@ -37,10 +40,18 @@ class Poules():
         self.menuderoulant7 = Combobox()
         self.menuderoulant8 = Combobox()    
 
+        self.liste_combobox = []
+        self.liste_combobox.append(self.menuderoulant1)
+        self.liste_combobox.append(self.menuderoulant2)
+        print(self.liste_combobox)
+        print(self.liste_combobox[0])
+
+        self.liste_combobox[0]=Combobox(self.main_window, values=self.liste_Rencontres, font=("Arial", 12))
+        self.liste_combobox[0].place(x = 0, y = 0)
+
         self.liste_pour_matchs = []
 
         #créer une liste d'équipes et les afficher 
-        self.liste_Rencontres = ["Equipe 1", "Equipe 2", "Equipe 3", "Equipe 4", "Equipe 5", "EXEMPT"]
 
         self.add_buttons()
         #self.add_phat_table()
@@ -53,7 +64,7 @@ class Poules():
     def retour(self):
         # bouton_retour.destroy()
         self.main_window.destroy()
-        os.system("python Interface/Accueil.py")
+        os.system("python Interface/main.py")
     
 
     def quitter(self):
@@ -75,18 +86,7 @@ class Poules():
         Matchs([Equipe1, Equipe2, Equipe3, Equipe4, Equipe5, Equipe6, Equipe7, Equipe8])
 
     def add_phat_table(self, liste_des_equipes):
-            # self.e = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
-            # self.e.place(x = 0, y = 0)
-            
-            # self.e2 = Entry(self.main_window, font=("Arial", 12), width=3, justify=CENTER)
-            # self.e2.place(x = 0, y = 0)
-            # self.e2.insert(END, j+1)      
-            # self.e2.config(state="disabled")
-            # self.e3 = Combobox(self.main_window, values=[1,2,3,4,5], font=("Arial", 12), width=3)
-            # self.e3.place(x = 0, y = 0)
-
-
-
+    
         self.menuderoulant1 = Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12))
         # print(self.menuderoulant1.get())
         # print(liste_des_equipes)

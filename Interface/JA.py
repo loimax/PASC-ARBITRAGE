@@ -196,7 +196,7 @@ class JA():
         #,X
         # button_valider = Button(add_JA, text="Valider",command=lambda : [add_JA_data(), update(liste_JAs)])
         #button_valider.grid(row=8, column=2)
-
+        
     def modif_JA_data(self,num,nom,prenom,club,adresse,cp,ville,tel, Num_Licence):
         numero_JA = num.get()
         nom_JA = nom.get()
@@ -210,7 +210,8 @@ class JA():
         a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
         # print(a)
         checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
-    
+        update_tables(self.conn, self.cursor, ["JA"])
+
     def setup(self):
         #créer 3 boutons pour les JAs : modifier ajouter supprimer
         bouton_modifier = Button(self.JA_window, text="Modifier", fg='#000000', font=('Arial', 10, 'bold'),command=self.modifier_JA)
@@ -248,7 +249,7 @@ class JA():
         #creer bouton retour vers l'accueil
         bouton_retour = Button(self.JA_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_retour.place(x=725, y=700)
-
+        update_tables(self.conn, self.cursor, ["JA"], True)
         #afficher la fenetre
         # Arb.attributes('-fullscreen', True)
         self.JA_window.mainloop()
