@@ -164,84 +164,57 @@ class Matchs():
                 print(" VS ")
                 print(self.list_CB2[i][j].get())
                 print(f"|{self.list_CB1[i][j].get()}|")
-            
 
-                string_split = split(' ', self.list_CB1[i][j].get())
-                print(string_split)
-                string_split.pop()
-                num_eq1 = string_split.pop()
-                num_eq1 = num_eq1.replace(num_eq1[0], "")
-                num_eq1 = num_eq1.replace(num_eq1[len(num_eq1)-1], "")
-                rang_equipe1 = string_split.pop()
-                nom_club1 = ""
-                for i in range(len(string_split)):
-                    nom_club1 += (string_split[i])
-                    if i != len(string_split)-1:
-                        nom_club1 += " "
-                print(f"rang : {rang_equipe1} \n nom club : {nom_club1} \n num equipe : {num_eq1} \n")
-                
-                string_split = split(' ', self.list_CB2[i][j].get())
-                print(string_split)
-                string_split.pop()
-                num_eq2 = string_split.pop()
-                num_eq2 = num_eq2.replace(num_eq2[0], "")
-                num_eq2 = num_eq2.replace(num_eq2[len(num_eq2)-1], "")
-                rang_equipe2 = string_split.pop()
-                nom_club2 = ""
-                for i in range(len(string_split)):
-                    nom_club2 += (string_split[i])
-                    if i != len(string_split)-1:
-                        nom_club2 += " "
-
-                #nom equipe rangEq (numEq)
-
-                print(f"rang : {rang_equipe2} \n nom club : {nom_club2} \n num equipe : {num_eq2} \n")
-
-                num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
-
-                num_club2 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club2])
-
-                if num_club1 == 4:
-                    phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_eq1)
-                    insert_entry(self.conn,self.cursor,"Rencontres",[f"{num_eq1}",f"{num_eq2}",f"{phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
-
+                if self.list_CB1[i][j].get()=="EXEMPT " or self.list_CB2[i][j].get()=="EXEMPT ":
+                    print("EXEMPT rencontred")
+                else:
+                    string_split = split(' ', self.list_CB1[i][j].get())
+                    print(string_split)
+                    string_split.pop()
+                    num_eq1 = string_split.pop()
+                    num_eq1 = num_eq1.replace(num_eq1[0], "")
+                    num_eq1 = num_eq1.replace(num_eq1[len(num_eq1)-1], "")
+                    rang_equipe1 = string_split.pop()
+                    nom_club1 = ""
+                    for i in range(len(string_split)):
+                        nom_club1 += (string_split[i])
+                        if i != len(string_split)-1:
+                            nom_club1 += " "
+                    print(f"rang : {rang_equipe1} \n nom club : {nom_club1} \n num equipe : {num_eq1} \n")
                     
-                # print("Nom",nom_club1,"rang :",rang_equipe1) 
-                # rang_equipe2 = self.list_CB2[i][j].get()[len(self.list_CB2[i][j].get())-1]
-                # nom_club2 = str(self.list_CB2[i][j].get()[:-2])  
-                # print("Nom",nom_club2,"rang :",rang_equipe2) 
-                # num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
-                # num_club2 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club2])
-                # print(f"numéros des clubs : {num_club1} , {num_club2}")
-                
-                # if nom_club1 == "EXEMPT" or nom_club2== "EXEMPT":
-                #     pass
-                # else:
-                #     num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq","Division","Poule"],[num_club1[0],rang_equipe1,self.niveau,self.poule])
-                #     num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq","Division","Poule"],[num_club2[0],rang_equipe2,self.niveau,self.poule])
-                #     print(f"Numéros des équipes : {num_team1},{num_team2}")
+                    string_split = split(' ', self.list_CB2[i][j].get())
+                    print(string_split)
+                    string_split.pop()
+                    num_eq2 = string_split.pop()
+                    num_eq2 = num_eq2.replace(num_eq2[0], "")
+                    num_eq2 = num_eq2.replace(num_eq2[len(num_eq2)-1], "")
+                    rang_equipe2 = string_split.pop()
+                    nom_club2 = ""
+                    for i in range(len(string_split)):
+                        nom_club2 += (string_split[i])
+                        if i != len(string_split)-1:
+                            nom_club2 += " "
 
-                #     phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_team2)
-                #     print(f"Numéros des phases : {phase}")
-                #     # Petit bloque immonde parce que phase[0] est out if index pour une raison qui m'échappe
-                #     for a in phase:
-                #         nani_phase = a
-                #     for b in num_team1:
-                #         nani_team1 = b
-                #     for c in num_team2:
-                #         nani_team2 = c                
-                #     insert_entry(self.conn,self.cursor,"Rencontres",[f"{nani_team1}",f"{nani_team2}",f"{nani_phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
-                #     for a in num_club1:
-                #         pre_num_club1 = str(a[4:])
-                #     for b in num_club2:
-                #         pre_num_club2 = str(b[4:])
-                #     if pre_num_club1 == "0418":
-                #         self.list_Cher.append(nom_club1)
-                #     if pre_num_club2 =="0418":
-                #         self.list_Cher.append(nom_club2)
+                    #nom equipe rangEq (numEq)
 
-                print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
+                    print(f"rang : {rang_equipe2} \n nom club : {nom_club2} \n num equipe : {num_eq2} \n")
+
+                    num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
+                    print(f"num du club : {num_club1}")
+                    for a in num_club1:
+                        pre_num_club1 = str(a[0:4])
+                        print(pre_num_club1)
+                    if pre_num_club1 == "0418":
+                        self.list_Cher.append(nom_club1)
+                        print("\nOn est dans le Cher\n")
+
+                    if pre_num_club1 == "0418" :
+                        phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_eq1)
+                        insert_entry(self.conn,self.cursor,"Rencontres",[f"{num_eq1}",f"{num_eq2}",f"{phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+
+                    print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
+        print(self.list_Cher) 
         self.test_if_Cher()
 
     def test_if_Cher(self):
