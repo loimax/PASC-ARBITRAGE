@@ -277,6 +277,7 @@ class Equipes():
     def rafraichir(self):
         self.main_window.destroy()
         update_tables(self.conn, self.cursor, ["EquipeClub"])
+        close_connection(self.conn)
         Equipes()
 
     def valider(self):
@@ -443,8 +444,10 @@ class Equipes():
     def retour(self):
         self.main_window.destroy()
         update_tables(self.conn, self.cursor, ["EquipeClub"])
+        close_connection(self.conn)
         os.system("python Interface/main.py")
 
     def quitter(self):
         update_tables(self.conn, self.cursor, ["EquipeClub"])
+        close_connection(self.conn)
         self.main_window.destroy()

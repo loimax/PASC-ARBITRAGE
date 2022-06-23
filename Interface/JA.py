@@ -177,6 +177,7 @@ class JA():
     def rafraichir(self):
         self.main_window.destroy()
         update_tables(self.conn, self.cursor, ["JA"])
+        close_connection(self.conn)
         JA()
         # os.system("python Interface/JA.py")
 
@@ -318,7 +319,9 @@ class JA():
     def retour(self):
         self.main_window.destroy()
         update_tables(self.conn, self.cursor, ["JA"])
+
         os.system("python Interface/main.py")
 
     def quitter(self):
+        close_connection(self.conn)
         self.main_window.destroy()

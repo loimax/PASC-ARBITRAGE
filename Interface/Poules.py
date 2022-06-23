@@ -50,10 +50,12 @@ class Poules():
     def retour(self):
         # bouton_retour.destroy()
         self.main_window.destroy()
+        close_connection(self.conn)
         os.system("python Interface/main.py")
     
 
     def quitter(self):
+        close_connection(self.conn)
         self.main_window.destroy()
 
     def add_phat_table(self, liste_des_equipes):
