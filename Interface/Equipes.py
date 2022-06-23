@@ -125,7 +125,7 @@ class Equipes():
     def check(self, e):
         # grab what typed
         typed = self.entry_equipe.get()
-        print("self.liste_equipes", self.liste_equipes)
+        # print("self.liste_equipes", self.liste_equipes)
 
         if typed == '':
             data = self.liste_equipes
@@ -261,7 +261,7 @@ class Equipes():
             annee = entry_annee.get()
             phase = entry_phase.get()
             # mettre les elements dans une liste
-            print(numero_equipe, numero_club, rang_equipe, masculin, division, poule, annee, phase)
+            # print(numero_equipe, numero_club, rang_equipe, masculin, division, poule, annee, phase)
             data = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, "None", annee, phase]
             
             checkInsertModify(self.conn, self.cursor, "EquipeClub", data)
@@ -293,10 +293,9 @@ class Equipes():
     def valider(self):
         phase = self.combobox_phase.get()
         annee = self.inputannee.get()
-        print(phase)
-        self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"],
-                                              ["CLUB.NumClub", "EquipeClub.numClub"], ["NomClub", "RangEq", "Division"], ["Phase", "Année"],
-                                              [phase, annee])
+        # print(phase)
+        self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"], ["CLUB.NumClub", "EquipeClub.numClub"], \
+            ["NomClub", "RangEq", "Division"], ["Phase", "Année"], [phase, annee])
         self.update_listebox(self.liste_equipes)
 
         
@@ -312,7 +311,7 @@ class Equipes():
         chaine_split = split(' ', chaine_clubXekip)
         rang_equipe = chaine_split[len(chaine_split)-2]
         division_equipe = chaine_split[len(chaine_split)-1]
-        print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe)
+        # print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe)
         # récupère le numero du club
         num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
         # num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"],
@@ -391,7 +390,7 @@ class Equipes():
 
         # on recupere les données de l'equipe séléctionné
         data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division"], [num_club, rang_equipe, division_equipe])
-        print("data = ", data)
+        # print("data = ", data)
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
