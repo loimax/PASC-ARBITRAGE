@@ -73,6 +73,7 @@ class Poules():
             self.liste_menuderoulant.append(Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12)))
             self.liste_menuderoulant[i].bind("<<ComboboxSelected>>", self.updatemenuderoulant(self.liste_menuderoulant[i]))
             self.liste_menuderoulant[i].place(x = 0, y = 0)
+            self.liste_menuderoulant[i].insert(END, liste_des_equipes[i])
 
             self.main_window.update()
             txttab.place(x=self.main_window.winfo_width()/2-txttab.winfo_width()/2, y= 178)
@@ -116,6 +117,10 @@ class Poules():
         textannee.place(x=0, y=0)
         self.inputphase.place(x=0, y=0)
         textphase.place(x=0, y=0)
+        self.choiceniveau.insert(END, "R3")
+        self.choicepoule.insert(END, "C")
+        self.inputannee.insert(END, "2022")
+        self.inputphase.insert(END, "1")
         
         
         

@@ -62,45 +62,33 @@ class Accueil:
 
     def setup_buttons(self):
         #creer 6 boutons
-        bouton_clubs = Button(self.main_window, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_clubs)
-        bouton_JA = Button(self.main_window, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_JA)
-        bouton_Équipes = Button(self.main_window, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_teams)
-        # bouton_Rencontres = Button(self.main_window, text="Matchs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_matchs)
-        # bouton_Affectation = Button(self.main_window, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_affectation)
-        bouton_Poules = Button(self.main_window, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_poule)
-        bouton_Quitter = Button(self.main_window, text="Quitter", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.quit)
-        void_placeholder = Frame(self.main_window)
+        bouton_clubs = Button(self.main_window, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_clubs, height=3, width=50)
+        bouton_JA = Button(self.main_window, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_JA, height=3, width=50)
+        bouton_Équipes = Button(self.main_window, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_teams, height=3, width=50)
+        # bouton_Rencontres = Button(self.main_window, text="Matchs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_matchs, height=3, width=50)
+        # bouton_Affectation = Button(self.main_window, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_affectation, height=3, width=50)
+        bouton_Poules = Button(self.main_window, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_poule, height=3, width=50)
+        bouton_Quitter = Button(self.main_window, text="Quitter", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.quit, height=3, width=50)
 
         #placer les boutons dans la fenetre
-        bouton_clubs.grid(row=3, column=2)
-        bouton_JA.grid(row=6, column=2)
-        bouton_Équipes.grid(row=9, column=2)
-        # bouton_Rencontres.grid(row=12, column=2)
-        # bouton_Affectation.grid(row=15, column=2)
-        bouton_Poules.grid(row=12, column=2)
-        void_placeholder.grid(row = 15, column = 2)
-        bouton_Quitter.grid(row=18, column=2)
+        bouton_clubs.place(x = 0, y = 0)
+        bouton_JA.place(x = 0, y = 0)
+        bouton_Équipes.place(x = 0, y = 0)
+        # bouton_Rencontres.place(x = 0, y = 0)
+        # bouton_Affectation.place(x = 0, y = 0)
+        bouton_Poules.place(x = 0, y = 0)
+        bouton_Quitter.place(x = 0, y = 0)
 
 
-        #taille des boutons
-        bouton_clubs.config(height=5, width=80)
-        bouton_JA.config(height=5, width=80)
-        bouton_Équipes.config(height=5, width=80)
-        # bouton_Rencontres.config(height=5, width=80)
-        # bouton_Affectation.config(height=5, width=80)
-        bouton_Poules.config(height=5, width=80)
-        bouton_Quitter.config(height=5, width=80)
-        void_placeholder.config(height = 40, width = 80)
+        self.main_window.update()
 
-        #mettre un espace entre les boutons
-        bouton_clubs.grid(padx=10, pady=10)
-        bouton_JA.grid(padx=10, pady=10)
-        bouton_Équipes.grid(padx=10, pady=10)
-        # bouton_Rencontres.grid(padx=10, pady=10)
-        # bouton_Affectation.grid(padx=10, pady=10)
-        bouton_Poules.grid(padx=10, pady=10)
-        bouton_Quitter.grid(padx=10, pady=10)
-        void_placeholder.grid(padx=10, pady=10)
+        bouton_clubs.place(x = 10, y = 10)
+        bouton_JA.place(x = 10, y = 10 + bouton_clubs.winfo_height() + 20)
+        bouton_Équipes.place(x = 10, y = 10 + bouton_clubs.winfo_height() + bouton_JA.winfo_height() + 40)
+        bouton_Poules.place(x = 10, y = 10 + bouton_clubs.winfo_height() + bouton_JA.winfo_height() + bouton_Équipes.winfo_height() + 60)
+        bouton_Quitter.place(x = 10, y = self.main_window.winfo_height() - bouton_Quitter.winfo_height()- 10)
+
+
 
 
     def open_clubs(self):
