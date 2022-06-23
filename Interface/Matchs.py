@@ -191,9 +191,13 @@ class Matchs():
 
                 print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
+        self.test_if_bourges()
         liste_a_envoyer = []
         self.main_window.destroy()
         JA(liste_a_envoyer)
+
+    def test_if_bourges(self):
+        pass
 
 
 
