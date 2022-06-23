@@ -485,6 +485,24 @@ def join_table_where(conn,cursor,name_table,attributs,values, attributs_spec, at
     print(liste)
     return liste
 
+def switchPhaseDuplicates(conn, cursor, table):
+    query = f"SELECT * FROM {table};"
+    cur = execute_query(conn, cursor, query)
+    result = cur.fetchall()
+    # print(result)
+    attr = getAttributes(conn, cursor, table)
+    # numClub et RangEq
+    for row in result:
+        for colonne in range(len(row)):
+            if attr[colonne] == "numClub":
+                numClub = row[colonne]
+            elif attr[colonne] == "RangEq":
+                rangEq = row[colonne]
+            print(numClub, rangEq, row)
+
+
+                
+            
 
 def createViews(conn, cursor):
     """
@@ -622,12 +640,11 @@ def getMaxValue(conn, cursor, name_table, attribute):
     result = cur.fetchall()
     return result[0][0]
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
-# # update_tables(conn, cursor, ["JA"])
-# display_table(conn,cursor,"EquipeClub")
-
-#display_table(conn,cursor,"Rencontres")
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
+# update_tables(conn, cursor, ["JA"])
+# switchPhaseDuplicates(conn, cursor, "EquipeClub")
+display_table(conn,cursor,"EquipeClub")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
 # # 
 # # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
