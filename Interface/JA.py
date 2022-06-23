@@ -17,6 +17,8 @@ class JA():
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
         self.setup()
+        self.main_window.attributes('-fullscreen', True)
+        self.main_window.mainloop()
 
     def update(self,data):
         #clear the listbox
@@ -223,6 +225,10 @@ class JA():
         bouton_rafraichir = Button(self.main_window, text="Rafraichir", fg='#000000', font=('Arial', 10, 'bold'),
                                 command=self.rafraichir)
         bouton_rafraichir.place(x=720, y=500)
+        bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        bouton_retour.place(x = 0, y = 0)
+        bouton_quitter.place(x = 0, y = 0)
 
         #creer une zone de texte pour la recherche de JA
         self.entry_JA = Entry(self.main_window, font=("Helvetica", 20))
@@ -246,15 +252,17 @@ class JA():
         #create a binding to the entry box
         self.entry_JA.bind("<KeyRelease>", self.check)
 
-        #creer bouton retour vers l'accueil
-        bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
-        bouton_retour.place(x=725, y=700)
+        
         update_tables(self.conn, self.cursor, ["JA"], True)
         #afficher la fenetre
-        # Arb.attributes('-fullscreen', True)
-        self.main_window.mainloop()
+        
+        self.main_window.update()
+        bouton_retour.place(x = 0.02*self.main_window.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
+        bouton_quitter.place(x = 0.98*self.main_window.winfo_width()-bouton_retour.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
 
     def retour(self):
-        # bouton_retour.destroy()
         self.main_window.destroy()
         os.system("python Interface/main.py")
+
+    def quitter(self):
+        self.main_window.destroy()

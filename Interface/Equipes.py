@@ -318,7 +318,6 @@ class Equipes():
     # button_valider.grid(row=8, column=2)
 
     def retour(self):
-        # bouton_retour.destroy()
         self.main_window.destroy()
         os.system("python Interface/main.py")
 
