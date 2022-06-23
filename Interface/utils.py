@@ -1,4 +1,4 @@
-from numpy import negative
+from numpy import delete, negative
 import pandas as pd
 import tkinter.messagebox as msg
 import sqlite3
@@ -122,15 +122,20 @@ def display_table(conn, cursor, name_table, specified=False, num_rows=0):
         print("\n")
         # print(row) #print(row[1]) affiche 1re colonne de la table
 
-def insert_entry(conn, cursor, name_table,list):
+def insert_entry(conn, cursor, name_table,list,auto_incr=False):
     """
     Insère une nouvelle entrée
     :param: name_table : nom de la table que l'on va modifier
     :param: list : les entrées de l'user sous forme de liste
+    :param: auto_incr : si on veut une auto-incrementation, 
+    on donne le tableau des attributs de la table SAUF celui qui s'auto-incremente
     :return: void
     """
-    attr = getAttributes(conn, cursor, name_table)
-    attrStr = ",".join(attr)
+    if auto_incr:
+        attrStr=",".join("'" + item + "'" for item in auto_incr)
+    else:
+        attr = getAttributes(conn, cursor, name_table)
+        attrStr = ",".join(attr)
 
     liste = ','.join("'" + item + "'" for item in list)
 
@@ -525,11 +530,29 @@ def TeamFromClub(liste,club_name):
     return team_liste
 
 
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
+display_attributes(conn,cursor,"Rencontres")
 
-      
-            
+# display_table(conn,cursor,"Rencontres")
+# insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
+# 
+# del_entry(conn,cursor,"Rencontres","NumRenc","1111")
+display_table(conn,cursor,"CLUB")
 
+""" "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
+a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
+print(a)
+b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
+c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
+#display_table(conn,cursor,"EquipeClub")
+print(b)
+print(c)
 
+# join_table(conn,cursor,["Club",""])
+
+# insert_entry(conn,cursor,"Rencontres",["874","01845","78456","1","5","20/06/2022","17h00",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+# display_table(conn,cursor,"Rencontres")
 # conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
 # # update_tables(conn, cursor, ["JA"], True)
