@@ -140,58 +140,62 @@ class Matchs():
     def add_phat_table(self):
         nb_rencontres = 7
         nb_matchs_jour = 4
-        self.eref = Entry(self.main_window, font=("Arial", 12), width=12, justify=CENTER)
-        self.eref2 = Entry(self.main_window, font=("Arial", 12), width=5, justify=CENTER)
-        self.eref.place(x=0, y=0)
-        self.eref2.place(x=0, y=0)
+        eref = Entry(self.main_window, font=("Arial", 12), width=12, justify=CENTER)
+        eref2 = Entry(self.main_window, font=("Arial", 12), width=5, justify=CENTER)
+        eref.place(x=0, y=0)
+        eref2.place(x=0, y=0)
         self.main_window.update()
-        self.e_size = self.eref.winfo_width()
-        self.e_sizeh = self.eref.winfo_height()
-        self.e2_size = self.eref2.winfo_width()
-        self.eref.destroy()
-        self.eref2.destroy()
+        e_size = eref.winfo_width()
+        e_sizeh = eref.winfo_height()
+        e2_size = eref2.winfo_width()
+        eref.destroy()
+        eref2.destroy()
         for i in range(nb_rencontres):
             for j in range(nb_matchs_jour):
                 if (j == 0):
-                    self.e = Entry(self.main_window, font=("Arial", 12), width=12, justify=CENTER)
-                    self.e.place(x=0, y=0)
-                    self.e.insert(END,self.dates_rencontres[i])
-                    #self.e.config(state="disabled")
-                    self.e2 = Entry(self.main_window, font=("Arial", 12), width=5, justify=CENTER)
-                    self.e2.place(x=0, y=0)
-                    self.e2.insert(END,i+1)
-                    self.e2.config(state="disabled")
+                    e = Entry(self.main_window, font=("Arial", 12), width=12, justify=CENTER)
+                    e.place(x=0, y=0)
+                    e.insert(END,self.dates_rencontres[i])
+                    #e.config(state="disabled")
+                    e2 = Entry(self.main_window, font=("Arial", 12), width=5, justify=CENTER)
+                    e2.place(x=0, y=0)
+                    e2.insert(END,i+1)
+                    e2.config(state="disabled")
 
-                self.e3 = Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12))
-                self.e3.place(x=0, y=0)
-                self.e3.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j])
-                # self.e3.config(state='disabled')
+                e3 = Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12))
+                e3.place(x=0, y=0)
+                e3.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j])
+                # e3.config(state='disabled')
 
-                self.e4 = Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12))
-                self.e4.place(x=0, y=0)
-                self.e4.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j+4])
-                # self.e4.config(state='disabled')
+                e4 = Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12))
+                e4.place(x=0, y=0)
+                e4.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j+4])
+                # e4.config(state='disabled')
 
                 #CB pour les heures
-                self.hour_CB[j] = Combobox(self.main_window, values = ["9:30", "17:00"], font=("Arial", 12))
+                self.hour_CB.append(Combobox())
+                self.hour_CB[j] = Combobox(self.main_window, values = ["9:30", "17:00"], font=("Arial", 12), justify=CENTER, width = 12)
+                self.hour_CB[j].place(x = 0, y = 0)
 
 
                 self.main_window.update()
-                tab_len = self.e_size + self.e2_size + self.e3.winfo_width() + self.e4.winfo_width()+50
+                tab_len = e_size + e2_size + e3.winfo_width() + e4.winfo_width()+50
                 start_array = self.main_window.winfo_width()/2-(tab_len)+25
                 offset_top = 100
                 if(i >= 4):
                     if (j == 0):
-                        self.e.place(x=start_array+tab_len, y=offset_top+j*self.e_sizeh+(i-4)*140)
-                        self.e2.place(x=start_array+self.e_size+tab_len, y=offset_top+j*self.e_sizeh+(i-4)*140)
-                    self.e3.place(x=start_array+self.e_size+self.e2_size+tab_len, y=offset_top+j*self.e_sizeh+(i-4)*140)
-                    self.e4.place(x=start_array+self.e_size+self.e2_size+self.e3.winfo_width()+tab_len, y=offset_top+j*self.e_sizeh+(i-4)*140)
+                        e.place(x=start_array+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
+                        e2.place(x=start_array+e_size+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
+                    if (j == 1):
+                        self.hour_CB[j].place(x=start_array+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
+                    e3.place(x=start_array+e_size+e2_size+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
+                    e4.place(x=start_array+e_size+e2_size+e3.winfo_width()+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
                 else:
                     if (j == 0): 
-                        self.e.place(x=start_array, y=offset_top+j*self.e_sizeh+i*140)
-                        self.e2.place(x=start_array+self.e_size, y=offset_top+j*self.e_sizeh+i*140)
-                    self.e3.place(x=start_array+self.e_size+self.e2_size, y=offset_top+j*self.e_sizeh+i*140)
-                    self.e4.place(x=start_array+self.e_size+self.e2_size+self.e3.winfo_width(), y=offset_top+j*self.e_sizeh+i*140)
+                        e.place(x=start_array, y=offset_top+j*e_sizeh+i*140)
+                        e2.place(x=start_array+e_size, y=offset_top+j*e_sizeh+i*140)
+                    e3.place(x=start_array+e_size+e2_size, y=offset_top+j*e_sizeh+i*140)
+                    e4.place(x=start_array+e_size+e2_size+e3.winfo_width(), y=offset_top+j*e_sizeh+i*140)
 
 
 
