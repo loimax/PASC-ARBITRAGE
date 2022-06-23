@@ -394,10 +394,18 @@ class Equipes():
         data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division","Phase"], [num_club, rang_equipe, division_equipe,phase])
         print(data)
         if len(data) == 0:
-            query = f"SELECT * FROM EquipeClub WHERE Phase = 2 AND numClub = {num_club} AND RangEq = {rang_equipe} AND Division = {division_equipe}"
+            query = f"SELECT * FROM EquipeClub WHERE Phase = {phase} AND numClub = '{num_club}'"
+            print(query)
+            print('num club = ', num_club)
             cur = execute_query(self.conn, self.cursor, query)
-            resu = cur.fetchall()
-            print(resu)
+            data = cur.fetchall()
+            i=0
+            print(data[i][4])
+            for i in range(len(data)):
+                print(data[i][4])
+                i+=1
+            data = data[i]
+        print(data)
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
