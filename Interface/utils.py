@@ -420,7 +420,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
                 return
             i+=1
         if not modify:
-            insert_entry(conn, cursor, name_table, liste)
+            insert_entry(conn, cursor, name_table, liste,["numClub","RangEq","Masculin","Division","Poule","CorrEq","Année","Phase"])
         else:
             data = getListRow(conn, cursor, "EquipeClub", ["numClub", "RangEq", "Division"], datas)
             modify_entry(conn, cursor, name_table, liste, getID(data))
@@ -711,5 +711,5 @@ cursor = conn.cursor()
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-display_table(conn,cursor,"Rencontres")
+# display_table(conn,cursor,"EquipeClub")
 # getMaxValue(conn, cursor, "EquipeClub", "numEq")
