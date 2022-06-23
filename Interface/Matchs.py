@@ -73,8 +73,8 @@ class Matchs():
         for i in range(nb_rencontres):
             #CB pour les heures
             self.hour_CB.append(Combobox())
-            self.hour_CB[i] = Combobox(self.main_window, values = ["9:30", "17:00"], font=("Arial", 12), justify=CENTER, width = 10)
-            self.hour_CB[i].insert(END,"9:30")
+            self.hour_CB[i] = Combobox(self.main_window, values = ["9:30:00", "17:00:00"], font=("Arial", 12), justify=CENTER, width = 10)
+            self.hour_CB[i].insert(END,"9:30:00")
             #self.hour_CB[j].place(x = 0, y = 0)
 
             tmp_list_CB1 = []
