@@ -69,7 +69,7 @@ class Accueil:
         # bouton_Affectation = Button(self.main_window, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_affectation)
         bouton_Poules = Button(self.main_window, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.open_poule)
         bouton_Quitter = Button(self.main_window, text="Quitter", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=self.quit)
-        #void_placeholder = Frame(self.main_window)
+        void_placeholder = Frame(self.main_window)
 
         #placer les boutons dans la fenetre
         bouton_clubs.grid(row=3, column=2)
@@ -78,7 +78,7 @@ class Accueil:
         # bouton_Rencontres.grid(row=12, column=2)
         # bouton_Affectation.grid(row=15, column=2)
         bouton_Poules.grid(row=12, column=2)
-        #void_placeholder.place(row = 15, column = 2)
+        void_placeholder.grid(row = 15, column = 2)
         bouton_Quitter.grid(row=18, column=2)
 
 
@@ -90,7 +90,7 @@ class Accueil:
         # bouton_Affectation.config(height=5, width=80)
         bouton_Poules.config(height=5, width=80)
         bouton_Quitter.config(height=5, width=80)
-        #void_placeholder.config(height = 5, width = 80)
+        void_placeholder.config(height = 40, width = 80)
 
         #mettre un espace entre les boutons
         bouton_clubs.grid(padx=10, pady=10)
@@ -100,6 +100,7 @@ class Accueil:
         # bouton_Affectation.grid(padx=10, pady=10)
         bouton_Poules.grid(padx=10, pady=10)
         bouton_Quitter.grid(padx=10, pady=10)
+        void_placeholder.grid(padx=10, pady=10)
 
 
     def open_clubs(self):
