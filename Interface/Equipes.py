@@ -58,6 +58,7 @@ class Equipes():
 
         bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+        title.place(x = 0, y = 0)
         bouton_retour.place(x = 0, y = 0)
         bouton_quitter.place(x = 0, y = 0)
         bouton_valider.place(x = 0, y = 0)
@@ -73,7 +74,7 @@ class Equipes():
         self.main_window.update()
 
 
-        title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 100)
+        title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 150)
         bouton_valider.place(x=self.main_window.winfo_width()/2-bouton_valider.winfo_width()/2 + 220, y=112)
         bouton_ajouter.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + ((self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4))
         bouton_supprimer.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + (2 * (self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + bouton_ajouter.winfo_height())
