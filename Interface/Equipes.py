@@ -43,6 +43,7 @@ class Equipes():
         textphase.place(x=0, y=0)
 
         self.inputannee = Entry(self.main_window, font=("Arial", 12), width=7, justify=CENTER)
+        self.inputannee.insert(0, date.today().year)
         self.inputannee.place(x=0, y=0)
         textannee = Label(self.main_window, text="Année :", font=("Arial", 12))
         textannee.place(x=0, y=0)
@@ -391,7 +392,12 @@ class Equipes():
 
         # on recupere les données de l'equipe séléctionné
         data = getListRow(self.conn, self.cursor, "EquipeClub", ["numClub", "RangEq", "Division","Phase"], [num_club, rang_equipe, division_equipe,phase])
-        # print("data = ", data)
+        print(data)
+        if len(data) == 0:
+            query = f"SELECT * FROM EquipeClub WHERE Phase = 2 AND numClub = {num_club} AND RangEq = {rang_equipe} AND Division = {division_equipe}"
+            cur = execute_query(self.conn, self.cursor, query)
+            resu = cur.fetchall()
+            print(resu)
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
