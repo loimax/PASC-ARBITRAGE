@@ -92,7 +92,7 @@ class Poules():
         bouton_creer = Button(self.main_window, text="Créer", command=self.creer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
         #on crée un bouton valider
         bouton_valider = Button(self.main_window, text="Valider", bg='#AF7AC5', fg='#000000', font=('Arial', 12),command = self.Valider)
-        self.choiceniveau = Combobox(self.main_window, font=("Arial", 12), values=["N3","PN","R1","R2","R3","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
+        self.choiceniveau = Combobox(self.main_window, font=("Arial", 12), values=["N3","PN","R1","R2","R3","PR","D1","D2","D3","D4","D5"], width=5, justify=CENTER)
         textniveau = Label(self.main_window, text="Niveau", font=("Arial", 12))
         #poules allant de A à P
         self.choicepoule = Combobox(self.main_window, values=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"], font=("Arial", 12), width=5, justify=CENTER)
