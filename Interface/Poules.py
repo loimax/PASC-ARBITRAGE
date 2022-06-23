@@ -223,8 +223,8 @@ class Poules():
         ListePoule = getListRow(self.conn, self.cursor,"EquipeClub",["Division","Poule"],[niveau,poule])
         print(ListePoule)
         self.liste_nom_club = getValues(self.conn, self.cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
-        while (len(self.liste_nom_club) != 8):
-            self.liste_nom_club.append("EXEMPT")
+        
+        self.liste_nom_club.append("EXEMPT")
         print(self.liste_nom_club)
         self.add_phat_table(self.liste_nom_club)
     

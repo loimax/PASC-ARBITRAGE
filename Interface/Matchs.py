@@ -2,6 +2,7 @@ import os
 from tkinter import *
 from tkinter.ttk import Combobox
 from utils import *
+from JA import JA
 
 
 #window_height : 701, nope, dépends de la taille réelle de l'écran
@@ -235,6 +236,10 @@ class Matchs():
             for j in range(4):
                 print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
+        liste_a_envoyer = []
+        JA(liste_a_envoyer)
+        self.main_window.destroy()
+
 
 
 
