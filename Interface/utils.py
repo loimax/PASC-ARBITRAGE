@@ -458,7 +458,6 @@ def join_table(conn,cursor,name_table,attributs,values):
     liste = []
     for row in resultat:
         liste.append(row)
-    print(liste)
     return liste
 
 # fonction qui "concatène" NomClub et rgEquipe qui sont dans deux table différentes
@@ -482,7 +481,6 @@ def join_table_where(conn,cursor,name_table,attributs,values, attributs_spec, at
     liste = []
     for row in resultat:
         liste.append(row)
-    print(liste)
     return liste
 
 
@@ -493,14 +491,31 @@ def switchPhaseDuplicates(conn, cursor, table):
     # print(result)
     attr = getAttributes(conn, cursor, table)
     # numClub et RangEq
+    i = 0 
+    count = 0
+    liste = []
     for row in result:
         for colonne in range(len(row)):
             if attr[colonne] == "numClub":
                 numClub = row[colonne]
             elif attr[colonne] == "RangEq":
                 rangEq = row[colonne]
-            print(numClub, rangEq, row)
-
+                i = 1
+            if i == 1 : 
+                for rows in result:
+                    if rows != row and rows not in liste:
+                        for colonnes in range(len(rows)):
+                            if rows[colonnes] == numClub and rows[colonnes+1] == rangEq:
+                                # rows[colonnes+7] = 2
+                                query = f"UPDATE {table} SET 'Phase' = 2 WHERE {attr[0]} ='{rows[colonnes-1]}';"
+                                print(query)
+                                execute_query(conn, cursor, query, True)
+                                # print(rows[colonnes+7])
+                                # print("à la ligne", rows, "et à la ligne", row)
+                                count+=1
+                                liste.append(row)
+                i = 0
+    print(count)
 
                 
             
@@ -666,12 +681,13 @@ def getMaxValue(conn, cursor, name_table, attribute):
     result = cur.fetchall()
     return result[0][0]
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
+
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
 # # update_tables(conn, cursor, ["JA"])
+# # switchPhaseDuplicates(conn, cursor, "EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
 
-#display_table(conn,cursor,"Rencontres")
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
 # # 
 # # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
