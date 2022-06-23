@@ -414,7 +414,32 @@ def join_table(conn,cursor,name_table,attributs,values):
         liste.append(row)
     print(liste)
     return liste
-   
+
+# fonction qui "concatène" NomClub et rgEquipe qui sont dans deux table différentes
+def join_table_where(conn,cursor,name_table,attributs,values, attributs_spec, attributs_spec_values):
+    """
+    INNER JOIN en SQLite, 2 par 2
+    exemple : join_table(conn,cursor,["CLUB","EquipeClub"],["CLUB.NumClub","EquipeClub.numClub"],["NomClub","RangEq"])
+    :param: conn :
+    :param: cursor :
+    :param: name_table : nom des DEUX tables qu'on join dans une liste
+    :param: attributs : liste de l'attribut de chaque table dont on veut que les valeurs soient égales
+    :param: values : liste des attributs qu'on veut conserver et mettre dans la liste
+    :param: attributs_spec : liste des attributs que l'on veut spécifier
+    :param: attributs_spec_values : liste des valeurs des attributs que l'on a spécifié
+    :return: liste : une liste des attributs des entrées respectants les paramètres de la jointure
+    """
+    query = f"SELECT {values[0]}, {values[1]} FROM {name_table[0]} INNER JOIN {name_table[1]} ON {attributs[0]} == {attributs[1]} WHERE {attributs_spec[0]} == {attributs_spec_values[0]} AND {attributs_spec[1]} == {attributs_spec_values[1]}"
+    cur = execute_query(conn, cursor, query, True)
+    resultat = cur.fetchall()
+
+    liste = []
+    for row in resultat:
+        liste.append(row)
+    print(liste)
+    return liste
+
+
 def createViews(conn, cursor):
     """
     Création des vues
@@ -553,14 +578,14 @@ cursor = conn.cursor()
 # # del_entry(conn,cursor,"Rencontres","NumRenc","1111")
 # display_table(conn,cursor,"CLUB")
 
-# """ "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
-# a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
-# print(a)
-# b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
-# c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
-# #display_table(conn,cursor,"EquipeClub")
-# print(b)
-# print(c)
+""" "NumEq1" et "2" ainsi que "Phase" sélectionnés grâce aux fonctions suivantes : """
+a = getValues(conn,cursor,"CLUB","NumClub","NomClub",["VIERZON PING"])
+print(a)
+b = getValues(conn,cursor,"EquipeClub","NumEq","NumClub",a)
+c = getValues(conn,cursor,"EquipeClub","Phase","NumEq",b)
+#display_table(conn,cursor,"EquipeClub")
+print(b)
+print(c)
 
 # join_table(conn,cursor,["Club",""])
 
@@ -584,6 +609,6 @@ cursor = conn.cursor()
 
 # display_attributes(conn,cursor,"EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
-
-# modify_one_entry(conn,cursor,"EquipeClub","Année","2022",164)
-# display_table(conn,cursor,"EquipeClub")
+# for i in range(165):
+#     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
+display_table(conn,cursor,"EquipeClub")
