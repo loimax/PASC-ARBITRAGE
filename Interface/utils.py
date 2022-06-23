@@ -363,8 +363,9 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
     dico = dict(name_table)
     keys = list(dico.keys())
     values = list(dico.values())
-    i = 0
+
     if name_table == "CLUB":
+        i = 0
         # print("La liste est : ", liste, " et les valeurs sont ", values, " pour les clés ", keys)
         for d in liste:
             if values[i][1] == "NULL" and len(d) == 0:
@@ -386,6 +387,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
     elif name_table == "JA":
+        i = 0
         for d in liste:
             if values[i][1] == "NULL" and len(d) == 0:
                 liste[i] = "None"
@@ -404,6 +406,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
             data = getListRow(conn, cursor, "JA", ["NumLic"], [nom])
             modify_entry(conn, cursor, name_table, liste, getID(data))
     elif name_table == "EquipeClub":
+        i = 0
         for d in liste:
             if values[i][1] == "NULL" and len(d) == 0:
                 liste[i] = "None"
