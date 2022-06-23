@@ -682,11 +682,11 @@ def getMaxValue(conn, cursor, name_table, attribute):
     return result[0][0]
 
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
-# # update_tables(conn, cursor, ["JA"])
-# switchPhaseDuplicates(conn, cursor, "EquipeClub")
-display_table(conn,cursor,"EquipeClub")
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
+# # # update_tables(conn, cursor, ["JA"])
+# # switchPhaseDuplicates(conn, cursor, "EquipeClub")
+# display_table(conn,cursor,"EquipeClub")
 
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""]) 
 # # 
@@ -727,5 +727,5 @@ display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
 #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-display_table(conn,cursor,"Rencontres")
+# display_table(conn,cursor,"Rencontres")
 # getMaxValue(conn, cursor, "EquipeClub", "numEq")
