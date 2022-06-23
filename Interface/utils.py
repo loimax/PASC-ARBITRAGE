@@ -142,7 +142,7 @@ def insert_entry(conn, cursor, name_table,list,auto_incr=False):
     print(query)
     execute_query(conn, cursor, query, True)
 
-def get_entry(conn, cursor, name_table, attribut, valeur):
+def del_entry(conn, cursor, name_table, attribut, valeur):
     """
     Supprime une entrée de la table
     :param: name_table : nom de la table que l'on va modifier
@@ -331,10 +331,9 @@ def getValuesConstraints(conn, cursor, name_table, attribute, id_base, id):
 
     # cas "usuels" d'une liste non vide
     query = f"SELECT {attribute} FROM {name_table} WHERE {id_base[0]}='{id[0]}'"
-    i = 0
-    for k in id:
-        query+=f"AND {id_base[i]}='{id[i]}'"
-        i+=1
+    if len(id) > 1:
+        for i in range(1, len(id)):
+            query+=f"AND {id_base[i]}='{id[i]}'"
     print(query)
     cur = execute_query(conn, cursor, query)
     result = cur.fetchall()
@@ -594,8 +593,8 @@ def TeamFromClub(liste,club_name):
     return team_liste
 
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
 #display_attributes(conn,cursor,"Rencontres")
 
 #display_table(conn,cursor,"Rencontres")
@@ -631,10 +630,10 @@ def TeamFromClub(liste,club_name):
 
 # attributes = ["Année INTEGER NULL", "Phase INTEGER NOT NULL DEFAULT 1"]
 # alterTable(conn, cursor, "EquipeClub", attributes)
-# display_table(conn, cursor, "CLUB")
+#display_table(conn, cursor, "CLUB")
 
 # display_attributes(conn,cursor,"EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
-# display_table(conn,cursor,"EquipeClub")
+#display_table(conn,cursor,"EquipeClub")
