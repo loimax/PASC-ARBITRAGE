@@ -200,8 +200,8 @@ class Matchs():
                     tmp_list_CB1[j].place(x=start_array+e_size+num_journee_size, y=offset_top+j*e_sizeh+i*140)
                     tmp_list_CB2[j].place(x=start_array+e_size+num_journee_size+tmp_list_CB1[j].winfo_width(), y=offset_top+j*e_sizeh+i*140)
 
-                self.list_CB1.append(tmp_list_CB1)
-                self.list_CB2.append(tmp_list_CB2)
+            self.list_CB1.append(tmp_list_CB1)
+            self.list_CB2.append(tmp_list_CB2)
 
 
 
@@ -233,15 +233,9 @@ class Matchs():
             print(i)
             print("\n")
             for j in range(4):
-                print("Match :  ")
-                print(self.list_CB1[i][j].get())
-                print(" VS ")
-                print(self.list_CB2[i][j].get())
+                print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
-            # nw_lst = [8]
-            # nw_lst[i] = 
-            
-        # print(nw_lst)
+
 
 
     def retour(self):
