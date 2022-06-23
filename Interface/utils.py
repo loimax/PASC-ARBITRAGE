@@ -531,11 +531,11 @@ def TeamFromClub(liste,club_name):
       
             
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
+#conn = create_connection("Interface/testdb/GestionRegionale.db")
+#cursor = conn.cursor()
 # Gère erreur des Null
-display_table(conn, cursor, "JA")
-update_tables(conn, cursor, True)
+#display_table(conn, cursor, "JA")
+#update_tables(conn, cursor, False, True)
 #update_tables(conn, cursor, False, True)
 # update_tables(conn, cursor)
 # display_table(conn, cursor, "")
