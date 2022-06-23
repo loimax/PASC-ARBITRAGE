@@ -148,53 +148,60 @@ class Matchs():
             #CB pour les heures
             self.hour_CB.append(Combobox())
             self.hour_CB[i] = Combobox(self.main_window, values = ["9:30", "17:00"], font=("Arial", 12), justify=CENTER, width = 10)
+            self.hour_CB[i].insert(END,"9:30")
             #self.hour_CB[j].place(x = 0, y = 0)
+
+            tmp_list_CB1 = []
+            tmp_list_CB2 = []
             for j in range(nb_matchs_jour):
 
-
+                
                 if (j == 0):
-                    e = Entry(self.main_window, font=("Arial", 12), width=12, justify=CENTER)
-                    e.place(x=0, y=0)
-                    e.insert(END,self.dates_rencontres[i])
-                    #e.config(state="disabled")
+                    self.list_date.append(Entry(self.main_window, font=("Arial", 12), width=12, justify=CENTER))
+                    self.list_date[i].place(x=0, y=0)
+                    self.list_date[i].insert(END,self.dates_rencontres[i])
+                    #self.list_date[i].config(state="disabled")
                     num_journee = Entry(self.main_window, font=("Arial", 12), width=5, justify=CENTER)
                     num_journee.place(x=0, y=0)
                     num_journee.insert(END,i+1)
                     num_journee.config(state="disabled")
 
-                colonne_equipe_1 = Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12))
-                colonne_equipe_1.place(x=0, y=0)
-                colonne_equipe_1.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j])
-                # colonne_equipe_1.config(state='disabled')
+                tmp_list_CB1.append(Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12)))
+                tmp_list_CB1[j].place(x=0, y=0)
+                tmp_list_CB1[j].insert(END,self.mix_teams(self.liste_debase_equipes,i)[j])
+                # tmp_list_CB1[j].config(state='disabled')
 
-                colonne_equipe_2 = Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12))
-                colonne_equipe_2.place(x=0, y=0)
-                colonne_equipe_2.insert(END,self.mix_teams(self.liste_debase_equipes,i)[j+4])
-                # colonne_equipe_2.config(state='disabled')
+                tmp_list_CB2.append(Combobox(self.main_window, values=self.liste_debase_equipes, font=("Arial", 12)))
+                tmp_list_CB2[j].place(x=0, y=0)
+                tmp_list_CB2[j].insert(END,self.mix_teams(self.liste_debase_equipes,i)[j+4])
+                # tmp_list_CB2[j].config(state='disabled')
 
                 
 
 
                 self.main_window.update()
-                tab_len = e_size + num_journee_size + colonne_equipe_1.winfo_width() + colonne_equipe_2.winfo_width()+50
+                tab_len = e_size + num_journee_size + tmp_list_CB1[j].winfo_width() + tmp_list_CB2[j].winfo_width()+50
                 start_array = self.main_window.winfo_width()/2-(tab_len)+25
                 offset_top = 100
                 if(i >= 4):
                     if (j == 0):
-                        e.place(x=start_array+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
+                        self.list_date[i].place(x=start_array+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
                         num_journee.place(x=start_array+e_size+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
                     if (j == 1):
                         self.hour_CB[i].place(x=start_array+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
-                    colonne_equipe_1.place(x=start_array+e_size+num_journee_size+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
-                    colonne_equipe_2.place(x=start_array+e_size+num_journee_size+colonne_equipe_1.winfo_width()+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
+                    tmp_list_CB1[j].place(x=start_array+e_size+num_journee_size+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
+                    tmp_list_CB2[j].place(x=start_array+e_size+num_journee_size+tmp_list_CB1[j].winfo_width()+tab_len, y=offset_top+j*e_sizeh+(i-4)*140)
                 else:
                     if (j == 0): 
-                        e.place(x=start_array, y=offset_top+j*e_sizeh+i*140)
+                        self.list_date[i].place(x=start_array, y=offset_top+j*e_sizeh+i*140)
                         num_journee.place(x=start_array+e_size, y=offset_top+j*e_sizeh+i*140)
                     if (j == 1):
                         self.hour_CB[i].place(x=start_array, y=offset_top+j*e_sizeh+i*140)
-                    colonne_equipe_1.place(x=start_array+e_size+num_journee_size, y=offset_top+j*e_sizeh+i*140)
-                    colonne_equipe_2.place(x=start_array+e_size+num_journee_size+colonne_equipe_1.winfo_width(), y=offset_top+j*e_sizeh+i*140)
+                    tmp_list_CB1[j].place(x=start_array+e_size+num_journee_size, y=offset_top+j*e_sizeh+i*140)
+                    tmp_list_CB2[j].place(x=start_array+e_size+num_journee_size+tmp_list_CB1[j].winfo_width(), y=offset_top+j*e_sizeh+i*140)
+
+                self.list_CB1.append(tmp_list_CB1)
+                self.list_CB2.append(tmp_list_CB2)
 
 
 
@@ -222,6 +229,15 @@ class Matchs():
     def creer(self):
         for i in range(7):
             print(self.hour_CB[i].get())
+            print(self.list_date[i].get())
+            print(i)
+            print("\n")
+            for j in range(4):
+                print("Match :  ")
+                print(self.list_CB1[i][j].get())
+                print(" VS ")
+                print(self.list_CB2[i][j].get())
+            print("\nNew tab\n")
             # nw_lst = [8]
             # nw_lst[i] = 
             
