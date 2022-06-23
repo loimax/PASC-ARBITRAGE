@@ -157,7 +157,7 @@ class Poules():
         print("Poule : ", poule)
         print("Année : ", annee)
         print("Phase : ", phase)
-        ListePoule = getListRow(self.conn, self.cursor,"EquipeClub",["Division","Poule"],[niveau,poule])
+        ListePoule = getListRow(self.conn, self.cursor,"EquipeClub",["Division","Poule","Année","Phase"],[niveau,poule,annee,phase])
         print(ListePoule)
         self.liste_nom_club = getValues(self.conn, self.cursor, "CLUB","NomClub","NumClub",getValuesFromList(ListePoule,1))
         
