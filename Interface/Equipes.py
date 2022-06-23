@@ -1,3 +1,4 @@
+from cmath import phase
 from tkinter import *
 import os
 import sys
@@ -36,25 +37,25 @@ class Equipes():
         bouton_valider = Button(self.main_window, text="Valider", fg='#000000', font=('Arial', 10, 'bold'),command = self.valider)
 
         #créer une combobox avec un texte "Phase" au dessus
-        self.combobox_phase = Combobox(self.main_window, text="Phase", font=('Arial', 10, 'bold'), values=["1","2"], width=2)
-        self.combobox_phase.place(x=850, y=100)
+        self.combobox_phase = Entry(self.main_window, font=('Arial', 10, 'bold'), width=2)
+        self.combobox_phase.place(x=0, y=0)
         #mettre le texte "Phase" 10 pixels à gauche de la combobox
         textphase = Label(self.main_window, text="Phase :", font=("Arial", 12))
-        textphase.place(x=780, y=100)
+        textphase.place(x=0, y=0)
 
         self.inputannee = Entry(self.main_window, font=("Arial", 12), width=7, justify=CENTER)
-        self.inputannee.place(x=600, y=100)
+        self.inputannee.place(x=0, y=0)
         textannee = Label(self.main_window, text="Année :", font=("Arial", 12))
-        textannee.place(x=530, y=100)
+        textannee.place(x=0, y=0)
         
 
         # creer une zone de texte pour la recherche de equipes
         self.entry_equipe = Entry(self.main_window, font=("Arial", 20))
-        self.entry_equipe.place(x=600, y=150)
+        self.entry_equipe.place(x=0, y=0)
 
         # créer une zone pour la liste de equipes
         self.team_list = Listbox(self.main_window, width=50)
-        self.team_list.place(x=600, y=200)
+        self.team_list.place(x = 0, y = 0)
 
         bouton_retour = Button(self.main_window, text="Retour", command=self.retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
@@ -74,7 +75,7 @@ class Equipes():
         self.main_window.update()
 
 
-        title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 150)
+        title.place(x = self.main_window.winfo_width()/2 - title.winfo_width()/2, y = 50)
         bouton_valider.place(x=self.main_window.winfo_width()/2-bouton_valider.winfo_width()/2 + 220, y=112)
         bouton_ajouter.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + ((self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4))
         bouton_supprimer.place(x = self.main_window.winfo_width()/2 + self.entry_equipe.winfo_width()/2 + 50, y = 250 + (2 * (self.team_list.winfo_height() - 3 * bouton_ajouter.winfo_height())/4) + bouton_ajouter.winfo_height())
@@ -85,6 +86,11 @@ class Equipes():
         self.entry_equipe.place(x = self.main_window.winfo_width()/2 - self.entry_equipe.winfo_width()/2, y = 200)
         self.team_list.place(x = self.main_window.winfo_width()/2 - self.team_list.winfo_width()/2, y = 250)
 
+        textannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2, y = 100)
+        self.inputannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2 + self.inputannee.winfo_width(), y = 100)
+        textphase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2 + self.inputannee.winfo_width() + textannee.winfo_width(), y = 100)
+        self.combobox_phase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 50)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + self.combobox_phase.winfo_width(), y = 100)
+        
         # Ajouter equipes dans la liste
         
 
