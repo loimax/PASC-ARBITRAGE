@@ -4,7 +4,7 @@ import sys
 
 def main():
     # Accueil()
-    Matchs(["Un", "Deux", "Trois", "Quatre", "Cinq", "Six", "Sept", "Huit" ])
+    Matchs(["Un", "Deux", "Trois", "Quatre", "Cinq", "Six", "Sept", "Huit"])
 
 if __name__ == "__main__":
     main()
