@@ -40,7 +40,8 @@ class Matchs():
         #créer une liste d'équipes et les afficher 
         self.dates_rencontres = ["25/09/2021", "02/10/2021", "23/10/2021", "06/11/2021", "13/11/2021", "27/11/2021", "11/12/2021"]
 
-
+        # Liste des équipes dans le Cher (0418 au début de leur numClub)
+        self.list_Cher = []
         # self.main_window.update()
         # print(txt.winfo_width())
         self.create_UI()
@@ -172,12 +173,12 @@ class Matchs():
                 num_club1 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club1])
                 num_club2 = getValues(self.conn,self.cursor,"CLUB","NumClub","NomClub",[nom_club2])
                 print(f"numéros des clubs : {num_club1} , {num_club2}")
-
+                
                 if nom_club1 == "EXEMPT" or nom_club2== "EXEMPT":
-                    print("LEzGo !")
+                    pass
                 else:
-                    num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club1[0],rang_equipe1])
-                    num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq"],[num_club2[0],rang_equipe2])
+                    num_team1 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq","Division","Poule"],[num_club1[0],rang_equipe1,self.niveau,self.poule])
+                    num_team2 = getValuesConstraints(self.conn,self.cursor,"EquipeClub","NumEq",["NumClub","RangEq","Division","Poule"],[num_club2[0],rang_equipe2,self.niveau,self.poule])
                     print(f"Numéros des équipes : {num_team1},{num_team2}")
 
                     phase = getValues(self.conn,self.cursor,"EquipeClub","Phase","NumEq",num_team2)
@@ -190,24 +191,37 @@ class Matchs():
                     for c in num_team2:
                         nani_team2 = c                
                     insert_entry(self.conn,self.cursor,"Rencontres",[f"{nani_team1}",f"{nani_team2}",f"{nani_phase}",f"{i+1}",f"{self.list_date[i].get()}",f"{self.hour_CB[i].get()}",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
+                    for a in num_club1:
+                        pre_num_club1 = str(a[4:])
+                    for b in num_club2:
+                        pre_num_club2 = str(b[4:])
+                    if pre_num_club1 == "0418":
+                        self.list_Cher.append(nom_club1)
+                    if pre_num_club2 =="0418":
+                        self.list_Cher.append(nom_club2)
 
                 print("Match :  " + self.list_CB1[i][j].get() + " VS " + self.list_CB2[i][j].get())
             print("\nNew tab\n")
-        self.test_if_bourges()
+        self.test_if_Cher()
 
-    def test_if_bourges(self):
-        liste_a_envoyer = []
-        for i in range(7):
-            for j in range(4):
-                string = self.list_CB1[i][j].get()
-                splttd = string.split()
-                for k in range(len(splttd)):
-                    if(splttd[k] == "BOURGES"):
-                        liste_a_envoyer.append([self.list_CB1[i][j].get(), self.list_CB2[i][j].get()])
+    def test_if_Cher(self):
+        # liste_a_envoyer = []
+        # for i in range(7):
+        #     for j in range(4):
+        #         string = self.list_CB1[i][j].get()
+        #         splttd = string.split()
+        #         for k in range(len(splttd)):
+        #             if(splttd[k] == "BOURGES"):
+        #                 liste_a_envoyer.append([self.list_CB1[i][j].get(), self.list_CB2[i][j].get()])
         
-        if liste_a_envoyer:
+        # if liste_a_envoyer:
+        #     self.main_window.destroy()
+        #     Affectation(liste_a_envoyer)
+        if self.list_Cher == []:
+            pass
+        else:
             self.main_window.destroy()
-            Affectation(liste_a_envoyer)
+            Affectation(self.list_Cher)
 
 
 

@@ -11,7 +11,7 @@ class Affectation():
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
         #créer une fenetre
-
+        
         print(self.liste_Rencontres)
         
         self.main_window = Tk()
