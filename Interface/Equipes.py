@@ -36,8 +36,8 @@ class Equipes():
         bouton_valider = Button(self.main_window, text="Valider", fg='#000000', font=('Arial', 10, 'bold'),command = self.valider)
 
         #créer une combobox avec un texte "Phase" au dessus
-        self.combobox_phase = Entry(self.main_window, font=('Arial', 10, 'bold'), width=4)
-        self.combobox_phase.place(x=0, y=0)
+        self.entry2_phase = Entry(self.main_window, font=('Arial', 10, 'bold'), width=4)
+        self.entry2_phase.place(x=0, y=0)
         #mettre le texte "Phase" 10 pixels à gauche de la combobox
         textphase = Label(self.main_window, text="Phase :", font=("Arial", 12))
         textphase.place(x=0, y=0)
@@ -87,10 +87,10 @@ class Equipes():
         self.entry_equipe.place(x = self.main_window.winfo_width()/2 - self.entry_equipe.winfo_width()/2, y = 200)
         self.team_list.place(x = self.main_window.winfo_width()/2 - self.team_list.winfo_width()/2, y = 250)
 
-        textannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2, y = 130)
-        self.inputannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2 + textannee.winfo_width() + 25, y = 130)
-        textphase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + 50, y = 130)
-        self.combobox_phase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.combobox_phase.winfo_width() + 75)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + textphase.winfo_width() + 75, y = 130)
+        textannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.entry2_phase.winfo_width() + 75)/2, y = 130)
+        self.inputannee.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.entry2_phase.winfo_width() + 75)/2 + textannee.winfo_width() + 25, y = 130)
+        textphase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.entry2_phase.winfo_width() + 75)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + 50, y = 130)
+        self.entry2_phase.place(x = self.main_window.winfo_width()/2 - (textannee.winfo_width() + self.inputannee.winfo_width() + textphase.winfo_width() + self.entry2_phase.winfo_width() + 75)/2 + self.inputannee.winfo_width() + textannee.winfo_width() + textphase.winfo_width() + 75, y = 130)
         
         # Ajouter equipes dans la liste
         
@@ -290,7 +290,7 @@ class Equipes():
         Equipes()
 
     def valider(self):
-        phase = self.combobox_phase.get()
+        phase = self.entry2_phase.get()
         annee = self.inputannee.get()
         # print(phase)
         self.liste_equipes = join_table_where(self.conn, self.cursor, ["CLUB", "EquipeClub"], ["CLUB.NumClub", "EquipeClub.numClub"], \
@@ -311,13 +311,11 @@ class Equipes():
         chaine_split = split(' ', chaine_clubXekip)
         rang_equipe = chaine_split[len(chaine_split)-2]
         division_equipe = chaine_split[len(chaine_split)-1]
-        # print("nom_club = ", nom_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe)
-        # récupère le numero du club
         num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
-        phase = getValues(self.conn, self.cursor, "EquipeClub", "Phase", "numClub", [num_club])[0]
-        num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"],
-                                          [num_club, division_equipe])[0]
-
+        phase = self.entry2_phase.get()
+        num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "RangEq", "Phase"],
+                                          [num_club, rang_equipe, phase])[0]
+        print("nom_club = ", nom_club, "num_club = ", num_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe, "phase = ", phase, "num equipe = ", num_equipe)
         # on ouvre une fenetre
         modif_equipe = Tk()
         # on donne un titre a la fenetre
@@ -391,7 +389,10 @@ class Equipes():
 
         query = f"SELECT * FROM EquipeClub WHERE numEq = {num_equipe}"
         cur = execute_query(self.conn, self.cursor, query)
+        # data = cur.fetchall()
         data = cur.fetchall()[0]
+        print(data)
+
         # on les affiche dans le formulaire
         entry_numero_equipe = Entry(modif_equipe, width=30)
         entry_numero_equipe.grid(row=1, column=2)
@@ -434,7 +435,7 @@ class Equipes():
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, correq, annee, phase]
             # modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
-            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe,phase])
+            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe, phase])
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]
