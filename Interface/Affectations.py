@@ -69,9 +69,14 @@ class Affectation():
         bouton_generer = Button(self.main_window, text="Générer", command=self.generer, bg='#AF7AC5', fg='#000000', font=('Arial', 12))
         bouton_quitter = Button(self.main_window, text="Quitter", command=self.quitter, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
                
-        bouton_retour.place(x=25, y=680)
-        bouton_generer.place(x=642-38, y=680)
-        bouton_quitter.place(x=1200, y=680)
+        bouton_retour.place(x=0, y=0)
+        bouton_generer.place(x=0, y=0)
+        bouton_quitter.place(x=0, y=0)
+
+        self.main_window.update()
+        bouton_generer.place(x = self.main_window.winfo_width()/2 - bouton_generer.winfo_width()/2, y = 680)
+        bouton_retour.place(x = 0.02*self.main_window.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
+        bouton_quitter.place(x = 0.98*self.main_window.winfo_width()-bouton_retour.winfo_width(), y = self.main_window.winfo_height()-0.04*self.main_window.winfo_height())
 
 
     def quitter(self):
