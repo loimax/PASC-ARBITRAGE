@@ -316,7 +316,8 @@ class Equipes():
         phase = self.entry2_phase.get()
         num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "RangEq", "Phase"],
                                           [num_club, rang_equipe, phase])[0]
-        print("nom_club = ", nom_club, "num_club = ", num_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe, "phase = ", phase, "num equipe = ", num_equipe)
+        # print("nom_club = ", nom_club, "num_club = ", num_club, "rang_equipe = ", rang_equipe, "division = ", division_equipe, "phase = ", phase, "num equipe = ", num_equipe)
+
         # on ouvre une fenetre
         modif_equipe = Tk()
         # on donne un titre a la fenetre
@@ -324,87 +325,85 @@ class Equipes():
         # on donne une taille a la fenetre
         modif_equipe.geometry("400x270")
 
-        # on crée un formulaire ou on affiche les données du equipe séléctionné
-       
-        text = "*"
-        label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
-        label_numero.grid(row=1, column=1)
-        
+        query = f"SELECT * FROM EquipeClub WHERE numEq = {num_equipe}"
+        cur = execute_query(self.conn, self.cursor, query)
+        data = cur.fetchall()[0]
 
+        # # on crée un formulaire ou on affiche les données du equipe séléctionné
+        # if values[i][1] == "NOT NULL":
+        #     text = "*"
+        # label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
+        # label_numero.grid(row=1, column=1)
+        # entry_numero_equipe = Entry(modif_equipe, width=30)
+        # entry_numero_equipe.grid(row=i+1, column=2)
+        # entry_numero_equipe.insert(END, data[0])
+        # i+=1
+        text = "*"
+        i = 0
         label_numero_club = Label(modif_equipe, text=f"Numéro du club : {text}")
-        label_numero_club.grid(row=2, column=1)
-        
+        label_numero_club.grid(row=i+1, column=1)
+        entry_numero_club = Entry(modif_equipe, width=30)
+        entry_numero_club.grid(row=i+1, column=2)
+        entry_numero_club.insert(END, data[1])
+        i+=1
 
         
         label_rang_equipe = Label(modif_equipe, text=f"Rang équipe : {text}")
-        label_rang_equipe.grid(row=3, column=1)
-        
+        label_rang_equipe.grid(row=i+1, column=1)
+        entry_rang_equipe = Entry(modif_equipe, width=30)
+        entry_rang_equipe.grid(row=i+1, column=2)
+        entry_rang_equipe.insert(END, data[2])
+        i+=1
 
         
         label_masculin = Label(modif_equipe, text=f"Masculin : {text}")
-        label_masculin.grid(row=4, column=1)
-        
+        label_masculin.grid(row=i+1, column=1)
+        entry_masculin = Entry(modif_equipe, width=30)
+        entry_masculin.grid(row=i+1, column=2)
+        entry_masculin.insert(END, data[3])
+        i+=1
 
         
         label_division = Label(modif_equipe, text=f"Division : {text}")
-        label_division.grid(row=5, column=1)
-        
+        label_division.grid(row=i+1, column=1)
+        entry_division = Entry(modif_equipe, width=30)
+        entry_division.grid(row=i+1, column=2)
+        entry_division.insert(END, data[4])
+        i+=1
 
         
         label_poule = Label(modif_equipe, text=f"Poule : {text}")
-        label_poule.grid(row=6, column=1)
+        label_poule.grid(row=i+1, column=1)
+        entry_poule = Entry(modif_equipe, width=30)
+        entry_poule.grid(row=i+1, column=2)
+        entry_poule.insert(END, data[5])
+        i+=1
         
         
         text = ""
         label_correq = Label(modif_equipe, text=f"CorrEq : {text}")
-        label_correq.grid(row=7, column=1)
-        
-        
-
+        label_correq.grid(row=i+1, column=1)
+        entry_correq = Entry(modif_equipe, width=30)
+        entry_correq.grid(row=i+1, column=2)
+        entry_correq.insert(END, data[6])
+        i+=1
         text = "*"
-        label_annee = Label(modif_equipe, text=f"Année : {text}")
-        label_annee.grid(row=8, column=1)
+
         
+        label_annee = Label(modif_equipe, text=f"Année : {text}")
+        label_annee.grid(row=i+1, column=1)
+        entry_annee = Entry(modif_equipe, width=30)
+        entry_annee.grid(row=i+1, column=2)
+        entry_annee.insert(END, data[7])
+        i+=1
 
         
         label_phase = Label(modif_equipe, text=f"Numéro de phase : {text}")
-        label_phase.grid(row=9, column=1)
-        
-
-        query = f"SELECT * FROM EquipeClub WHERE numEq = {num_equipe}"
-        cur = execute_query(self.conn, self.cursor, query)
-        # data = cur.fetchall()
-        data = cur.fetchall()[0]
-        print(data)
-
-        # on les affiche dans le formulaire
-        entry_numero_equipe = Entry(modif_equipe, width=30)
-        entry_numero_equipe.grid(row=1, column=2)
-        entry_numero_equipe.insert(END, data[0])
-        entry_numero_club = Entry(modif_equipe, width=30)
-        entry_numero_club.grid(row=2, column=2)
-        entry_numero_club.insert(END, data[1])
-        entry_rang_equipe = Entry(modif_equipe, width=30)
-        entry_rang_equipe.grid(row=3, column=2)
-        entry_rang_equipe.insert(END, data[2])
-        entry_masculin = Entry(modif_equipe, width=30)
-        entry_masculin.grid(row=4, column=2)
-        entry_masculin.insert(END, data[3])
-        entry_division = Entry(modif_equipe, width=30)
-        entry_division.grid(row=5, column=2)
-        entry_division.insert(END, data[4])
-        entry_poule = Entry(modif_equipe, width=30)
-        entry_poule.grid(row=6, column=2)
-        entry_poule.insert(END, data[5])
-        entry_correq = Entry(modif_equipe, width=30)
-        entry_correq.grid(row=7, column=2)
-        entry_correq.insert(END, data[6])
-        entry_annee = Entry(modif_equipe, width=30)
-        entry_annee.grid(row=8, column=2)
-        entry_annee.insert(END, data[7])
+        label_phase.grid(row=i+1, column=1)
         entry_phase = Entry(modif_equipe, width=30)
-        entry_phase.grid(row=9, column=2)
+        entry_phase.grid(row=i+1, column=2)
         entry_phase.insert(END, data[8])
+        i+=1
 
         def modif_equipe_data():
             numero_equipe = data[0]
