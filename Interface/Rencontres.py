@@ -1,6 +1,5 @@
 from tkinter import *
 import os
-from functools import partial
 from tkinter.ttk import Combobox
 from utils import *
 #window_height : 701
