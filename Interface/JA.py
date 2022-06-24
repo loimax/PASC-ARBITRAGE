@@ -169,12 +169,12 @@ class JA():
         #On coupe la string "Prénom Nom NumLicence " pour avoir seulement NumLicence
         Num_Licence = nom.rsplit(' ',2)[1]
         del_entry(self.conn, self.cursor, "JA", "NumLic", Num_Licence)
-        update_tables(self.conn, self.cursor, ["JA"])
+        update_tables(self.conn, self.cursor, "JA")
         #update(liste_JAs)
 
     def rafraichir(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, ["JA"])
+        update_tables(self.conn, self.cursor, "JA")
         close_connection(self.conn)
         JA()
         # os.system("python Interface/JA.py")
@@ -237,7 +237,7 @@ class JA():
         #mettre les elements dans une liste
         #mod = [entry_numero_JA, entry_nom_JA, entry_prenom_JA, entry_club_JA, entry_adresse_JA, entry_cp_JA, entry_ville_JA]
         #on crée un bouton pour valider les données
-        button_valider = Button(modif_JA, text="Valider", command = lambda : [self.modif_JA_data(entry_numero_JA,entry_nom_JA,entry_prenom_JA,entry_club_JA,entry_adresse_JA,entry_cp_JA,entry_ville_JA,entry_tel_JA,Num_Licence), modif_JA.destroy()])
+        button_valider = Button(modif_JA, text="Valider", command = lambda : [self.modif_JA_data(entry_numero_JA,entry_nom_JA,entry_prenom_JA,entry_club_JA,entry_adresse_JA,entry_cp_JA,entry_ville_JA,entry_tel_JA,Num_Licence), update_tables(self.conn, self.cursor, "JA"), modif_JA.destroy()])
         button_valider.grid(row=9, column=2)
           #ajouter un texte pour indiquer que les champs sont obligatoires
         label_obligatoire = Label(modif_JA, text="* : Champs obligatoires")
@@ -257,7 +257,7 @@ class JA():
         tel_JA = tel.get()
         # mettre les elements dans une liste
         a = [numero_JA, nom_JA, prenom_JA, club_JA, adresse_JA, cp_JA, ville_JA, tel_JA]
-        update_tables(self.conn, self.cursor, ["JA"])
+        update_tables(self.conn, self.cursor, "JA")
         checkInsertModify(self.conn, self.cursor, "JA", a, True, Num_Licence)
         
 
@@ -296,7 +296,7 @@ class JA():
         self.entry_JA.bind("<KeyRelease>", self.check)
 
         
-        update_tables(self.conn, self.cursor, ["JA"], True)
+        update_tables(self.conn, self.cursor, "JA", True)
         #afficher la fenetre
         
         
@@ -314,7 +314,7 @@ class JA():
 
     def retour(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, ["JA"])
+        update_tables(self.conn, self.cursor, "JA")
 
         os.system("python Interface/main.py")
 

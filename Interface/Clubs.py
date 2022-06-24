@@ -7,7 +7,7 @@ class Clubs():
     def __init__(self):
         self.conn = create_connection("Interface/testdb/GestionRegionale.db")
         self.cursor = self.conn.cursor()
-        update_tables(self.conn, self.cursor, ["CLUB"], True)
+        update_tables(self.conn, self.cursor, "CLUB", True)
         #créer une fenetre
         self.main_window = Tk()
         #donner un titre a la club
@@ -206,11 +206,11 @@ class Clubs():
         nom = name.rsplit(' ',1)[0]
         print(nom)
         del_entry(self.conn, self.cursor, "CLUB", "NomClub", nom)
-        update_tables(self.conn, self.cursor, ["CLUB"])
+        update_tables(self.conn, self.cursor, "CLUB")
 
     def rafraichir(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, ["CLUB"])
+        update_tables(self.conn, self.cursor, "CLUB")
         close_connection(self.conn)
         Clubs()
 
@@ -328,7 +328,7 @@ class Clubs():
 
     def retour(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, ["CLUB"])
+        update_tables(self.conn, self.cursor, "CLUB")
         close_connection(self.conn)
         os.system("python Interface/main.py")
 

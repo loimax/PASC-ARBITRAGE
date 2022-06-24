@@ -203,9 +203,9 @@ def dict(name_table):
                 "TypeJA":["int", "NOT NULL", "3" ], "NbJA":["int", "NOT NULL", "1"]}
         return epreuves
     elif name_table == "EquipeClub":
-        equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL", ""], \
-            "RangEq":["int", "NOT NULL", ""], "Masculin":["int", "NOT NULL", ""], "Division":["TEXT", "NOT NULL", ""], \
-                "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], "Année":["int", "NOT NULL", "DEFAULT 2022"], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
+        equipeClub = {"numClub":["TEXT", "NOT NULL", ""], "RangEq":["int", "NOT NULL", ""], "Masculin":["int", "NOT NULL", ""], \
+            "Division":["TEXT", "NOT NULL", ""], "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], \
+                "Année":["int", "NOT NULL", "DEFAULT 2022"], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
         return equipeClub
     elif name_table == "JA":
         ja = {"NumLic":["TEXT", "NOT NULL"], "NomJA":["TEXT", "NOT NULL"],"PrenomJA":["TEXT", "NOT NULL"],"ClubJA":["TEXT", "NOT NULL"],\
@@ -348,7 +348,7 @@ def getValuesFromList(list,x):
         liste.append(l[x])
     return liste
 
-def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "", datas=[]):
+def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = ""):
     """
     on ne peut pas vérifier le type (text, int)
     car les valeurs retournées par get() de tkinter sont en string par défaut, donc on peut mais ca prend 1000 lignes de code
@@ -401,9 +401,9 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
     elif name_table == "EquipeClub":
         i = 0
         for d in liste:
-            if values[i][1] == "NULL" and len(d) == 0:
+            if values[i][1] == "NULL" and len(str(d)) == 0:
                 liste[i] = "None"
-            elif values[i][1] == "NOT NULL" and len(d) == 0:
+            elif values[i][1] == "NOT NULL" and len(str(d)) == 0:
                 text = f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}'; veuillez entrer une valeur"
                 msg.showerror(title="Erreur : \n", message=text)
                 return
@@ -411,11 +411,18 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "",
                 text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
                 msg.showerror(title="Erreur : \n", message=text)
                 return
-            i+=1
+            if i < 7:
+                i+=1
+                print(i, keys[i], values[i])
+            else:
+                continue
         if not modify:
             insert_entry(conn, cursor, name_table, liste,["numClub","RangEq","Masculin","Division","Poule","CorrEq","Année","Phase"])
         else:
-            data = getListRow(conn, cursor, "EquipeClub", ["numClub", "RangEq", "Division","Phase"], datas)
+            query = f"SELECT * FROM EquipeClub WHERE numEq = {nom}"
+            cur = execute_query(conn, cursor, query)
+            # data = cur.fetchall()
+            data = cur.fetchall()[0]
             modify_entry(conn, cursor, name_table, liste, getID(data))
 
 def alterTable(conn, cursor, name_table, attributes:list):
@@ -505,8 +512,6 @@ def switchPhaseDuplicates(conn, cursor, table):
     print(count)
 
 
-
-
 def join_table_where_4(conn,cursor,name_table,attributs,values, attributs_spec, attributs_spec_values):
     """
     INNER JOIN en SQLite, 2 par 2
@@ -528,7 +533,6 @@ def join_table_where_4(conn,cursor,name_table,attributs,values, attributs_spec, 
     for row in resultat:
         liste.append(row)
     return liste
-
 
 
 def createViews(conn, cursor):
@@ -610,13 +614,41 @@ def createViews(conn, cursor):
     execute_query(conn, cursor, queryRecapIndivs, True)
     execute_query(conn, cursor, queryRecapitulatif, True)
 
-def update_tables(conn, cursor, name_tables, needNull=False):
+def update_tables(conn, cursor, table, needNull=False):
     """
     Mise à jour des tables
     """
     # name_tables = getAllTables(conn, cursor)
+    if table == "EquipeClub":
+        dico = dict(table)
+        keys=list(dico.keys())
+        values = list(dico.values())
+        query = f"SELECT * FROM {table};"
+        cur = execute_query(conn, cursor, query)
+        result = cur.fetchall()
 
-    for table in name_tables:
+        attr = getAttributes(conn, cursor, table)
+
+        for row in result:
+            for i in range(len(row)-1):
+                attr_id = attr[i]
+                query2 = ""
+                if values[i][1] == "NOT NULL":
+                    query = f"UPDATE {table} SET {attr_id} = 'Erreur : Valeur_Non_Nulle_à_entrer' WHERE {attr_id} = '';"
+                elif needNull:
+                    query = f"UPDATE {table} SET {attr_id} = 'Valeur_Nulle' WHERE {attr_id} IS NULL;"
+                    query2 = f"UPDATE {table} SET {attr_id} = 'Valeur_Nulle' WHERE {attr_id} = 'None';"
+                else:
+                    query = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = 'Valeur_Nulle';"
+                    query2 = f"UPDATE {table} SET {attr_id} = NULL WHERE {attr_id} = '';"
+                execute_query(conn, cursor, query, True)
+                if query2 != "":
+                    execute_query(conn, cursor, query2, True)
+        if needNull:
+            print("La table", table, "a été mise à jour; toutes les valeurs 'None' ont été remplacées par 'Valeur_Nulle'")
+        else:
+            print("La table", table, "a été mise à jour; toutes les valeurs 'Valeur_Nulle' ont été remplacées par NULL")
+    else :        
         dico = dict(table)
         values = list(dico.values())
         query = f"SELECT * FROM {table};"

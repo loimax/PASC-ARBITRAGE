@@ -13,7 +13,7 @@ class Equipes():
         self.cursor = self.conn.cursor()
         if "Année" not in getAttributes(self.conn, self.cursor, "EquipeClub") and "Phase" not in getAttributes(self.conn, self.cursor, "EquipeClub"):
             alterTable(self.conn, self.cursor, "EquipeClub", [f"Année INTEGER NOT NULL DEFAULT {date.today().year}", "Phase INT NOT NULL DEFAULT 1"])
-        update_tables(self.conn, self.cursor, ["EquipeClub"], True)
+        update_tables(self.conn, self.cursor, "EquipeClub", True)
         # créer une fenetre
         self.main_window = Tk()
         # donner un titre a la self.main_window
@@ -172,6 +172,7 @@ class Equipes():
         entry_division.grid(row=5, column=2)
         # créer une zone de texte pour le nom de la poule
         entry_poule = Entry(add_equipe, width=30)
+        entry_poule.insert(0, "A")
         entry_poule.grid(row=6, column=2)
         # créer une zone de texte pour le correq
         entry_correq = Entry(add_equipe, width=30)
@@ -257,6 +258,7 @@ class Equipes():
             masculin = entry_masculin.get()
             division = entry_division.get()
             poule = entry_poule.get()
+            print('poule =', poule)
             annee = entry_annee.get()
             phase = entry_phase.get()
             # mettre les elements dans une liste
@@ -281,11 +283,11 @@ class Equipes():
         num_club = getValues(self.conn, self.cursor, "CLUB", "NumCLUB", "NomClub", [nom_club])[0]
         num_equipe = getValuesConstraints(self.conn, self.cursor, "EquipeClub", "numEq", ["numClub", "Division"], [num_club, division_equipe])[0]
         del_entry(self.conn, self.cursor, "EquipeClub", "numEq", num_equipe)
-        update_tables(self.conn, self.cursor, ["EquipeClub"])
+        update_tables(self.conn, self.cursor, "EquipeClub")
 
     def rafraichir(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, ["EquipeClub"])
+        update_tables(self.conn, self.cursor, "EquipeClub")
         close_connection(self.conn)
         Equipes()
 
@@ -302,7 +304,6 @@ class Equipes():
     def modifier_equipe(self):
         clubs = dict("EquipeClub")
         values = list(clubs.values())
-        i = 0
         # récupère la chaine dans la boite de dialogue
         chaine_clubXekip = self.team_list.get(ANCHOR)
         # récupère chaque élément de la chaine lue dans des variables séparées
@@ -324,68 +325,51 @@ class Equipes():
         modif_equipe.geometry("400x270")
 
         # on crée un formulaire ou on affiche les données du equipe séléctionné
-        if values[i][1] == "NOT NULL":
-            text = "*"
+       
+        text = "*"
         label_numero = Label(modif_equipe, text=f"Numéro d'équipe : {text}")
         label_numero.grid(row=1, column=1)
-        i+=1
-        text = ""
+        
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
         label_numero_club = Label(modif_equipe, text=f"Numéro du club : {text}")
         label_numero_club.grid(row=2, column=1)
-        i+=1
-        text = ""
+        
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
+        
         label_rang_equipe = Label(modif_equipe, text=f"Rang équipe : {text}")
         label_rang_equipe.grid(row=3, column=1)
-        i+=1
-        text = ""
+        
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
+        
         label_masculin = Label(modif_equipe, text=f"Masculin : {text}")
         label_masculin.grid(row=4, column=1)
-        i+=1
-        text = ""
+        
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
+        
         label_division = Label(modif_equipe, text=f"Division : {text}")
         label_division.grid(row=5, column=1)
-        i+=1
-        text = ""
+        
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
+        
         label_poule = Label(modif_equipe, text=f"Poule : {text}")
         label_poule.grid(row=6, column=1)
-        i+=1
-        text = ""
         
-        if values[i][1] == "NOT NULL":
-            text = "*"
+        
+        text = ""
         label_correq = Label(modif_equipe, text=f"CorrEq : {text}")
         label_correq.grid(row=7, column=1)
-        i+=1
-        text = ""
+        
+        
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
+        text = "*"
         label_annee = Label(modif_equipe, text=f"Année : {text}")
         label_annee.grid(row=8, column=1)
-        i+=1
-        text = ""
+        
 
-        if values[i][1] == "NOT NULL":
-            text = "*"
+        
         label_phase = Label(modif_equipe, text=f"Numéro de phase : {text}")
         label_phase.grid(row=9, column=1)
-        i+=1
-        text = ""
+        
 
         query = f"SELECT * FROM EquipeClub WHERE numEq = {num_equipe}"
         cur = execute_query(self.conn, self.cursor, query)
@@ -435,7 +419,7 @@ class Equipes():
             # mettre les elements dans une liste
             a = [numero_equipe, numero_club, rang_equipe, masculin, division, poule, correq, annee, phase]
             # modify_entry(self.conn, self.cursor, "EquipeClub", a, getID(data))
-            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, "", [num_club, rang_equipe, division_equipe, phase])
+            checkInsertModify(self.conn, self.cursor, "EquipeClub", a, True, num_equipe)
 
         # mettre les elements dans une liste
         # mod = [entry_numero_equipe, entry_numero_club, entry_ville_equipe, entry_rang_equipe, entry_masculin, entry_division, entry_poule]
@@ -454,11 +438,11 @@ class Equipes():
 
     def retour(self):
         self.main_window.destroy()
-        update_tables(self.conn, self.cursor, ["EquipeClub"])
+        update_tables(self.conn, self.cursor, "EquipeClub")
         close_connection(self.conn)
         os.system("python Interface/main.py")
 
     def quitter(self):
-        update_tables(self.conn, self.cursor, ["EquipeClub"])
+        update_tables(self.conn, self.cursor, "EquipeClub")
         close_connection(self.conn)
         self.main_window.destroy()
