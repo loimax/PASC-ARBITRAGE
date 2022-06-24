@@ -1,7 +1,7 @@
 # ProjApp2022
 
 Bonjour, vous êtes sur le logiciel gestion d'arbitrage réalisé avec passion par :
-Yassine ADARIF, Maxence BLAZY, Guillaume DAVY, Arthur MANS et Lucas PAILLAT
+**Yassine ADARIF, Maxence BLAZY, Guillaume DAVY, Arthur MANS et Lucas PAILLAT**
 
 Pré-requis :
 Pour lancier l'application, il faut les modules suivants :
