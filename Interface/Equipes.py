@@ -13,6 +13,8 @@ class Equipes():
         self.cursor = self.conn.cursor()
         if "Année" not in getAttributes(self.conn, self.cursor, "EquipeClub") and "Phase" not in getAttributes(self.conn, self.cursor, "EquipeClub"):
             alterTable(self.conn, self.cursor, "EquipeClub", [f"Année INTEGER NOT NULL DEFAULT {date.today().year}", "Phase INT NOT NULL DEFAULT 1"])
+        if getMaxValue(self.conn, self.cursor, "EquipeClub", "Phase") == 1:
+            switchPhaseDuplicates(self.conn, self.cursor, "EquipeClub")
         update_tables(self.conn, self.cursor, "EquipeClub", True)
         # créer une fenetre
         self.main_window = Tk()
