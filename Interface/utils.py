@@ -203,7 +203,7 @@ def dict(name_table):
                 "TypeJA":["int", "NOT NULL", "3" ], "NbJA":["int", "NOT NULL", "1"]}
         return epreuves
     elif name_table == "EquipeClub":
-        equipeClub = {"numClub":["TEXT", "NOT NULL", ""], "RangEq":["int", "NOT NULL", ""], "Masculin":["int", "NOT NULL", ""], \
+        equipeClub = {"numEq":["int", "NOT NULL", "AUTOINCREMENT"], "numClub":["TEXT", "NOT NULL", ""], "RangEq":["int", "NOT NULL", ""], "Masculin":["int", "NOT NULL", ""], \
             "Division":["TEXT", "NOT NULL", ""], "Poule":["TEXT", "NOT NULL", ""], "CorrEq":["TEXT", "NULL", ""], \
                 "Année":["int", "NOT NULL", "DEFAULT 2022"], "Phase":["int", "NOT NULL", "DEFAULT 1"]}
         return equipeClub
@@ -356,7 +356,6 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
     dico = dict(name_table)
     keys = list(dico.keys())
     values = list(dico.values())
-    attr = getAttributes(conn, cursor, name_table)
     if name_table == "CLUB":
         i = 0
         # print("La liste est : ", liste, " et les valeurs sont ", values, " pour les clés ", keys)
@@ -400,22 +399,19 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
             modify_entry(conn, cursor, name_table, liste, getID(data))
     elif name_table == "EquipeClub":
         i = 0
-        j = 0
         for d in liste:
-            if values[i][1] == "NULL" and len(str(d)) == 0:
-                liste[i] = "None"
-            elif values[i][1] == "NOT NULL" and len(str(d)) == 0:
-                text = f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}'; veuillez entrer une valeur"
-                msg.showerror(title="Erreur : \n", message=text)
-                return
-            elif values[i][1] == "NOT NULL" and d == "None":
-                text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
-                msg.showerror(title="Erreur : \n", message=text)
-                return
-            
-            if i < 8 and attr[j] != "numEq":
-                i+=1
-            j+=1
+            if i != 0:
+                if values[i][1] == "NULL" and len(str(d)) == 0:
+                    liste[i] = "None"
+                elif values[i][1] == "NOT NULL" and len(str(d)) == 0:
+                    print("Erreur : d = ", d, " et values[i] = ", values[i])
+                    text = f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}'; veuillez entrer une valeur"
+                    msg.showerror(title="Erreur : \n", message=text)
+                    return
+                elif values[i][1] == "NOT NULL" and d == "None":
+                    text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
+                    msg.showerror(title="Erreur : \n", message=text)
+                    return
         if not modify:
             insert_entry(conn, cursor, name_table, liste,["numClub","RangEq","Masculin","Division","Poule","CorrEq","Année","Phase"])
         else:
@@ -698,11 +694,11 @@ def getMaxValue(conn, cursor, name_table, attribute):
     return result[0][0]
 
 
-# conn = create_connection("Interface/testdb/GestionRegionale.db")
-# cursor = conn.cursor()
-# # # update_tables(conn, cursor, ["JA"])
-# # switchPhaseDuplicates(conn, cursor, "EquipeClub")
-# display_table(conn,cursor,"EquipeClub")
+conn = create_connection("Interface/testdb/GestionRegionale.db")
+cursor = conn.cursor()
+# # update_tables(conn, cursor, ["JA"])
+# switchPhaseDuplicates(conn, cursor, "EquipeClub")
+display_table(conn,cursor,"EquipeClub")
 # 162
 # # insert_entry(conn,cursor,"Rencontres",["1111","01845","78456","1","5","20/06/2022","17h00",""])
 # #

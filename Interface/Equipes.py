@@ -257,7 +257,6 @@ class Equipes():
             masculin = entry_masculin.get()
             division = entry_division.get()
             poule = entry_poule.get()
-            print('poule =', poule)
             annee = entry_annee.get()
             phase = entry_phase.get()
             # mettre les elements dans une liste
