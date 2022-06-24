@@ -37,7 +37,6 @@ class Poules():
 
         #liste des noms des clubs correspondant a la division et la poule
         self.liste_nom_club = []
-        self.num_equipe_dec_club = []
 
         self.add_buttons()
         #self.add_phat_table()
@@ -60,15 +59,13 @@ class Poules():
 
     def add_phat_table(self, liste_des_equipes):
         for i in range(8):
-            txttab = Label(self.main_window, text="      N                   Nom équipe                N°e", font=("Arial", 12))
+            txttab = Label(self.main_window, text="      N                   Nom équipe", font=("Arial", 12))
             txttab.place(x=0, y=0)
             self.num_equipe = Entry(self.main_window, font=("Arial", 12), width=3, justify=CENTER)
             self.num_equipe.place(x = 0, y = 0)
             self.num_equipe.insert(END, i+1)      
             self.num_equipe.config(state="disabled")
 
-            self.num_equipe_dec_club.append(Combobox(self.main_window, values=[1,2,3,4,5], font=("Arial", 12), width=3))
-            self.num_equipe_dec_club[i].place(x = 0, y = 0)
 
             self.liste_menuderoulant.append(Combobox(self.main_window, values=liste_des_equipes, font=("Arial", 12)))
             self.liste_menuderoulant[i].bind("<<ComboboxSelected>>", self.updatemenuderoulant(self.liste_menuderoulant[i]))
@@ -76,9 +73,8 @@ class Poules():
             self.liste_menuderoulant[i].insert(END, liste_des_equipes[i])
 
             self.main_window.update()
-            txttab.place(x=self.main_window.winfo_width()/2-txttab.winfo_width()/2, y= 178)
+            txttab.place(x=self.main_window.winfo_width()/2-txttab.winfo_width()/2 - 50, y= 178)
             self.num_equipe.place(x=self.main_window.winfo_width()/2-self.num_equipe.winfo_width()-self.liste_menuderoulant[i].winfo_width()/2, y=205+i*24)
-            self.num_equipe_dec_club[i].place(x=self.main_window.winfo_width()/2+self.liste_menuderoulant[i].winfo_width()/2, y=205+i*24)
             self.liste_menuderoulant[i].place(x=self.main_window.winfo_width()/2 - self.liste_menuderoulant[i].winfo_width()/2, y=205+i*24)
 
 
@@ -180,7 +176,7 @@ class Poules():
         #faire une liste avec les valeurs des champs
         list_to_send = []
         for i in range(8):
-            list_to_send.append(self.liste_menuderoulant[i].get() + " " + self.num_equipe_dec_club[i].get())
+            list_to_send.append(self.liste_menuderoulant[i].get() + " ")
         
         #recup les autres champs
         niveau = self.choiceniveau.get()
