@@ -356,7 +356,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
     dico = dict(name_table)
     keys = list(dico.keys())
     values = list(dico.values())
-
+    attr = getAttributes(conn, cursor, name_table)
     if name_table == "CLUB":
         i = 0
         # print("La liste est : ", liste, " et les valeurs sont ", values, " pour les clés ", keys)
@@ -400,6 +400,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
             modify_entry(conn, cursor, name_table, liste, getID(data))
     elif name_table == "EquipeClub":
         i = 0
+        j = 0
         for d in liste:
             if values[i][1] == "NULL" and len(str(d)) == 0:
                 liste[i] = "None"
@@ -411,11 +412,10 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
                 text = f"Erreur : Vous avez entré la valeur 'None' pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}' ; veuillez entrer une nouvelle valeur"
                 msg.showerror(title="Erreur : \n", message=text)
                 return
-            if i < 7:
+            
+            if i < 8 and attr[j] != "numEq":
                 i+=1
-                print(i, keys[i], values[i])
-            else:
-                continue
+            j+=1
         if not modify:
             insert_entry(conn, cursor, name_table, liste,["numClub","RangEq","Masculin","Division","Poule","CorrEq","Année","Phase"])
         else:
@@ -621,7 +621,6 @@ def update_tables(conn, cursor, table, needNull=False):
     # name_tables = getAllTables(conn, cursor)
     if table == "EquipeClub":
         dico = dict(table)
-        keys=list(dico.keys())
         values = list(dico.values())
         query = f"SELECT * FROM {table};"
         cur = execute_query(conn, cursor, query)
@@ -630,9 +629,10 @@ def update_tables(conn, cursor, table, needNull=False):
         attr = getAttributes(conn, cursor, table)
 
         for row in result:
-            for i in range(len(row)-1):
+            for i in range(0, len(row)-1):
                 attr_id = attr[i]
                 query2 = ""
+
                 if values[i][1] == "NOT NULL":
                     query = f"UPDATE {table} SET {attr_id} = 'Erreur : Valeur_Non_Nulle_à_entrer' WHERE {attr_id} = '';"
                 elif needNull:
@@ -699,8 +699,8 @@ def getMaxValue(conn, cursor, name_table, attribute):
     return result[0][0]
 
 
-conn = create_connection("Interface/testdb/GestionRegionale.db")
-cursor = conn.cursor()
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
+# cursor = conn.cursor()
 # # # update_tables(conn, cursor, ["JA"])
 # # switchPhaseDuplicates(conn, cursor, "EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
@@ -743,6 +743,6 @@ cursor = conn.cursor()
 # display_table(conn,cursor,"EquipeClub")
 # for i in range(165):
 #     modify_one_entry(conn,cursor,"EquipeClub","Année","2022",i)
-#     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
-display_table(conn,cursor,"Rencontres")
+# #     modify_one_entry(conn,cursor,"EquipeClub","Phase","1",i)
+# display_table(conn,cursor,"EquipeClub")
 # getMaxValue(conn, cursor, "EquipeClub", "numEq")
