@@ -172,7 +172,6 @@ class Equipes():
         entry_division.grid(row=5, column=2)
         # créer une zone de texte pour le nom de la poule
         entry_poule = Entry(add_equipe, width=30)
-        entry_poule.insert(0, "A")
         entry_poule.grid(row=6, column=2)
         # créer une zone de texte pour le correq
         entry_correq = Entry(add_equipe, width=30)
@@ -274,6 +273,8 @@ class Equipes():
         #ajouter un texte pour indiquer que les champs sont obligatoires
         label_obligatoire = Label(add_equipe, text="* : Champs obligatoires")
         label_obligatoire.grid(row=11, column=2)
+        label_obligatoire2 = Label(add_equipe, text="** : !!! Ne pas laisser ce champ vide !!!")
+        label_obligatoire2.grid(row=12, column=2)
 
     def supprimer_equipe(self):
         chaine_clubXekip = self.team_list.get(ANCHOR)
@@ -380,7 +381,7 @@ class Equipes():
         i+=1
         
         
-        text = ""
+        text = "**"
         label_correq = Label(modif_equipe, text=f"CorrEq : {text}")
         label_correq.grid(row=i+1, column=1)
         entry_correq = Entry(modif_equipe, width=30)
@@ -427,6 +428,8 @@ class Equipes():
         button_valider.grid(row=10, column=2)
         label_obligatoire = Label(modif_equipe, text="* : Champs obligatoires")
         label_obligatoire.grid(row=11, column=2)
+        label_obligatoire2 = Label(modif_equipe, text="** : !!! Ne pas laisser ce champ vide !!!")
+        label_obligatoire2.grid(row=12, column=2)
         # ,X
         #ajouter un texte pour indiquer que les champs sont obligatoires
 

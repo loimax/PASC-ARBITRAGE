@@ -632,7 +632,6 @@ def update_tables(conn, cursor, table, needNull=False):
             for i in range(0, len(row)-1):
                 attr_id = attr[i]
                 query2 = ""
-
                 if values[i][1] == "NOT NULL":
                     query = f"UPDATE {table} SET {attr_id} = 'Erreur : Valeur_Non_Nulle_à_entrer' WHERE {attr_id} = '';"
                 elif needNull:
