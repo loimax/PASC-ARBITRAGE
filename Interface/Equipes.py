@@ -141,7 +141,7 @@ class Equipes():
     def add_equipe(self):
         clubs = dict("EquipeClub")
         values = list(clubs.values())
-        i = 0
+        i = 1
         # récupère les données de l'équipe sélectionné
         chaine_clubXekip = self.team_list.get(ANCHOR)
         nom_club = chaine_clubXekip[:-5]
@@ -272,8 +272,7 @@ class Equipes():
         #ajouter un texte pour indiquer que les champs sont obligatoires
         label_obligatoire = Label(add_equipe, text="* : Champs obligatoires")
         label_obligatoire.grid(row=11, column=2)
-        label_obligatoire2 = Label(add_equipe, text="** : !!! Ne pas laisser ce champ vide !!!")
-        label_obligatoire2.grid(row=12, column=2)
+        
 
     def supprimer_equipe(self):
         chaine_clubXekip = self.team_list.get(ANCHOR)
@@ -380,7 +379,7 @@ class Equipes():
         i+=1
         
         
-        text = "**"
+        text = ""
         label_correq = Label(modif_equipe, text=f"CorrEq : {text}")
         label_correq.grid(row=i+1, column=1)
         entry_correq = Entry(modif_equipe, width=30)
@@ -427,8 +426,7 @@ class Equipes():
         button_valider.grid(row=10, column=2)
         label_obligatoire = Label(modif_equipe, text="* : Champs obligatoires")
         label_obligatoire.grid(row=11, column=2)
-        label_obligatoire2 = Label(modif_equipe, text="** : !!! Ne pas laisser ce champ vide !!!")
-        label_obligatoire2.grid(row=12, column=2)
+        
         # ,X
         #ajouter un texte pour indiquer que les champs sont obligatoires
 
