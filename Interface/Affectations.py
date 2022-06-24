@@ -55,7 +55,8 @@ class Affectation():
                 self.e.config(state="disabled")
                 self.final_JA_list.append(Combobox(self.main_window, values=self.liste_JA, font=("Arial", 12)))
                 self.final_JA_list[j].place(x=642+184*0.5, y=105+j*20)
-                self.final_JA_list[j].insert(END, "Juge Arbitre")
+                if i%2:
+                    self.final_JA_list[j].insert(END, "Juge Arbitre")
                 
 
     def setup_texte(self):
