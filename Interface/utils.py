@@ -404,7 +404,7 @@ def checkInsertModify(conn, cursor, name_table, liste, modify = False, nom = "")
                 if values[i][1] == "NULL" and len(str(d)) == 0:
                     liste[i] = "None"
                 elif values[i][1] == "NOT NULL" and len(str(d)) == 0:
-                    # print("Erreur : d = ", d, " et values[i] = ", values[i])
+                    print("Erreur : d = ", d, " et values[i] = ", values[i])
                     text = f"Erreur : Vous n'avez pas entré de valeur pour l'attribut '{keys[i]}' qui a comme contrainte '{values[i][1]}'; veuillez entrer une valeur"
                     msg.showerror(title="Erreur : \n", message=text)
                     return
@@ -505,7 +505,7 @@ def switchPhaseDuplicates(conn, cursor, table):
                                 count+=1
                                 liste.append(row)
                 i = 0
-    print("Les phases des doublons ont bien été gérées")
+    print(count)
 
 
 def join_table_where_4(conn,cursor,name_table,attributs,values, attributs_spec, attributs_spec_values):
@@ -694,9 +694,9 @@ def getMaxValue(conn, cursor, name_table, attribute):
     return result[0][0]
 
 
-# conn = create_connection("Interface/GestionRegionale.db")
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
-# # update_tables(conn, cursor, ["JA"])
+# # # update_tables(conn, cursor, ["JA"])
 # # switchPhaseDuplicates(conn, cursor, "EquipeClub")
 # display_table(conn,cursor,"EquipeClub")
 # 162
@@ -718,7 +718,7 @@ def getMaxValue(conn, cursor, name_table, attribute):
 
 # insert_entry(conn,cursor,"Rencontres",["874","01845","78456","1","5","20/06/2022","17h00",""],['NumEq1', 'NumEq2', 'Phase', 'Journee', 'DateRenc', 'HeureRenc', 'JA'])
 # display_table(conn,cursor,"Rencontres")
-# conn = create_connection("Interface/GestionRegionale.db")
+# conn = create_connection("Interface/testdb/GestionRegionale.db")
 # cursor = conn.cursor()
 
 # display_table(conn, cursor, "CLUB")
