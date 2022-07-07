@@ -1,125 +1,143 @@
 
-import os
 from tkinter import *
+import os 
+# def Clubs():
+#         #créer une fenetre
+#         club = Tk()
+#         #donner un titre a la club
+#         club.title("Clubs")
+#         #donner une taille a la club
+#         club.geometry("1920x1080")
+#         #creer une zone de texte pour les clubs
+#         zone_clubs = Text(club, height=1, width=75)
+#         zone_clubs.grid(row=3, column=2)
+#         #créer une liste de clubs et les afficher 
+#         liste_clubs = ["Club 1", "Club 2", "Club 3", "Club 4", "Club 5"]
+#         liste_clubs_afficher = Listbox(club, height=5, width=80)
+#         for i in range(len(liste_clubs)):
+#             liste_clubs_afficher.insert(i, liste_clubs[i])
+#         liste_clubs_afficher.grid(row=6, column=2)
+    
+#         def retour():
+#             bouton_retour.destroy()
+#             club.destroy()
+#             Accueil()
 
-from pandas import wide_to_long
-from Matchs import Matchs
-from Poules import Poules
-from JA import JA
-from Equipes import Equipes
-from Clubs import Clubs
-from Affectations import Affectation
+#         #creer bouton retour vers l'accueil
+#         bouton_retour = Button(club, text="Retour", command=retour, bg='#AF7AC5', fg='#000000', font=('Arial', 10, 'bold'))
+#         bouton_retour.grid(row=18, column=2)
 
+    
+#         #afficher la fenetre
+#         club.mainloop()
 
-class Accueil:
-    def __init__(self):
+def Accueil():
+        
         #creer une fenetre
-        self.main_window = Tk()
+        fenetre = Tk()
 
         #donner un titre a la fenetre
-        self.main_window.title("Arbitrage")
+        fenetre.title("Arbitrage")
 
         #donner une taille a la fenetre
-        #self.main_window.geometry("1920x1080")
+        #fenetre.geometry("1920x1080")
         #taille de la fenetre s'adapte a la taille de l'ecran
-        self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
+        fenetre.geometry("{0}x{1}+0+0".format(fenetre.winfo_screenwidth(), fenetre.winfo_screenheight()))
 
         #mettre un logo a la fenetre
-        self.main_window.iconbitmap('Interface/img/logo2.ico')
+        fenetre.iconbitmap('Interface/img/logo2.ico')
+        #logo = PhotoImage(file="Interface/img/logo2.png")
+        # logo_label = Label(fenetre, image=logo)
+        # logo_label.grid(row=0, column=0)
 
-        self.comite = PhotoImage(file="Interface/img/comite.png")
-        self.background_image = PhotoImage(file="Interface/img/pingpong.png")
-
-
-        # couleur de fond de la fenetre
-        # fenetre.configure(background='#DADAD7')
-
-        # setup du contenu
-        self.main_window.attributes('-fullscreen', True)
-        self.setup_images()
-        self.setup_buttons()
-        self.main_window.mainloop()
-
-
-
-
-
-
-
-    def setup_images(self):
+       
         #ajouter l'image comite.png a la fenetre en bas à droite
-        comite_label = Label(self.main_window, image=self.comite)
-        comite_label.place(x = 0, y = 0)
-        self.main_window.update()
-        comite_label.place(x = self.main_window.winfo_width()-comite_label.winfo_width(),y = self.main_window.winfo_height()-comite_label.winfo_height())
-        
+        comite = PhotoImage(file="Interface/img/comite.png")
+        comite_label = Label(fenetre, image=comite)
+        comite_label.place(x=1000,y=500,relwidth=0.5,relheight=0.5)
         #mettre une image en background a la fenetre
-        background_label = Label(self.main_window, image=self.background_image)
-        background_label.place(x = 0, y = 0)
-        self.main_window.update()
-        background_label.place(x = self.main_window.winfo_width()/2+50, y = self.main_window.winfo_height()/2-background_label.winfo_height()/2, relheight=0.5, relwidth=0.5)
+        background_image = PhotoImage(file="Interface/img/pingpong.png")
+        background_label = Label(fenetre, image=background_image)
+        background_label.place(x=725,y=150,relwidth=0.5,relheight=0.5)
+
+
+        #couleur de fond de la fenetre
+       # fenetre.configure(background='#DADAD7')
+
+
+        def open_clubs():
+            fenetre.destroy()
+            os.system("python Interface/Clubs.py")
+
+
+        def open_JA():
+            fenetre.destroy()
+            os.system("python Interface/JA.py")
+
+
+        def open_teams():
+            fenetre.destroy()
+            os.system("python Interface/Equipes.py")
+       
+        
+        def open_rencontres():
+            fenetre.destroy()
+            os.system("python Interface/Rencontres.py")
+        
+
+        def open_affectation():
+           
+            fenetre.destroy()
+            os.system("python Interface/Affectations.py")
+
+        def open_poule():
+            fenetre.destroy()
+            os.system("python Interface/Poules.py")
+                        
+        
+        def quit():
+            fenetre.destroy()
             
 
-    def setup_buttons(self):
         #creer 6 boutons
-        bouton_clubs = Button(self.main_window, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_clubs, height=3, width=50)
-        bouton_JA = Button(self.main_window, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_JA, height=3, width=50)
-        bouton_Équipes = Button(self.main_window, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_teams, height=3, width=50)
-        # bouton_Rencontres = Button(self.main_window, text="Matchs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_matchs, height=3, width=50)
-        # bouton_Affectation = Button(self.main_window, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_affectation, height=3, width=50)
-        bouton_Poules = Button(self.main_window, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.open_poule, height=3, width=50)
-        bouton_Quitter = Button(self.main_window, text="Quitter", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 15, 'bold'), command=self.quit, height=3, width=50)
+        bouton_clubs = Button(fenetre, text="Clubs", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_clubs)
+        bouton_JA = Button(fenetre, text="JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_JA)
+        bouton_Équipes = Button(fenetre, text="Équipes", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_teams)
+        bouton_Rencontres = Button(fenetre, text="Rencontres", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_rencontres)
+        bouton_Affectation = Button(fenetre, text="Affectation JA", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_affectation)
+        bouton_Poules = Button(fenetre, text="Poules", bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'), command=open_poule)
+        bouton_Quitter = Button(fenetre, text="Quitter" , command=quit, bg='#FF5733', fg='#FFFFFF', font=('Helvetica', 10, 'bold'))
 
         #placer les boutons dans la fenetre
-        bouton_clubs.place(x = 0, y = 0)
-        bouton_JA.place(x = 0, y = 0)
-        bouton_Équipes.place(x = 0, y = 0)
-        # bouton_Rencontres.place(x = 0, y = 0)
-        # bouton_Affectation.place(x = 0, y = 0)
-        bouton_Poules.place(x = 0, y = 0)
-        bouton_Quitter.place(x = 0, y = 0)
+        bouton_clubs.grid(row=3, column=2)
+        bouton_JA.grid(row=6, column=2)
+        bouton_Équipes.grid(row=9, column=2)
+        bouton_Rencontres.grid(row=12, column=2)
+        bouton_Affectation.grid(row=15, column=2)
+        bouton_Poules.grid(row=18, column=2)
+        bouton_Quitter.grid(row=21, column=2)
+
+        #taille des boutons
+        bouton_clubs.config(height=5, width=80)
+        bouton_JA.config(height=5, width=80)
+        bouton_Équipes.config(height=5, width=80)
+        bouton_Rencontres.config(height=5, width=80)
+        bouton_Affectation.config(height=5, width=80)
+        bouton_Poules.config(height=5, width=80)
+        bouton_Quitter.config(height=5, width=80)
+
+        #mettre un espace entre les boutons
+        bouton_clubs.grid(padx=10, pady=10)
+        bouton_JA.grid(padx=10, pady=10)
+        bouton_Équipes.grid(padx=10, pady=10)
+        bouton_Rencontres.grid(padx=10, pady=10)
+        bouton_Affectation.grid(padx=10, pady=10)
+        bouton_Poules.grid(padx=10, pady=10)
+        bouton_Quitter.grid(padx=10, pady=10)
 
 
-        self.main_window.update()
+        #afficher la fenetre
+        # fenetre.attributes('-fullscreen', True)
+        fenetre.mainloop()
 
-        bouton_clubs.place(x = 10, y = 10)
-        bouton_JA.place(x = 10, y = 10 + bouton_clubs.winfo_height() + 20)
-        bouton_Équipes.place(x = 10, y = 10 + bouton_clubs.winfo_height() + bouton_JA.winfo_height() + 40)
-        bouton_Poules.place(x = 10, y = 10 + bouton_clubs.winfo_height() + bouton_JA.winfo_height() + bouton_Équipes.winfo_height() + 60)
-        bouton_Quitter.place(x = 10, y = self.main_window.winfo_height() - bouton_Quitter.winfo_height()- 10)
-
-
-
-
-    def open_clubs(self):
-        self.main_window.destroy()
-        Clubs()
-
-
-    def open_JA(self):
-        self.main_window.destroy()
-        JA()
-
-
-    def open_teams(self):
-        self.main_window.destroy()
-        Equipes()
-
-    
-    # def open_matchs(self):
-    #     self.main_window.destroy()
-    #     Matchs()
-    
-
-    # def open_affectation(self):
-    #     self.main_window.destroy()
-    #     Affectation()
-
-
-    def open_poule(self):
-        self.main_window.destroy()
-        Poules()
-                    
-    
-    def quit(self):
-        self.main_window.destroy()
+Accueil()
