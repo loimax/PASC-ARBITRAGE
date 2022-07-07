@@ -185,8 +185,3 @@ class Poules():
         phase = self.inputphase.get()
         self.main_window.destroy()
         Matchs(list_to_send, niveau, poule, année, phase)
-      
-    
-
-        
-
