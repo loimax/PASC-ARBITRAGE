@@ -1,4 +1,4 @@
-from Accueil import *
+from Accueil import Accueil
 
 def main():
     Accueil()
