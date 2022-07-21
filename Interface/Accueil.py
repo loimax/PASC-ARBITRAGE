@@ -24,7 +24,7 @@ class Accueil:
         self.main_window.geometry("{0}x{1}+0+0".format(self.main_window.winfo_screenwidth(), self.main_window.winfo_screenheight()))
 
         #mettre un logo a la fenetre
-        self.main_window.iconbitmap('Interface/img/logo2.ico')
+        #self.main_window.iconbitmap('Interface/img/logo2.ico')
 
         self.comite = PhotoImage(file="Interface/img/comite.png")
         self.background_image = PhotoImage(file="Interface/img/pingpong.png")
