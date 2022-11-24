@@ -5,7 +5,7 @@ Bonjour, vous êtes sur le logiciel gestion d'arbitrage réalisé avec passion p
 Yassine ADARIF, Maxence BLAZY, Guillaume DAVY, Arthur MANS et Lucas PAILLAT
 
 Pré-requis :
-Pour lancier l'application, il faut les modules suivants :
+Pour lancer l'application, il faut les modules suivants :
 Pandas, Tkinter et Sqlite3
 
 Il faut aussi une version Python d'au moins 3.10
